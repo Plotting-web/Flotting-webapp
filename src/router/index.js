@@ -4,7 +4,6 @@ import UserLogin from "@/views/login/UserLogin";
 import MainLayout from "@/components/layout/MainLayout";
 import SignupSimple from "@/views/signup/SignupSimple.vue";
 import UserProfile from "@/views/profile/UserProfile.vue";
-import MainTitle from "@/views/title/MainTitle.vue";
 import UserPlotting from "@/views/plotting/UserPlotting.vue";
 import SettingMain from "@/views/setting/SettingMain.vue";
 import SettingInquire from "@/views/setting/SettingInquire.vue";
@@ -23,13 +22,19 @@ import SignupHobby from "@/views/signup/SignupHobby.vue";
 import SignupPhoto from "@/views/signup/SignupPhoto.vue";
 import SignupEnd from "@/views/signup/SignupEnd.vue";
 import { userInfoStore } from "@/store/user/userInfoStore";
+import LandingMain from "@/views/landing/LandingMain.vue";
+import LandingIntro from "@/views/landing/LandingIntro.vue";
 
 const routes = [
     { path: "/login", component: UserLogin },
     { path: "/signupTest", component: SignupSimple },
     {
         path: "/",
-        component: MainTitle
+        component: LandingMain
+    },
+    {
+        path: "/intro",
+        component: LandingIntro
     },
     {
         path: "/",
@@ -70,10 +75,6 @@ const routes = [
             {
                 path: "alarm",
                 component: AlarmMain
-            },
-            {
-                path: "store",
-                component: StoreMain
             }
         ]
     },
@@ -112,12 +113,21 @@ const routes = [
     {
         path: "/test",
         component: TestMain
+    },
+    {
+        path: "/store",
+        component: StoreMain
     }
 ];
 
 const router = createRouter({
     history: createWebHistory(),
-    routes
+    routes,
+    scrollBehavior(to, from) {
+        if (to.fullPath.includes("signup")) {
+            return { top: 0 };
+        }
+    }
 });
 router.beforeEach((to, from, next) => {
     const userStore = userInfoStore();
