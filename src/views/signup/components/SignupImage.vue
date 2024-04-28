@@ -17,20 +17,24 @@ const onChangedImage = files => {
 const onClicked = key => {
     inputRef.value.click();
 };
+
+const onClickedCloseIcon = () => {
+    imageSrc.value = null;
+    inputRef.value = "";
+};
 </script>
 
 <template>
     <div v-if="!imageSrc" class="default" @click="onClicked">
         {{ placeholder }}
     </div>
-    <img
+    <div
         v-else
-        :src="imageSrc"
-        alt=""
-        width="100%"
-        style="aspect-ratio: 1; object-fit: cover; border-radius: 16px; cursor:pointer; border: 2px solid #b6b6b6;"
-        @click="onClicked"
-    />
+        :style="`background-image: url(${imageSrc});`"
+        style="position: relative; width: 100%; height: 100%;  background-position: 50% 50%; background-repeat: no-repeat; background-size: cover; border-radius: 16px;"
+    >
+        <v-icon icon="mdi-close-box" @click="onClickedCloseIcon" size="24" style="position: absolute; right: 8px; top: 8px; color: #B6B6B6;" />
+    </div>
     <input ref="inputRef" type="file" maxlength="1" accept="image/*" hidden @change="onChangedImage($event.target.files)" />
 </template>
 

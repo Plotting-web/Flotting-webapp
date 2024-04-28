@@ -83,7 +83,7 @@ const clickedText = () => {
                         <v-card
                             v-for="(item, i) in manList"
                             :key="item.title + item.sale"
-                            style="border: 2px solid #A49999; border-radius: 7px; font-weight: 700; box-shadow: none;padding-inline: 20px; margin:0;"
+                            style="position: relative; border: 2px solid #A49999; border-radius: 7px; font-weight: 700; box-shadow: none;padding-inline: 20px; margin:0; line-height: 1.2;"
                             :style="i === 1 && 'border-color: #FF0000'"
                             @click="
                                 () => {
@@ -104,6 +104,9 @@ const clickedText = () => {
                                         <span style="color: #FF0000;">{{ item.discountPrice }}</span>
                                     </div>
                                 </div>
+                            </div>
+                            <div v-if="i === 1" style="position: absolute; right: 18px; top: 5px; display: flex; justify-content: center; align-items: center; background-color: #FF0000; width: 30px; height: 20px; border-radius: 3px; color: #FFFFFF; font-weight: 700; font-size: 11px;">
+                              인기
                             </div>
                         </v-card>
                     </div>
@@ -128,7 +131,7 @@ const clickedText = () => {
                 <v-card
                     v-if="!!selectedItem"
                     class="d-flex flex-column"
-                    style="padding-block: 30px; background-color: #FFFFFF; box-shadow: 0px 4px 4px 0px #60E0E0; width: 309px; height: 400px; border-radius: 16px;"
+                    style="padding-block: 30px; background-color: #FFFFFF; box-shadow: 0px 4px 4px 0px #60E0E0; width: 309px; height: 400px; border-radius: 16px; line-height: 1.2;"
                 >
                     <div class="d-flex justify-center align-center" style="background: #60E0E0; width: 100%; height: 60px; margin-bottom: 24px;">
                         <span style="font-size: 30px; color: #FFFFFF; font-weight: 400;">Plotting</span>
