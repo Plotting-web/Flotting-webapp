@@ -14,7 +14,7 @@ const onClicked = () => {
         <main-header start="back" end="" :title="false" />
         <main class="w-100 h-100" style="padding-top: 60px;">
             <div class="mx-auto" style="max-width: 390px; min-width: 360px;">
-                <div class="w-100 d-flex flex-column justify-center align-center" style="padding-top: 29px; padding-inline: 18px;">
+                <div class="w-100 d-flex flex-column justify-center align-center" style="padding: 29px 18px;">
                     <signup-progress :idx="4" />
                     <div class="w-100 d-flex flex-column ga-3 page-guide">
                         <span class="page-title">소중한 나를 보여주세요 !</span>
@@ -30,7 +30,7 @@ const onClicked = () => {
                         <div class="d-flex flex-column">
                             <span class="title-text pb-2">(1) 얼굴 사진</span>
                             <span class="sub-title pb-3">- 얼굴이 선명하게 나온 사진 ( 마스크 쓴 사진 X )</span>
-                            <div style="display: grid; grid-template-columns: repeat(2, 1fr); width: 100%; gap: 5px; height: 150px;">
+                            <div style="display: grid; grid-template-columns: repeat(2, 1fr); width: 100%; gap: 5px; aspect-ratio: 2/1">
                                 <signup-image :placeholder="`필수 등록\n(향후 수정 가능)`" />
                                 <signup-image :placeholder="`선택 등록\n(향후 수정 가능)`" />
                             </div>
@@ -38,7 +38,7 @@ const onClicked = () => {
                         <div class="d-flex flex-column">
                             <span class="title-text pb-2">(2) 전신 사진</span>
                             <span class="sub-title pb-3">- 머리부터 발 끝까지 모두 보이는 사진</span>
-                            <div style="display: grid; grid-template-columns: repeat(2, 1fr); width: 100%; gap: 5px; height: 150px;">
+                            <div style="display: grid; grid-template-columns: repeat(2, 1fr); width: 100%; gap: 5px; aspect-ratio: 2/1">
                                 <signup-image :placeholder="`필수 등록\n(향후 수정 가능)`" />
                                 <signup-image :placeholder="`선택 등록\n(향후 수정 가능)`" />
                             </div>
@@ -46,7 +46,7 @@ const onClicked = () => {
                         <div class="d-flex flex-column">
                             <span class="title-text pb-2">(3) 매력 어필 사진</span>
                             <span class="sub-title pb-3">- 취미 생활, 스튜디오 사진 등</span>
-                            <div style="display: grid; grid-template-columns: repeat(2, 1fr); width: 100%; gap: 5px; height: 150px;">
+                            <div style="display: grid; grid-template-columns: repeat(2, 1fr); width: 100%; gap: 5px; aspect-ratio: 2/1">
                                 <signup-image :placeholder="`필수 등록\n(향후 수정 가능)`" />
                                 <signup-image :placeholder="`선택 등록\n(향후 수정 가능)`" />
                             </div>
@@ -54,7 +54,7 @@ const onClicked = () => {
                         <div class="d-flex flex-column">
                             <span class="title-text pb-2">(4) 신원 검증 서류</span>
                             <span class="sub-title pb-3 custom-text-red">- 재직 증명 서류 필수 제출</span>
-                            <div style="display: grid; grid-template-columns: repeat(2, 1fr); width: 100%; gap: 5px; height: 150px;">
+                            <div style="display: grid; grid-template-columns: repeat(2, 1fr); width: 100%; gap: 5px; aspect-ratio: 2/1;">
                                 <signup-image :placeholder="`직장 명함\nOR\n재직증명서`" />
                             </div>
                         </div>
@@ -77,6 +77,7 @@ const onClicked = () => {
     padding: 18px 8px;
     margin-bottom: 30px;
 }
+
 .page-title {
     letter-spacing: 0;
     font-size: 20px;
@@ -84,6 +85,7 @@ const onClicked = () => {
     line-height: 24px;
     text-align: center;
 }
+
 .page-sub {
     letter-spacing: 0;
     font-size: 14px;
@@ -91,6 +93,7 @@ const onClicked = () => {
     line-height: 17px;
     text-align: center;
 }
+
 .title-text {
     letter-spacing: 0;
     font-size: 18px;
@@ -98,6 +101,7 @@ const onClicked = () => {
     line-height: 22px;
     text-align: left;
 }
+
 .sub-title {
     letter-spacing: 0;
     color: #35a8aa;
@@ -106,6 +110,7 @@ const onClicked = () => {
     line-height: 15px;
     text-align: left;
 }
+
 .security-text {
     color: #2f9c9e;
     letter-spacing: 0;
@@ -114,10 +119,11 @@ const onClicked = () => {
     line-height: 19px;
     text-align: center;
 }
+
 .bottom-btn {
     width: 316px;
     height: 58px;
-    padding: 17px 49px;
+    padding-inline: 49px;
     border-radius: 16px;
     border: 1px solid #dfdfdf;
     box-shadow: 0px 4px 4px 0px #00000040;
@@ -130,6 +136,7 @@ const onClicked = () => {
     letter-spacing: 0;
     margin-bottom: 30px;
 }
+
 .custom-text-red {
     color: #fe5555;
 }
