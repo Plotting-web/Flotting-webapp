@@ -9,7 +9,7 @@ import { storeToRefs } from "pinia";
 import { appliedPathOptions, genderOptions, locationOptions } from "@/views/signup/enum/options";
 
 const store = signupInfoStore();
-const { name, birth, height, gender, location, detailLocation, appliedPath, recommendUserName } = storeToRefs(store);
+const { name, birthday, height, gender, location, detailLocation, appliedPath, recommendUserName } = storeToRefs(store);
 const form = ref();
 const onClickedDone = async () => {
     const { valid } = await form.value.validate();
@@ -21,12 +21,12 @@ const onClickedDone = async () => {
         return;
     }
 
-    await router.push("/signup/world");
+    await router.push("/signup/2");
 };
 
 const nameRules = [value => !!value || "필수 값 입니다.", value => value.length >= 2 || "2 글자 이상", value => value.length <= 10 || "10 글자 이하"];
 
-const birthRules = [
+const birthdayRules = [
     value => !!value || "필수 값 입니다.",
     value => /[0-9]/.test(value) || "숫자만 입력해주세요.",
     value => value.length === 6 || "YYMMDD",
@@ -64,12 +64,12 @@ const detailLocationRules = [
                             <div class="d-flex flex-column">
                                 <span class="text-none title-text">(2) 본인 생년월일 6자리</span>
                                 <v-text-field
-                                    v-model="birth"
+                                    v-model="birthday"
                                     class="text-none input-text"
                                     placeholder="010830"
                                     variant="underlined"
                                     :clearable="true"
-                                    :rules="birthRules"
+                                    :rules="birthdayRules"
                                     counter="6"
                                 ></v-text-field>
                             </div>
@@ -176,6 +176,7 @@ const detailLocationRules = [
     line-height: 22px;
     text-align: left;
 }
+
 .input-text {
     height: fit-content;
     letter-spacing: 0;
@@ -184,6 +185,7 @@ const detailLocationRules = [
     line-height: 19px;
     text-align: left;
 }
+
 .caution {
     font-size: 12px;
     font-weight: 800;
@@ -208,10 +210,12 @@ const detailLocationRules = [
     text-align: center;
     cursor: pointer;
 }
+
 .radio-clicked {
     border: 2px solid #60e0e0;
     background: #60e0e08c;
 }
+
 .slider-text {
     letter-spacing: 0;
     font-size: 11px;
@@ -219,6 +223,7 @@ const detailLocationRules = [
     line-height: 13px;
     text-align: center;
 }
+
 .security-text {
     color: #2f9c9e;
     letter-spacing: 0;

@@ -38,10 +38,10 @@ defineProps({
             </div>
             <div class="w-25">
                 <v-btn v-if="end === 'store'" icon="true" color="#60e0e0" style="box-shadow: none;" href="/store"><home-icon /></v-btn>
-                <div v-if="end === 'mail'" style="display: flex; gap: 3px;">
+                <div v-else-if="end === 'mail'" style="display: flex; gap: 3px;">
                     <div style="display: flex; flex-direction: column;">
                         <v-icon icon="mdi-email-open" color="white" size="30" />
-                        <span style="font-weight: 700;font-size: 10px;line-height: 12px;color: #FFFFFF;">매칭권</span>
+                        <span style="font-weight: 700;font-size: 10px;line-height: 12px;color: #FFFFFF;text-align: center;">매칭권</span>
                     </div>
                     <span style="font-weight: 700; font-size: 25px; line-height: 30px; color: #FFFFFF;">5</span>
                 </div>

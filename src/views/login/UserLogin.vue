@@ -43,7 +43,8 @@
 
         <v-card-text class="text-center">
             <a class="text-grey-lighten-5 text-decoration-none" rel="noopener noreferrer" target="_blank">
-                Sign up now <v-icon icon="mdi-chevron-right"></v-icon>
+                Sign up now
+                <v-icon icon="mdi-chevron-right"></v-icon>
             </a>
         </v-card-text>
     </v-card>
@@ -63,13 +64,12 @@ const accountInfo = ref({
     phoneNumber: "",
     password: ""
 });
-const userLogin = async () => {
-    try {
-        const responseUserInfo = await fetchApiResource("user/login", "POST", accountInfo.value);
-        userInfo.setUserInfo(responseUserInfo.data);
-        router.push("/dashboard");
-    } catch (error) {
-        console.log(error);
-    }
+const userLogin = () => {
+    fetchApiResource("user/login", "POST", accountInfo.value)
+        .then(res => {
+            userInfo.setUserInfo(res.data);
+            router.push("/");
+        })
+        .catch(error => console.log(error));
 };
 </script>

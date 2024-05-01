@@ -7,7 +7,7 @@ import { signupInfoStore } from "@/views/signup/store/singupInfoStore";
 import { storeToRefs } from "pinia";
 
 const store = signupInfoStore();
-const { worldFirst, worldSecond } = storeToRefs(store);
+const { lifeStyle, somethingWantToSay } = storeToRefs(store);
 const form = ref();
 
 const rules = [
@@ -22,7 +22,7 @@ const onClicked = async () => {
         alert("모든 질문에 대해 60자 ~ 150자 사이로 답변해주세요.");
         return;
     }
-    await router.push("/signup/hobby");
+    await router.push("/signup/3");
 };
 </script>
 
@@ -49,7 +49,7 @@ const onClicked = async () => {
                                     <span class="text-none sub-title">- 본인의 라이프 스타일 소개</span>
                                 </div>
                                 <v-textarea
-                                    v-model="worldFirst"
+                                    v-model="lifeStyle"
                                     class="text-none textarea-text"
                                     rows="5"
                                     auto-grow
@@ -65,7 +65,7 @@ const onClicked = async () => {
                                     <span class="text-none sub-title">- 본인의 취미, 연인과 해보고 싶은 데이트, 추구하는 연애 가치관 작성</span>
                                 </div>
                                 <v-textarea
-                                    v-model="worldSecond"
+                                    v-model="somethingWantToSay"
                                     class="text-none textarea-text"
                                     rows="5"
                                     auto-grow
@@ -96,6 +96,7 @@ const onClicked = async () => {
     padding: 18px 8px;
     margin-bottom: 30px;
 }
+
 .page-title {
     letter-spacing: 0;
     font-size: 20px;
@@ -103,6 +104,7 @@ const onClicked = async () => {
     line-height: 24px;
     text-align: center;
 }
+
 .page-sub {
     letter-spacing: 0;
     font-size: 14px;
@@ -110,6 +112,7 @@ const onClicked = async () => {
     line-height: 17px;
     text-align: center;
 }
+
 .title-text {
     letter-spacing: 0;
     font-size: 18px;
@@ -117,6 +120,7 @@ const onClicked = async () => {
     line-height: 22px;
     text-align: left;
 }
+
 .textarea-text {
     border: 2px solid #b6b6b6;
     border-radius: 12px;
@@ -127,6 +131,7 @@ const onClicked = async () => {
     text-align: left;
     padding: 0 12px 8px 12px;
 }
+
 .sub-title {
     letter-spacing: 0;
     color: #35a8aa;
@@ -135,6 +140,7 @@ const onClicked = async () => {
     line-height: 15px;
     text-align: left;
 }
+
 .security-text {
     color: #2f9c9e;
     letter-spacing: 0;

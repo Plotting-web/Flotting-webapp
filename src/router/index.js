@@ -16,17 +16,19 @@ import StoreMain from "@/views/store/StoreMain.vue";
 import TestMain from "@/views/test/TestMain.vue";
 import SettingMyProfile from "@/views/setting/SettingMyProfile.vue";
 import SignupGuide from "@/views/signup/SignupGuide.vue";
-import SignupInfo from "@/views/signup/SignupInfo.vue";
-import SignupWorld from "@/views/signup/SignupWorld.vue";
-import SignupHobby from "@/views/signup/SignupHobby.vue";
+import SignupFirst from "@/views/signup/SignupFirst.vue";
+import SignupSecond from "@/views/signup/SignupSecond.vue";
+import SignupThird from "@/views/signup/SignupThird.vue";
 import SignupPhoto from "@/views/signup/SignupPhoto.vue";
 import SignupEnd from "@/views/signup/SignupEnd.vue";
 import { userInfoStore } from "@/store/user/userInfoStore";
 import LandingMain from "@/views/landing/LandingMain.vue";
 import LandingIntro from "@/views/landing/LandingIntro.vue";
+import UserLogout from "@/views/login/UserLogout.vue";
 
 const routes = [
     { path: "/login", component: UserLogin },
+    { path: "/logout", component: UserLogout },
     { path: "/signupTest", component: SignupSimple },
     {
         path: "/",
@@ -91,16 +93,16 @@ const routes = [
         component: SignupGuide
     },
     {
-        path: "/signup/info",
-        component: SignupInfo
+        path: "/signup/1",
+        component: SignupFirst
     },
     {
-        path: "/signup/world",
-        component: SignupWorld
+        path: "/signup/2",
+        component: SignupSecond
     },
     {
-        path: "/signup/hobby",
-        component: SignupHobby
+        path: "/signup/3",
+        component: SignupThird
     },
     {
         path: "/signup/photo",
@@ -131,13 +133,9 @@ const router = createRouter({
 });
 router.beforeEach((to, from, next) => {
     const userStore = userInfoStore();
-    if (to.path === "/login" || to.path === "/signupTest" || to.path === "/") {
-        userStore.resetUserAccessToken();
-        next();
+    if (!["/login", "/signupTest", "/", "/intro"].includes(to.path) && !userStore.getUserAccessToken()) {
+        next("/login");
     } else {
-        if (!userStore.getUserAccessToken()) {
-            next("/login");
-        }
         next();
     }
 });

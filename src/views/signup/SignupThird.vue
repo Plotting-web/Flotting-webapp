@@ -5,20 +5,20 @@ import router from "@/router";
 import SignupProgress from "@/views/signup/components/SignupProgress.vue";
 import SignupRadio from "@/views/signup/components/SignupRadio.vue";
 import {
-    datingOptions,
+    characterOptions,
+    preferredDateOptions,
     drinkingOptions,
     educationOptions,
     hobbyOptions,
     jobOptions,
     mbtiOptions,
-    personalityOptions,
     smokingOptions
 } from "@/views/signup/enum/options";
 import { signupInfoStore } from "@/views/signup/store/singupInfoStore";
 import { storeToRefs } from "pinia";
 
 const store = signupInfoStore();
-const { nickname, detailJob, job, education, smoking, drinking, mbti, personality, hobby, dating } = storeToRefs(store);
+const { nickName, detailJob, job, education, smoking, drinking, mbti, character, hobby, preferredDate } = storeToRefs(store);
 const form = ref();
 
 const onClicked = async () => {
@@ -27,12 +27,12 @@ const onClicked = async () => {
     const radioValid =
         job.value !== "" &&
         education.value !== "" &&
-        smoking.value !== "" &&
+        smoking.value !== null &&
         drinking !== "" &&
         mbti.value.filter(el => el === "").length === 0 &&
-        personality.value.length > 0 &&
+        character.value.length > 0 &&
         hobby.value.length > 0 &&
-        dating.value !== "";
+        preferredDate.value !== "";
 
     if (!valid || !radioValid) {
         alert("6번을 제외하고 1 ~ 10번까지 모든 문항을 입력해주세요!");
@@ -41,7 +41,7 @@ const onClicked = async () => {
     await router.push("/signup/photo");
 };
 
-const nicknameRules = [
+const nickNameRules = [
     value => !!value || "필수 값 입니다.",
     value => /^[가-힣a-zA-Z]+$/.test(value) || "한글 or 영어만 입력가능합니다.",
     value => String(value).length >= 3 || "3 글자 이상",
@@ -76,14 +76,14 @@ const detailJobRules = [
                                 <span class="title-text">(1) 닉네임</span>
                                 <span class="sub-title">- 프로필에는 닉네임만 보여집니다.</span>
                                 <v-text-field
-                                    v-model="nickname"
+                                    v-model="nickName"
                                     class="text-none input-text"
                                     density="compact"
                                     placeholder="엘리"
                                     variant="underlined"
                                     :clearable="true"
                                     counter="10"
-                                    :rules="nicknameRules"
+                                    :rules="nickNameRules"
                                 ></v-text-field>
                             </div>
                             <div class="d-flex flex-column ga-2">
@@ -185,16 +185,16 @@ const detailJobRules = [
                                 <span class="sub-title">- 최대 3가지를 선택해주세요!</span>
                                 <div style="display: grid; grid-template-columns: repeat(3, 1fr); grid-gap: 8px;">
                                     <signup-radio
-                                        v-for="({ value, title }, i) in personalityOptions"
+                                        v-for="({ value, title }, i) in characterOptions"
                                         :key="`per_${i}`"
-                                        :group-value="personality"
+                                        :group-value="character"
                                         :value="value"
                                         :title="title"
                                         @click="
                                             val =>
-                                                personality.includes(val)
-                                                    ? (personality = personality.filter(el => el !== val))
-                                                    : personality.length < 3 && personality.push(val)
+                                                character.includes(val)
+                                                    ? (character = character.filter(el => el !== val))
+                                                    : character.length < 3 && character.push(val)
                                         "
                                     />
                                 </div>
@@ -221,12 +221,12 @@ const detailJobRules = [
                                 <span class="sub-title">- 1가지를 선택해주세요!</span>
                                 <div style="display: grid; grid-template-columns: repeat(2, 1fr); grid-gap: 8px;">
                                     <signup-radio
-                                        v-for="({ value, title }, i) in datingOptions"
+                                        v-for="({ value, title }, i) in preferredDateOptions"
                                         :key="`dat_${i}`"
-                                        :group-value="dating"
+                                        :group-value="preferredDate"
                                         :value="value"
                                         :title="title"
-                                        @click="val => (dating = val)"
+                                        @click="val => (preferredDate = val)"
                                     />
                                 </div>
                             </div>
@@ -252,6 +252,7 @@ const detailJobRules = [
     padding: 18px 8px;
     margin-bottom: 30px;
 }
+
 .page-title {
     letter-spacing: 0;
     font-size: 20px;
@@ -259,6 +260,7 @@ const detailJobRules = [
     line-height: 24px;
     text-align: center;
 }
+
 .page-sub {
     letter-spacing: 0;
     font-size: 14px;
@@ -266,6 +268,7 @@ const detailJobRules = [
     line-height: 17px;
     text-align: center;
 }
+
 .title-text {
     letter-spacing: 0;
     font-size: 18px;
@@ -273,6 +276,7 @@ const detailJobRules = [
     line-height: 22px;
     text-align: left;
 }
+
 .textarea-text {
     border: 2px solid #b6b6b6;
     border-radius: 12px;
@@ -283,6 +287,7 @@ const detailJobRules = [
     text-align: left;
     padding: 0 12px 8px 12px;
 }
+
 .sub-title {
     letter-spacing: 0;
     color: #35a8aa;
@@ -291,6 +296,7 @@ const detailJobRules = [
     line-height: 15px;
     text-align: left;
 }
+
 .security-text {
     color: #2f9c9e;
     letter-spacing: 0;
@@ -299,6 +305,7 @@ const detailJobRules = [
     line-height: 19px;
     text-align: center;
 }
+
 .radio {
     width: 100%;
     height: 48px;
@@ -315,10 +322,12 @@ const detailJobRules = [
     cursor: pointer;
     letter-spacing: 0;
 }
+
 .radio-clicked {
     border: 2px solid #60e0e0;
     background: #60e0e08c;
 }
+
 .bottom-btn {
     width: 316px;
     height: 58px;
@@ -335,6 +344,7 @@ const detailJobRules = [
     letter-spacing: 0;
     margin-bottom: 30px;
 }
+
 .input-text {
     height: fit-content;
     letter-spacing: 0;

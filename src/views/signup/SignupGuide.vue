@@ -2,10 +2,13 @@
 import MainHeader from "@/components/layout/MainHeader.vue";
 import SignupProgress from "@/views/signup/components/SignupProgress.vue";
 import { useRouter } from "vue-router";
+import { onMounted } from "vue";
+import { userInfoStore } from "@/store/user/userInfoStore";
 
 const router = useRouter();
+
 const onClickedDone = () => {
-    router.push("/signup/info");
+    router.push("/signup/1");
 };
 </script>
 
@@ -63,8 +66,8 @@ const onClickedDone = () => {
                         <v-btn
                             style="height: fit-content; border: 1px solid #3B3B3D; border-radius: 16px; box-shadow: 0 4px 4px 0 #00000040; color: #3B3B3D; font-size: 20px; font-weight: 700; line-height: 24px; padding: 8px 26px; letter-spacing: 0;"
                             @click="onClickedDone"
-                            >확인했습니다.</v-btn
-                        >
+                            >확인했습니다.
+                        </v-btn>
                     </div>
                 </div>
             </div>

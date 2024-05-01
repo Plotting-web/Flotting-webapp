@@ -8,7 +8,8 @@ export const userInfoStore = defineStore(
             email: "",
             name: "",
             phoneNumber: "",
-            accessToken: ""
+            accessToken: "",
+            userNo: ""
         });
 
         const getUserInfo = () => userInfo.value;
@@ -26,16 +27,29 @@ export const userInfoStore = defineStore(
             };
         };
 
+        const isValid = () => userInfo.value.accessToken !== "";
+        const getUserNo = () => userInfo.value.userNo;
+
         return {
             userInfo,
             getUserInfo,
             getUserAccessToken,
             setUserInfo,
             resetUserInfo,
-            resetUserAccessToken
+            resetUserAccessToken,
+            isValid,
+            getUserNo
         };
     },
     {
-        persist: true
+        persist: {
+            enabled: true,
+            storage: sessionStorage,
+            strategies: [
+                {
+                    key: "userInfo"
+                }
+            ]
+        }
     }
 );

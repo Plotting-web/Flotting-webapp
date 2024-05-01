@@ -1,13 +1,6 @@
 <script setup>
 import MainHeader from "@/components/layout/MainHeader.vue";
-import SignupProgress from "@/views/signup/components/SignupProgress.vue";
-import { useRouter } from "vue-router";
 import landingIntroImage from "@/images/LandingIntro.png";
-
-const router = useRouter();
-const onClickedDone = () => {
-    router.push("/signup/info");
-};
 </script>
 
 <template>
