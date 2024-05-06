@@ -54,15 +54,15 @@ export const appliedPathOptions = [
         title: "프립"
     },
     {
-        value: "3",
+        value: "PORTAL_SEARCH",
         title: "포탈 검색"
     },
     {
-        value: "4",
+        value: "NAVER",
         title: "네이버 카페"
     },
     {
-        value: "5",
+        value: "SNS",
         title: "인스타그램"
     },
     {
@@ -78,7 +78,7 @@ export const appliedPathOptions = [
         title: "기타"
     },
     {
-        value: "RECOMMEND9",
+        value: "RECOMMEND",
         title: "지인 추천"
     }
 ];
@@ -129,7 +129,7 @@ export const jobOptions = [
         title: "사업가"
     },
     {
-        value: "12",
+        value: "ETC",
         title: "기타"
     }
 ];
@@ -164,11 +164,11 @@ export const educationOptions = [
         title: "대학원 졸업"
     },
     {
-        value: "8",
+        value: "DOCTOR_INPROGRESS",
         title: "박사과정 진행"
     },
     {
-        value: "9",
+        value: "DOCTOR_COMPLETE",
         title: "박사과정 수료"
     }
 ];
@@ -323,7 +323,7 @@ export const hobbyOptions = [
         title: "요리"
     },
     {
-        value: "7",
+        value: "MUSIC",
         title: "음악"
     },
     {

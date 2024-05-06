@@ -3,9 +3,48 @@ import MainHeader from "@/components/layout/MainHeader.vue";
 import router from "@/router";
 import SignupImage from "@/views/signup/components/SignupImage.vue";
 import SignupProgress from "@/views/signup/components/SignupProgress.vue";
+import { signupInfoStore } from "@/views/signup/store/singupInfoStore";
+import { storeToRefs } from "pinia";
+import { userInfoStore } from "@/store/user/userInfoStore";
+import { createInstance } from "@/axios/axios";
 
-const onClicked = () => {
-    router.push("/signup/end");
+const singupInfo = signupInfoStore();
+const userInfo = userInfoStore();
+const { profileImages, identityVerification } = storeToRefs(userInfo);
+const onClicked = async () => {
+    const data = singupInfo.getTotal();
+    const { profileImages, identityVerification } = data;
+    // if (!profileImages[0] || !profileImages[2] || !profileImages[4] || !identityVerification) {
+    //     alert("필수 등록 사진을 등록해주세요!");
+    //     return;
+    // }
+    console.log("param > ", {
+        userId: userInfo.getUserNo(),
+        userDetailRequestDto: {
+            ...data,
+            userStatus: "INPROGRESS",
+            identityVerificationURI: identityVerification,
+            profileImageURIs: profileImages
+        }
+    });
+
+    createInstance
+        .post(`user/detail-info?userId=${userInfo.getUserNo()}`, { ...data, userStatus: "INPROGRESS" })
+        .then(res => {
+            console.log(res);
+            router.push("/signup/end");
+        })
+        .catch(error => {
+            console.error(error);
+        });
+};
+
+const onUpdateImage = (idx, val) => {
+    if (idx < 6) {
+        singupInfo.setProfileImage(idx, val);
+    } else {
+        singupInfo.setIdentityVerification(val);
+    }
 };
 </script>
 
@@ -31,31 +70,31 @@ const onClicked = () => {
                             <span class="title-text pb-2">(1) 얼굴 사진</span>
                             <span class="sub-title pb-3">- 얼굴이 선명하게 나온 사진 ( 마스크 쓴 사진 X )</span>
                             <div style="display: grid; grid-template-columns: repeat(2, 1fr); width: 100%; gap: 5px; aspect-ratio: 2/1">
-                                <signup-image :placeholder="`필수 등록\n(향후 수정 가능)`" />
-                                <signup-image :placeholder="`선택 등록\n(향후 수정 가능)`" />
+                                <signup-image :placeholder="`필수 등록\n(향후 수정 가능)`" @update:image="val => onUpdateImage(0, val)" />
+                                <signup-image :placeholder="`선택 등록\n(향후 수정 가능)`" @update:image="val => onUpdateImage(1, val)" />
                             </div>
                         </div>
                         <div class="d-flex flex-column">
                             <span class="title-text pb-2">(2) 전신 사진</span>
                             <span class="sub-title pb-3">- 머리부터 발 끝까지 모두 보이는 사진</span>
                             <div style="display: grid; grid-template-columns: repeat(2, 1fr); width: 100%; gap: 5px; aspect-ratio: 2/1">
-                                <signup-image :placeholder="`필수 등록\n(향후 수정 가능)`" />
-                                <signup-image :placeholder="`선택 등록\n(향후 수정 가능)`" />
+                                <signup-image :placeholder="`필수 등록\n(향후 수정 가능)`" @update:image="val => onUpdateImage(2, val)" />
+                                <signup-image :placeholder="`선택 등록\n(향후 수정 가능)`" @update:image="val => onUpdateImage(3, val)" />
                             </div>
                         </div>
                         <div class="d-flex flex-column">
                             <span class="title-text pb-2">(3) 매력 어필 사진</span>
                             <span class="sub-title pb-3">- 취미 생활, 스튜디오 사진 등</span>
                             <div style="display: grid; grid-template-columns: repeat(2, 1fr); width: 100%; gap: 5px; aspect-ratio: 2/1">
-                                <signup-image :placeholder="`필수 등록\n(향후 수정 가능)`" />
-                                <signup-image :placeholder="`선택 등록\n(향후 수정 가능)`" />
+                                <signup-image :placeholder="`필수 등록\n(향후 수정 가능)`" @update:image="val => onUpdateImage(4, val)" />
+                                <signup-image :placeholder="`선택 등록\n(향후 수정 가능)`" @update:image="val => onUpdateImage(5, val)" />
                             </div>
                         </div>
                         <div class="d-flex flex-column">
                             <span class="title-text pb-2">(4) 신원 검증 서류</span>
                             <span class="sub-title pb-3 custom-text-red">- 재직 증명 서류 필수 제출</span>
                             <div style="display: grid; grid-template-columns: repeat(2, 1fr); width: 100%; gap: 5px; aspect-ratio: 2/1;">
-                                <signup-image :placeholder="`직장 명함\nOR\n재직증명서`" />
+                                <signup-image :placeholder="`직장 명함\nOR\n재직증명서`" @update:image="val => onUpdateImage(6, val)" />
                             </div>
                         </div>
                     </div>
@@ -63,7 +102,7 @@ const onClicked = () => {
                         <span>수집된 개인정보는</span>
                         <span>매칭 외 다른 용도로 활용되지 않습니다.</span>
                     </div>
-                    <v-btn class="bottom-btn" @click="onClicked">프로필 등록 완료하기</v-btn>
+                    <v-btn type="button" class="bottom-btn" @click="onClicked">프로필 등록 완료하기</v-btn>
                 </div>
             </div>
         </main>

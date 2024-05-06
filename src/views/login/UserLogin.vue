@@ -50,11 +50,11 @@
     </v-card>
 </template>
 <script setup>
-import { fetchApiResource } from "@/axios/commonApi";
 import { ref } from "vue";
 
 import router from "@/router";
 import { userInfoStore } from "@/store/user/userInfoStore";
+import { createInstance } from "@/axios/axios";
 
 const visible = true;
 
@@ -65,7 +65,8 @@ const accountInfo = ref({
     password: ""
 });
 const userLogin = () => {
-    fetchApiResource("user/login", "POST", accountInfo.value)
+    createInstance
+        .post("user/login", accountInfo.value)
         .then(res => {
             userInfo.setUserInfo(res.data);
             router.push("/");

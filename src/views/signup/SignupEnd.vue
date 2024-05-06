@@ -3,6 +3,7 @@ import MainHeader from "@/components/layout/MainHeader.vue";
 import router from "@/router";
 import SignupProgress from "@/views/signup/components/SignupProgress.vue";
 import { signupInfoStore } from "@/views/signup/store/singupInfoStore";
+
 const onClicked = () => {
     router.push("/signup/photo");
 };
@@ -15,7 +16,7 @@ const onClickedTest = () => {
 
 <template>
     <div class="w-100 h-100">
-        <main-header start="back" end="" :title="false" />
+        <main-header start="" end="" :title="false" />
         <main class="w-100 h-100" style="padding-top: 60px;">
             <div class="mx-auto" style="max-width: 390px; min-width: 360px;">
                 <div class="w-100 d-flex flex-column justify-center align-center" style="padding-top: 29px; padding-inline: 18px;">
@@ -60,6 +61,7 @@ const onClickedTest = () => {
     padding: 18px 8px;
     margin-bottom: 30px;
 }
+
 .page-title {
     letter-spacing: 0;
     font-size: 20px;
@@ -67,6 +69,7 @@ const onClickedTest = () => {
     line-height: 24px;
     text-align: center;
 }
+
 .page-sub {
     letter-spacing: 0;
     font-size: 14px;
@@ -74,6 +77,7 @@ const onClickedTest = () => {
     line-height: 17px;
     text-align: center;
 }
+
 .security-text {
     color: #2f9c9e;
     letter-spacing: 0;
@@ -82,6 +86,7 @@ const onClickedTest = () => {
     line-height: 19px;
     text-align: center;
 }
+
 .bottom-btn {
     width: 316px;
     height: 58px;
@@ -98,16 +103,19 @@ const onClickedTest = () => {
     letter-spacing: 0;
     margin-bottom: 30px;
 }
+
 .main {
     padding: 27px 11px;
     box-shadow: 4px 4px 10px 0 #60e0e0;
     border-radius: 16px;
+
     .title {
         font-size: 18px;
         font-weight: 700;
         line-height: 22px;
         text-align: left;
     }
+
     .sub {
         font-size: 12px;
         font-weight: 300;

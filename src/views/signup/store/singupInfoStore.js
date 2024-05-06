@@ -24,6 +24,8 @@ export const signupInfoStore = defineStore(
         const character = ref([]); // 성격
         const hobby = ref([]); // 취미
         const preferredDate = ref(""); // 데이트 유형
+        const profileImages = ref(Array.from({ length: 6 }));
+        const identityVerification = ref("");
 
         const getTotal = () => {
             return {
@@ -46,8 +48,68 @@ export const signupInfoStore = defineStore(
                 mbti: mbti.value.join(""),
                 character: character.value,
                 hobby: hobby.value,
-                preferredDate: preferredDate.value
+                preferredDate: preferredDate.value,
+                profileImages: profileImages.value,
+                identityVerification: identityVerification.value
             };
+        };
+
+        const reset = () => {
+            name.value = "";
+            birthday.value = "";
+            height.value = 150;
+            gender.value = "";
+            location.value = "";
+            detailLocation.value = "";
+            appliedPath.value = "";
+            recommendUserName.value = "";
+            lifeStyle.value = "";
+            somethingWantToSay.value = "";
+            nickName.value = "";
+            job.value = "";
+            detailJob.value = "";
+            education.value = "";
+            smoking.value = "";
+            drinking.value = "";
+            mbti.value = ["", "", "", ""];
+            character.value = [];
+            hobby.value = [];
+            preferredDate.value = "";
+            profileImages.value = Array.from({ length: 6 });
+            identityVerification.value = "";
+        };
+
+        const setProfileImage = (idx, val) => {
+            profileImages.value[idx] = val;
+        };
+
+        const setIdentityVerification = val => {
+            identityVerification.value = val;
+        };
+
+        const set = info => {
+            !!info.name && (name.value = info.name);
+            !!info.birthday && (birthday.value = info.birthday);
+            !!info.height && (height.value = info.height);
+            !!info.gender && (gender.value = info.gender);
+            !!info.location && (location.value = info.location);
+            !!info.detailLocation && (detailLocation.value = info.detailLocation);
+            !!info.appliedPath && (appliedPath.value = info.appliedPath);
+            !!info.recommendUserName && (recommendUserName.value = info.recommendUserName);
+            !!info.lifeStyle && (lifeStyle.value = info.lifeStyle);
+            !!info.somethingWantToSay && (lifeStyle.value = info.somethingWantToSay);
+            !!info.nickName && (nickName.value = info.nickName);
+            !!info.job && (job.value = info.job);
+            !!info.detailJob && (detailJob.value = info.detailJob);
+            !!info.education && (education.value = info.education);
+            !!info.smoking && (smoking.value = info.smoking);
+            !!info.drinking && (drinking.value = info.drinking);
+            !!info.mbti && (mbti.value = info.mbti.split(""));
+            !!info.character && (character.value = info.character);
+            !!info.hobby && (hobby.value = info.hobby);
+            !!info.preferredDate && (preferredDate.value = info.preferredDate);
+            // profileImages.value = Array.from({ length: 6 });
+            // identityVerification.value = "";
         };
 
         return {
@@ -71,7 +133,13 @@ export const signupInfoStore = defineStore(
             character,
             hobby,
             preferredDate,
-            getTotal
+            profileImages,
+            identityVerification,
+            getTotal,
+            reset,
+            setProfileImage,
+            setIdentityVerification,
+            set
         };
     },
     {

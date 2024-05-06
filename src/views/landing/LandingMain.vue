@@ -1,8 +1,8 @@
 <script setup>
 import router from "@/router";
 import { userInfoStore } from "@/store/user/userInfoStore";
-import { fetchApiResource } from "@/axios/commonApi";
 import { onMounted, ref } from "vue";
+import { createInstance } from "@/axios/axios";
 
 const onClickStart = () => {
     router.push("/login");
@@ -21,16 +21,19 @@ const userInfo = userInfoStore();
 const status = ref("");
 
 onMounted(() => {
-    if (!userInfo.isValid()) return;
-    fetchApiResource(`user/info/${userInfo.getUserNo()}`, "GET")
+    if (!userInfo.isValid()) {
+        return;
+    }
+    createInstance
+        .get(`user/info/${userInfo.getUserNo()}`)
         .then(response => {
             const { data } = response;
             switch (data.userStatus) {
                 case "NORMAL": // 프로필 등록이 승인된 유저
                     router.push("/dashboard");
                     break;
+                case null:
                 case "NONE": // 프로필 등록이 안된 유저
-                case "REJECT": // 프로필 등록이 반려된 유저
                     router.push("/signup/guide");
                     break;
                 default:
@@ -43,8 +46,7 @@ onMounted(() => {
 });
 
 /**
- * NONE("승인전&카카오로그인만"),INPROGRESS("프로필등록완료&승인전"), REJECT("반려"),
- *     WITHDRAWAL("탈퇴"), DORMANT("휴면"), NORMAL("활성"), FORCED_WITHDRAWAL("강제탈퇴");
+ *  NONE("승인전&카카오로그인만"),INPROGRESS("프로필등록완료&승인전"), REJECT("반려"), DORMANT("휴면"), NORMAL("활성"), FORCED_WITHDRAWAL("강제탈퇴");
  */
 </script>
 
@@ -60,7 +62,7 @@ onMounted(() => {
                     >둘 사이에 새로운 줄거리를 만들다</span
                 >
             </div>
-            <div v-if="status === 'INPROGRESS'" style="padding-inline: 36px; width:100%;">
+            <div v-if="['INPROGRESS', 'REJECT', 'FORCED_WITHDRAWAL'].includes(status)" style="padding-inline: 36px; width:100%;">
                 <div
                     style="display: flex; flex-direction: column; justify-content: center; padding-top: 93px; padding-bottom: 42px; align-items: center; width: 100%; background-color: #FFFFFF; border-radius: 16px;"
                 >
