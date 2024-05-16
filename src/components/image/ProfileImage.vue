@@ -18,7 +18,7 @@ defineProps({
         type: Boolean,
         default: false
     },
-    active: {
+    dormant: {
         type: Boolean,
         default: false
     }
@@ -27,7 +27,7 @@ defineProps({
 
 <template>
     <div
-        v-if="active"
+        v-if="!dormant"
         style="
             width: 100%;
             aspect-ratio: 1;

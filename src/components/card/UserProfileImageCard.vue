@@ -62,7 +62,6 @@ defineProps({
                 title="원빈, 20"
                 sub-title="가수, 서울 강남구"
                 radius
-                active
                 src="https://image.fnnews.com/resource/media/image/2023/12/16/202312160703001203_l.jpg"
             />
         </div>

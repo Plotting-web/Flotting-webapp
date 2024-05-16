@@ -16,29 +16,30 @@ defineProps({
 </script>
 
 <template>
-    <main
-        style="
-            width: 100%;
-            height: 100%;
-        "
+    <div
         :style="[
             backgroundColor && `background-color: ${backgroundColor}`,
             isHeader && 'padding-top: 60px;',
             isNavigation && 'padding-bottom: 80px;'
         ]"
     >
-        <article
-            style="
-                width: 100%;
-                height: 100%;
-                margin-inline: auto;
-                max-width: 500px;
-                min-width: 320px;
-            "
-        >
+        <main>
             <slot></slot>
-        </article>
-    </main>
+        </main>
+    </div>
 </template>
 
-<style scoped></style>
+<style scoped>
+div {
+    width: 100%;
+    height: 100%;
+}
+
+main {
+    width: 100%;
+    height: 100%;
+    margin-inline: auto;
+    max-width: 500px;
+    min-width: 320px;
+}
+</style>

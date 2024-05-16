@@ -57,7 +57,7 @@ const clickedText = () => {
 
 <template>
     <div class="w-100 h-100">
-        <main-header start="back" end="mail" />
+        <main-header start="back" end="mail" title />
         <main class="w-100 h-100" style="padding-top: 60px; padding-bottom: 80px;">
             <div class="mx-auto" style="max-width: 500px; min-width: 320px;">
                 <div style="padding: 46px 22px; display: flex; flex-direction: column; align-items: center;">

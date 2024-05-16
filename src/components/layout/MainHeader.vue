@@ -21,9 +21,9 @@ defineProps({
 </script>
 
 <template>
-    <header>
-        <article class="d1">
-            <div class="d1-1">
+    <div class="header-layout">
+        <header>
+            <div class="header-default header-side">
                 <v-btn v-if="start === 'setting'" icon="true" color="#60e0e0" href="/setting">
                     <cog-icon width="35" height="35" />
                 </v-btn>
@@ -31,30 +31,38 @@ defineProps({
                     <v-icon icon="mdi-arrow-left" size="large" color="white"></v-icon>
                 </v-btn>
             </div>
-            <div class="d1-2">
+            <div class="header-default header-middle">
                 <v-btn v-if="title" color="#60e0e0" href="/dashboard" variant="text">
                     <plot-logo width="63" height="30" />
                 </v-btn>
                 <plot-logo v-else width="63" height="30" />
             </div>
-            <div class="d1-3">
+            <div class="header-default header-side">
                 <v-btn v-if="end === 'store'" icon="true" color="#60e0e0" href="/store">
                     <home-icon />
                 </v-btn>
-                <div v-else-if="end === 'mail'" class="d1-3-1">
-                    <div class="d1-3-1-1">
+                <div v-else-if="end === 'mail'" class="store-layout">
+                    <div class="store-title">
                         <v-icon icon="mdi-email-open" color="white" size="30" />
-                        <span class="s1">매칭권</span>
+                        <span class="store-title-text">
+                            매칭권
+                        </span>
                     </div>
-                    <span class="s2">5</span>
+                    <span class="store-count">
+                        5
+                    </span>
                 </div>
             </div>
-        </article>
-    </header>
+        </header>
+    </div>
 </template>
 
 <style scoped>
-header {
+.v-btn {
+    box-shadow: none;
+}
+
+.header-layout {
     width: 100%;
     position: fixed;
     top: 0;
@@ -63,11 +71,7 @@ header {
     z-index: 1000;
 }
 
-.v-btn {
-    box-shadow: none;
-}
-
-article {
+header {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -79,48 +83,41 @@ article {
     min-width: 320px;
 }
 
-.d1-1 {
+.header-side {
     width: 25%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
 }
 
-.d1-2 {
+.header-middle {
     width: 100%;
+}
+
+.header-default {
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.d1-3 {
-    width: 25%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.d1-3-1 {
+.store-layout {
     display: flex;
     gap: 3px;
 }
 
-.d1-3-1-1 {
+.store-title {
     display: flex;
     flex-direction: column;
 }
 
-.s1 {
+.store-title-text {
     color: #ffffff;
     font-weight: 700;
-    font-size: 10px;
     text-align: center;
+    font-size: 10px;
 }
 
-.s2 {
+.store-count {
     color: #ffffff;
     font-weight: 700;
-    font-size: 25px;
     text-align: center;
+    font-size: 25px;
 }
 </style>
