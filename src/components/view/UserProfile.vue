@@ -1,10 +1,9 @@
 <script setup>
 import CarouselLeft from "@/components/icon/CarouselLeft.vue";
+import ProfileImage from "@/components/image/ProfileImage.vue";
 import CarouselRight from "@/components/icon/CarouselRight.vue";
 import HeartIcon from "@/components/icon/HeartIcon.vue";
 import PassIcon from "@/components/icon/PassIcon.vue";
-import ProfileImage from "@/components/image/ProfileImage.vue";
-import UserProfileLayout from "@/components/layout/UserProfileLayout.vue";
 import { ref } from "vue";
 
 const refuseDialog = ref(null);
@@ -12,7 +11,7 @@ const agreeDialog = ref(null);
 </script>
 
 <template>
-    <user-profile-layout>
+    <div class="d-flex flex-column pa-6" style="gap: 24px;">
         <div class="w-100">
             <v-carousel height="auto" hide-delimiters style="box-shadow: 4px 4px 10px 0 #60e0e0;">
                 <template #prev="{ props }">
@@ -23,16 +22,18 @@ const agreeDialog = ref(null);
                 </template>
                 <v-carousel-item>
                     <profile-image
+                        active
                         src="https://i.namu.wiki/i/RmPNdn0sjKx-SYRoeRffcS5pc1rZXK-uA6PQqqU_kLFrqdMVdD3vM9HeF4c_1DLloZ1qu8KZLDwRwO8y-3vNriadzKfcXOeWaQFwwLC2Bn_HxoX1E-clw78tDqSLGLb37UHelCwkxGLeqKIpHvqPtA.webp"
                     />
                 </v-carousel-item>
                 <v-carousel-item>
                     <profile-image
+                        active
                         src="https://i.namu.wiki/i/VE44Pr9Xrqrinf43GS7Yu945HyT3XyKWhmisPJcZ6qaCqV9J4oLnpUOHSrY-rjBh8j6ZI-3KtYkNf9x8sBe0Ew.webp"
                     />
                 </v-carousel-item>
                 <v-carousel-item>
-                    <profile-image src="https://cdn.k-trendynews.com/news/photo/202312/162732_242532_2228.jpg" />
+                    <profile-image active src="https://cdn.k-trendynews.com/news/photo/202312/162732_242532_2228.jpg" />
                 </v-carousel-item>
             </v-carousel>
         </div>
@@ -282,7 +283,7 @@ const agreeDialog = ref(null);
                 <span class="font-weight-bold" style="font-size: 18px; color: #60E0E0; line-height: 22px; ">010-0000-0000</span>
             </div>
         </div>
-    </user-profile-layout>
+    </div>
 </template>
 
 <style scoped></style>

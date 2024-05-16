@@ -1,18 +1,13 @@
 import { createWebHistory, createRouter } from "vue-router";
-import UserDashboard from "@/views/dashboard/UserDashboard.vue";
+import DashboardView from "@/views/dashboard/DashboardView.vue";
 import UserLogin from "@/views/login/UserLogin";
-import MainLayout from "@/components/layout/MainLayout";
 import SignupSimple from "@/views/signup/SignupSimple.vue";
-import UserProfile from "@/views/profile/UserProfile.vue";
-import UserPlotting from "@/views/plotting/UserPlotting.vue";
 import SettingMain from "@/views/setting/SettingMain.vue";
 import SettingInquire from "@/views/setting/SettingInquire.vue";
-import SettingNotice from "@/views/setting/SettingNotice.vue";
 import SettingInvite from "@/views/setting/SettingInvite.vue";
 import SettingBlock from "@/views/setting/SettingBlock.vue";
 import SettingStatus from "@/views/setting/SettingStatus.vue";
-import AlarmMain from "@/views/alarm/AlarmMain.vue";
-import StoreMain from "@/views/store/StoreMain.vue";
+import StoreView from "@/views/store/StoreView.vue";
 import TestMain from "@/views/test/TestMain.vue";
 import SettingMyProfile from "@/views/setting/SettingMyProfile.vue";
 import SignupGuide from "@/views/signup/SignupGuide.vue";
@@ -25,9 +20,14 @@ import { userInfoStore } from "@/store/user/userInfoStore";
 import LandingMain from "@/views/landing/LandingMain.vue";
 import LandingIntro from "@/views/landing/LandingIntro.vue";
 import UserLogout from "@/views/login/UserLogout.vue";
+import UserState from "@/views/state/UserState.vue";
+import UserLoginTemp from "@/views/login/UserLoginTemp.vue";
+import NavigationLayout from "@/components/layout/NavigationLayout.vue";
+import ProfileView from "@/views/profile/ProfileView.vue";
 
 const routes = [
     { path: "/login", component: UserLogin },
+    { path: "/login/temp", component: UserLoginTemp },
     { path: "/logout", component: UserLogout },
     { path: "/signupTest", component: SignupSimple },
     {
@@ -40,15 +40,15 @@ const routes = [
     },
     {
         path: "/",
-        component: MainLayout,
+        component: NavigationLayout,
         children: [
             {
                 path: "dashboard",
-                component: UserDashboard
+                component: DashboardView
             },
             {
-                path: "plotting",
-                component: UserPlotting
+                path: "state",
+                component: UserState
             },
             {
                 path: "setting",
@@ -57,10 +57,6 @@ const routes = [
             {
                 path: "setting/inquire",
                 component: SettingInquire
-            },
-            {
-                path: "setting/notice",
-                component: SettingNotice
             },
             {
                 path: "setting/invite",
@@ -73,21 +69,18 @@ const routes = [
             {
                 path: "setting/status",
                 component: SettingStatus
-            },
-            {
-                path: "alarm",
-                component: AlarmMain
             }
         ]
-    },
-    {
-        path: "/profile",
-        component: UserProfile
     },
     {
         path: "/setting/my-profile",
         component: SettingMyProfile
     },
+    {
+        path: "/profile",
+        component: ProfileView
+    },
+
     {
         path: "/signup/guide",
         component: SignupGuide
@@ -118,7 +111,7 @@ const routes = [
     },
     {
         path: "/store",
-        component: StoreMain
+        component: StoreView
     }
 ];
 
@@ -133,8 +126,8 @@ const router = createRouter({
 });
 router.beforeEach((to, from, next) => {
     const userStore = userInfoStore();
-    if (!["/login", "/signupTest", "/", "/intro"].includes(to.path) && !userStore.getUserAccessToken()) {
-        next("/login");
+    if (!["/login", "/signupTest", "/", "/intro", "/login/temp"].includes(to.path) && !userStore.getUserAccessToken()) {
+        next("/login/temp");
     } else {
         next();
     }

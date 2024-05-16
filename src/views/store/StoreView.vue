@@ -57,9 +57,9 @@ const clickedText = () => {
 
 <template>
     <div class="w-100 h-100">
-        <main-header start="back" end="mail" :title="false" />
+        <main-header start="back" end="mail" />
         <main class="w-100 h-100" style="padding-top: 60px; padding-bottom: 80px;">
-            <div class="mx-auto" style="max-width: 390px; min-width: 360px;">
+            <div class="mx-auto" style="max-width: 500px; min-width: 320px;">
                 <div style="padding: 46px 22px; display: flex; flex-direction: column; align-items: center;">
                     <div
                         style="width: fit-content;padding: 7px 38px;background: #FFFFFF;box-shadow: 4px 4px 10px #60E0E0;border-radius: 16px; text-align: center; font-weight: 700; font-size: 23px; margin-bottom: 24px;"
@@ -105,8 +105,11 @@ const clickedText = () => {
                                     </div>
                                 </div>
                             </div>
-                            <div v-if="i === 1" style="position: absolute; right: 18px; top: 5px; display: flex; justify-content: center; align-items: center; background-color: #FF0000; width: 30px; height: 20px; border-radius: 3px; color: #FFFFFF; font-weight: 700; font-size: 11px;">
-                              인기
+                            <div
+                                v-if="i === 1"
+                                style="position: absolute; right: 18px; top: 5px; display: flex; justify-content: center; align-items: center; background-color: #FF0000; width: 30px; height: 20px; border-radius: 3px; color: #FFFFFF; font-weight: 700; font-size: 11px;"
+                            >
+                                인기
                             </div>
                         </v-card>
                     </div>

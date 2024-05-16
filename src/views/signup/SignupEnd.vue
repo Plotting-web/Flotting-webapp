@@ -3,55 +3,48 @@ import MainHeader from "@/components/layout/MainHeader.vue";
 import router from "@/router";
 import SignupProgress from "@/views/signup/components/SignupProgress.vue";
 import { signupInfoStore } from "@/views/signup/store/singupInfoStore";
-
-const onClicked = () => {
-    router.push("/signup/photo");
-};
+import MainBody from "@/components/layout/MainBody.vue";
 
 const store = signupInfoStore();
-const onClickedTest = () => {
+const onClicked = () => {
     console.log(store.getTotal());
+    router.push("/intro");
 };
 </script>
 
 <template>
-    <div class="w-100 h-100">
-        <main-header start="" end="" :title="false" />
-        <main class="w-100 h-100" style="padding-top: 60px;">
-            <div class="mx-auto" style="max-width: 390px; min-width: 360px;">
-                <div class="w-100 d-flex flex-column justify-center align-center" style="padding-top: 29px; padding-inline: 18px;">
-                    <signup-progress :idx="5" />
-                    <div class="w-100 d-flex flex-column ga-3 page-guide">
-                        <span class="page-title">프로필 등록이 완료되셨어요 !</span>
-                        <div class="d-flex flex-column">
-                            <span class="page-sub">24시간 내로 프로필 심사 결과가</span>
-                            <span class="page-sub">카카오 알림톡으로 발송될 예정입니다.</span>
-                        </div>
-                    </div>
-                    <div class="d-flex flex-column w-100 ga-6 mb-8 main" style="">
-                        <div>
-                            <p class="title">1. 프로필 등록</p>
-                            <p class="sub">정보 / 세계관 / 취향 / 사진 등록</p>
-                        </div>
-                        <div>
-                            <p class="title">2. 개인 취향 맞춤 매칭</p>
-                            <p class="sub">매주 월요일 저녁에 매칭이 시작됩니다</p>
-                        </div>
-                        <div>
-                            <p class="title">3. 전화 번호 상호 공개</p>
-                            <p class="sub">설레는 대화 시작 및 오프라인 약속 잡기</p>
-                        </div>
-                    </div>
-                    <div class="d-flex flex-column security-text mb-9">
-                        <span>수집된 개인정보는</span>
-                        <span>매칭 외 다른 용도로 활용되지 않습니다.</span>
-                    </div>
-                    <v-btn class="bottom-btn" @click="onClicked">플러팅 둘러보기</v-btn>
-                    <v-btn class="bottom-btn" @click="onClickedTest">정보 확인</v-btn>
+    <main-header />
+    <main-body is-header>
+        <div class="w-100 d-flex flex-column justify-center align-center" style="padding-top: 29px; padding-inline: 18px;">
+            <signup-progress :idx="5" />
+            <div class="w-100 d-flex flex-column ga-3 page-guide">
+                <span class="page-title">프로필 등록이 완료되셨어요 !</span>
+                <div class="d-flex flex-column">
+                    <span class="page-sub">24시간 내로 프로필 심사 결과가</span>
+                    <span class="page-sub">카카오 알림톡으로 발송될 예정입니다.</span>
                 </div>
             </div>
-        </main>
-    </div>
+            <div class="d-flex flex-column w-100 ga-6 mb-8 main" style="">
+                <div>
+                    <p class="title">1. 프로필 등록</p>
+                    <p class="sub">정보 / 세계관 / 취향 / 사진 등록</p>
+                </div>
+                <div>
+                    <p class="title">2. 개인 취향 맞춤 매칭</p>
+                    <p class="sub">매주 월요일 저녁에 매칭이 시작됩니다</p>
+                </div>
+                <div>
+                    <p class="title">3. 전화 번호 상호 공개</p>
+                    <p class="sub">설레는 대화 시작 및 오프라인 약속 잡기</p>
+                </div>
+            </div>
+            <div class="d-flex flex-column security-text mb-9">
+                <span>수집된 개인정보는</span>
+                <span>매칭 외 다른 용도로 활용되지 않습니다.</span>
+            </div>
+            <v-btn class="bottom-btn" @click="onClicked">PLOT 소개</v-btn>
+        </div>
+    </main-body>
 </template>
 
 <style scoped>

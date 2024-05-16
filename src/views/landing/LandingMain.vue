@@ -3,6 +3,8 @@ import router from "@/router";
 import { userInfoStore } from "@/store/user/userInfoStore";
 import { onMounted, ref } from "vue";
 import { createInstance } from "@/axios/axios";
+import PlotLogo from "@/components/icon/PlotLogo.vue";
+import MainBody from "@/components/layout/MainBody.vue";
 
 const onClickStart = () => {
     router.push("/login");
@@ -14,7 +16,7 @@ const onClickSignUp = () => {
     router.push("/signupTest");
 };
 const onClickLogin = () => {
-    router.push("/login");
+    router.push("/login/temp");
 };
 
 const userInfo = userInfoStore();
@@ -51,63 +53,127 @@ onMounted(() => {
 </script>
 
 <template>
-    <div class="w-100 h-100">
-        <div
-            class="mx-auto h-100 d-flex flex-column justify-space-between"
-            style="max-width: 390px; min-width: 360px; background-color: #60E0E0; padding-top: 150px; padding-bottom: 80px;"
-        >
-            <div class="w-100 d-flex justify-center flex-column" style="gap: 27px; margin-bottom: 60px;">
-                <span class="font-weight-bold text-center text-white" style="font-size: 50px; letter-spacing: 0;">Plotting</span>
-                <span class="font-weight-bold text-center text-white" style="font-size: 20px; letter-spacing: 0;"
-                    >둘 사이에 새로운 줄거리를 만들다</span
-                >
+    <main-body background-color="#60E0E0">
+        <div class="d1">
+            <div class="d2">
+                <plot-logo width="120" height="60" />
+                <span style="">검증된 직장인을 위한 후불제 소개팅</span>
             </div>
-            <div v-if="['INPROGRESS', 'REJECT', 'FORCED_WITHDRAWAL'].includes(status)" style="padding-inline: 36px; width:100%;">
-                <div
-                    style="display: flex; flex-direction: column; justify-content: center; padding-top: 93px; padding-bottom: 42px; align-items: center; width: 100%; background-color: #FFFFFF; border-radius: 16px;"
-                >
-                    <div style="font-size: 18px; font-weight: 700; color: #60E0E0; text-align: center; margin-bottom: 60px;">
+            <div v-if="['INPROGRESS', 'REJECT', 'FORCED_WITHDRAWAL'].includes(status)" class="d3">
+                <div>
+                    <div class="d3-1">
                         <p>등록해주신 프로필을 심사중입니다.</p>
                         <br />
-                        <p>24시간 내로 프로필 심사 결과가</p>
+                        <p>12시간 내로 프로필 심사 결과가</p>
                         <p>문자로 발송될 예정입니다.</p>
                     </div>
-                    <v-btn
-                        style="width: 238px; height: 60px; box-shadow: 0px 4px 4px 0px #00000040; border-radius: 16px; font-weight: 700; font-size: 24px; letter-spacing: 0; background-color: #60E0E0; color:#FFFFFF;"
-                        @click="onClickIntro"
-                    >
-                        플러팅 소개
+                    <v-btn class="d3-btn" @click="onClickIntro">
+                        PLOT 소개
                     </v-btn>
                 </div>
             </div>
-            <div v-else class="w-100 d-flex flex-column justify-center align-center ga-4">
-                <v-btn
-                    style="width: 200px; height: 60px; box-shadow: 0px 4px 4px 0px #00000040; border-radius: 16px; font-weight: 700; font-size: 24px; letter-spacing: 0; color: #60E0E0;"
-                    @click="onClickSignUp"
-                >
+            <div v-else class="d4">
+                <v-btn @click="onClickSignUp">
                     회원가입(테스트용)
                 </v-btn>
-                <v-btn
-                    style="width: 200px; height: 60px; box-shadow: 0px 4px 4px 0px #00000040; border-radius: 16px; font-weight: 700; font-size: 24px; letter-spacing: 0; color: #60E0E0;"
-                    @click="onClickLogin"
-                >
+                <v-btn @click="onClickLogin">
                     로그인(테스트용)
                 </v-btn>
-                <v-btn
-                    style="width: 200px; height: 60px; box-shadow: 0px 4px 4px 0px #00000040; border-radius: 16px; font-weight: 700; font-size: 24px; letter-spacing: 0; color: #60E0E0;"
-                    @click="onClickStart"
-                >
+                <v-btn @click="onClickStart">
                     START
                 </v-btn>
-                <v-btn
-                    style="width: 200px; height: 60px; box-shadow: 0px 4px 4px 0px #00000040; border-radius: 16px; font-weight: 700; font-size: 24px; letter-spacing: 0; color: #60E0E0;"
-                    @click="onClickIntro"
-                >
-                    플러팅 소개
+                <v-btn @click="onClickIntro">
+                    PLOT 소개
                 </v-btn>
             </div>
         </div>
-    </div>
+    </main-body>
 </template>
 
-<style scoped></style>
+<style scoped>
+.d1 {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding-top: 60px;
+    padding-bottom: 80px;
+}
+
+.d2 {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    gap: 28px;
+    margin-bottom: 60px;
+}
+
+.d2 span {
+    font-size: 20px;
+    letter-spacing: 0;
+    color: white;
+    text-align: center;
+    font-weight: bold;
+}
+
+.d3 {
+    padding-inline: 36px;
+    width: 100%;
+}
+
+.d3 > div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-top: 93px;
+    padding-bottom: 42px;
+    align-items: center;
+    width: 100%;
+    background-color: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0px 4px 4px #00000040;
+}
+
+.d3-1 {
+    font-size: 18px;
+    font-weight: 700;
+    color: #60e0e0;
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+.d3-btn {
+    width: 240px;
+    height: 60px;
+    box-shadow: 0px 4px 4px 0px #00000040;
+    border-radius: 16px;
+    font-weight: 700;
+    font-size: 24px;
+    letter-spacing: 0;
+    background-color: #60e0e0;
+    color: #ffffff;
+}
+
+.d4 {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
+}
+
+.d4 > button {
+    width: 200px;
+    height: 60px;
+    box-shadow: 0px 4px 4px 0px #00000040;
+    border-radius: 16px;
+    font-weight: 700;
+    font-size: 24px;
+    letter-spacing: 0;
+    color: #60e0e0;
+}
+</style>

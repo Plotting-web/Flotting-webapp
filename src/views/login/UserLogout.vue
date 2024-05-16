@@ -3,15 +3,13 @@ import { userInfoStore } from "@/store/user/userInfoStore";
 import router from "@/router";
 import { signupInfoStore } from "@/views/signup/store/singupInfoStore";
 
-const userInfo = userInfoStore();
-const signupInfo = signupInfoStore();
-userInfo.resetUserInfo();
-signupInfo.reset();
+userInfoStore().resetUserInfo();
+signupInfoStore().reset();
 router.push("/");
 </script>
 
 <template>
-    Logout
+    <div></div>
 </template>
 
 <style scoped></style>

@@ -16,6 +16,7 @@ import {
 } from "@/views/signup/enum/options";
 import { signupInfoStore } from "@/views/signup/store/singupInfoStore";
 import { storeToRefs } from "pinia";
+import MainBody from "@/components/layout/MainBody.vue";
 
 const store = signupInfoStore();
 const { nickName, detailJob, job, education, smoking, drinking, mbti, character, hobby, preferredDate } = storeToRefs(store);
@@ -57,192 +58,183 @@ const detailJobRules = [
 </script>
 
 <template>
-    <div class="w-100 h-100">
-        <main-header start="back" end="" :title="false" />
-        <main class="w-100 h-100" style="padding-top: 60px;">
-            <div class="mx-auto" style="max-width: 390px; min-width: 360px;">
-                <div class="w-100 d-flex flex-column justify-center align-center" style="padding: 29px 18px;">
-                    <signup-progress :idx="3" />
-                    <div class="w-100 d-flex flex-column ga-3 page-guide">
-                        <span class="page-title">소중한 나를 소개해주세요 !</span>
-                        <div class="d-flex flex-column ga-1">
-                            <span class="page-sub">(주의) 사실과 다른 정보의 향후</span>
-                            <span class="page-sub">서비스 이용 정지의 사유가 될 수 있습니다.</span>
-                        </div>
-                    </div>
-                    <v-form ref="form">
-                        <div class="d-flex flex-column w-100 ga-6 mb-8">
-                            <div class="d-flex flex-column ga-2">
-                                <span class="title-text">(1) 닉네임</span>
-                                <span class="sub-title">- 프로필에는 닉네임만 보여집니다.</span>
-                                <v-text-field
-                                    v-model="nickName"
-                                    class="text-none input-text"
-                                    density="compact"
-                                    placeholder="엘리"
-                                    variant="underlined"
-                                    :clearable="true"
-                                    counter="10"
-                                    :rules="nickNameRules"
-                                ></v-text-field>
-                            </div>
-                            <div class="d-flex flex-column ga-2">
-                                <span class="title-text">(2) 직업</span>
-                                <span class="sub-title">- 대학생 / 대학원생의 경우 학생으로 선택해주세요</span>
-                                <div style="display: grid; grid-template-columns: repeat(3, 1fr); grid-gap: 8px;">
-                                    <signup-radio
-                                        v-for="({ value, title }, i) in jobOptions"
-                                        :key="`job_${i}`"
-                                        :group-value="job"
-                                        :value="value"
-                                        :title="title"
-                                        @click="val => (job = val)"
-                                    />
-                                </div>
-                            </div>
-                            <div class="d-flex flex-column ga-3">
-                                <span class="title-text">(3) 상세 직업</span>
-                                <div class="d-flex flex-column ga-1">
-                                    <span class="sub-title">- 직장인은 직장명 & 기타 전문직은 상세 직군을 작성해주세요</span>
-                                    <span class="sub-title pl-3">예시 )</span>
-                                    <span class="sub-title pl-3">직장인 -> 삼성전자, 한화케미칼 등</span>
-                                    <span class="sub-title pl-3">사업가 -> 부동산 개발 법인 대표 등</span>
-                                    <span class="sub-title pl-3">의료직 -> 간호사, 간호조무사 등</span>
-                                    <span class="sub-title pl-3">기타 -> 자영업자 (식당 운영 등) / 자산가 / 투자자 등</span>
-                                </div>
-                                <v-text-field
-                                    v-model="detailJob"
-                                    class="text-none input-text"
-                                    density="compact"
-                                    placeholder="상세 직업"
-                                    variant="underlined"
-                                    :clearable="true"
-                                    counter="50"
-                                    :rules="detailJobRules"
-                                ></v-text-field>
-                            </div>
-                            <div class="d-flex flex-column ga-3">
-                                <span class="title-text">(4) 학력</span>
-                                <div style="display: grid; grid-template-columns: repeat(3, 1fr); grid-gap: 8px;">
-                                    <signup-radio
-                                        v-for="({ value, title }, i) in educationOptions"
-                                        :key="`edu_${i}`"
-                                        :group-value="education"
-                                        :value="value"
-                                        :title="title"
-                                        @click="val => (education = val)"
-                                    />
-                                </div>
-                            </div>
-                            <div class="d-flex flex-column ga-3">
-                                <span class="title-text">(5) 흡연 여부</span>
-                                <div style="display: grid; grid-template-columns: repeat(2, 1fr); grid-gap: 8px;">
-                                    <signup-radio
-                                        v-for="({ value, title }, i) in smokingOptions"
-                                        :key="`smo_${i}`"
-                                        :group-value="smoking"
-                                        :value="value"
-                                        :title="title"
-                                        @click="val => (smoking = val)"
-                                    />
-                                </div>
-                            </div>
-                            <div class="d-flex flex-column ga-3">
-                                <span class="title-text">(6) 음주 여부</span>
-                                <div style="display: grid; grid-template-columns: repeat(2, 1fr); grid-gap: 8px;">
-                                    <signup-radio
-                                        v-for="({ value, title }, i) in drinkingOptions"
-                                        :key="`dri_${i}`"
-                                        :group-value="drinking"
-                                        :value="value"
-                                        :title="title"
-                                        @click="val => (drinking = val)"
-                                    />
-                                </div>
-                            </div>
-                            <div class="d-flex flex-column ga-2">
-                                <span class="title-text">(7) MBTI</span>
-                                <span class="sub-title">- 잘 기억이 안나거나 모르는 경우 패스할 수 있어요 !</span>
-                                <div class="d-flex justify-center align-center w-100">
-                                    <div
-                                        style="display: grid; grid-template-columns: repeat(2, 1fr); grid-gap: 8px; width: 80%; margin-inline: auto;"
-                                    >
-                                        <template v-for="(el, i) in mbtiOptions" :key="`mbti_${i}`">
-                                            <signup-radio
-                                                v-for="({ value, title }, j) in el"
-                                                :key="`mbti_${i}_${j}`"
-                                                :group-value="mbti[i]"
-                                                :value="value"
-                                                :title="title"
-                                                @click="val => (mbti[i] = val)"
-                                            />
-                                        </template>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="d-flex flex-column ga-2">
-                                <span class="title-text">(8) 나의 성격을 단어로 표현한다면?</span>
-                                <span class="sub-title">- 최대 3가지를 선택해주세요!</span>
-                                <div style="display: grid; grid-template-columns: repeat(3, 1fr); grid-gap: 8px;">
-                                    <signup-radio
-                                        v-for="({ value, title }, i) in characterOptions"
-                                        :key="`per_${i}`"
-                                        :group-value="character"
-                                        :value="value"
-                                        :title="title"
-                                        @click="
-                                            val =>
-                                                character.includes(val)
-                                                    ? (character = character.filter(el => el !== val))
-                                                    : character.length < 3 && character.push(val)
-                                        "
-                                    />
-                                </div>
-                            </div>
-                            <div class="d-flex flex-column ga-2">
-                                <span class="title-text">(9) 나의 관심사 / 취미를 모두 골라주세요 !</span>
-                                <span class="sub-title">- 최대 3가지를 선택해주세요!</span>
-                                <div style="display: grid; grid-template-columns: repeat(3, 1fr); grid-gap: 8px;">
-                                    <signup-radio
-                                        v-for="({ value, title }, i) in hobbyOptions"
-                                        :key="`hob_${i}`"
-                                        :group-value="hobby"
-                                        :value="value"
-                                        :title="title"
-                                        @click="
-                                            val =>
-                                                hobby.includes(val) ? (hobby = hobby.filter(el => el !== val)) : hobby.length < 3 && hobby.push(val)
-                                        "
-                                    />
-                                </div>
-                            </div>
-                            <div class="d-flex flex-column ga-2">
-                                <span class="title-text">(10) 어떤 데이트를 선호하시나요 ?</span>
-                                <span class="sub-title">- 1가지를 선택해주세요!</span>
-                                <div style="display: grid; grid-template-columns: repeat(2, 1fr); grid-gap: 8px;">
-                                    <signup-radio
-                                        v-for="({ value, title }, i) in preferredDateOptions"
-                                        :key="`dat_${i}`"
-                                        :group-value="preferredDate"
-                                        :value="value"
-                                        :title="title"
-                                        @click="val => (preferredDate = val)"
-                                    />
-                                </div>
-                            </div>
-                        </div>
-                    </v-form>
-                    <div class="d-flex flex-column security-text mb-9">
-                        <span>수집된 개인정보는</span>
-                        <span>매칭 외 다른 용도로 활용되지 않습니다.</span>
-                    </div>
-                    <div>
-                        <v-btn class="bottom-btn" @click="onClicked">사진 등록하러 가기</v-btn>
-                    </div>
+    <main-header start="back" />
+    <main-body is-header>
+        <div class="w-100 d-flex flex-column justify-center align-center" style="padding: 29px 18px;">
+            <signup-progress :idx="3" />
+            <div class="w-100 d-flex flex-column ga-3 page-guide">
+                <span class="page-title">소중한 나를 소개해주세요 !</span>
+                <div class="d-flex flex-column ga-1">
+                    <span class="page-sub">(주의) 사실과 다른 정보의 향후</span>
+                    <span class="page-sub">서비스 이용 정지의 사유가 될 수 있습니다.</span>
                 </div>
             </div>
-        </main>
-    </div>
+            <v-form ref="form">
+                <div class="d-flex flex-column w-100 ga-6 mb-8">
+                    <div class="d-flex flex-column ga-2">
+                        <span class="title-text">(1) 닉네임</span>
+                        <span class="sub-title">- 프로필에는 닉네임만 보여집니다.</span>
+                        <v-text-field
+                            v-model="nickName"
+                            class="text-none input-text"
+                            density="compact"
+                            placeholder="엘리"
+                            variant="underlined"
+                            :clearable="true"
+                            counter="10"
+                            :rules="nickNameRules"
+                        ></v-text-field>
+                    </div>
+                    <div class="d-flex flex-column ga-2">
+                        <span class="title-text">(2) 직업</span>
+                        <span class="sub-title">- 대학생 / 대학원생의 경우 학생으로 선택해주세요</span>
+                        <div style="display: grid; grid-template-columns: repeat(3, 1fr); grid-gap: 8px;">
+                            <signup-radio
+                                v-for="({ value, title }, i) in jobOptions"
+                                :key="`job_${i}`"
+                                :group-value="job"
+                                :value="value"
+                                :title="title"
+                                @click="val => (job = val)"
+                            />
+                        </div>
+                    </div>
+                    <div class="d-flex flex-column ga-3">
+                        <span class="title-text">(3) 상세 직업</span>
+                        <div class="d-flex flex-column ga-1">
+                            <span class="sub-title">- 직장인은 직장명 & 기타 전문직은 상세 직군을 작성해주세요</span>
+                            <span class="sub-title pl-3">예시 )</span>
+                            <span class="sub-title pl-3">직장인 -> 삼성전자, 한화케미칼 등</span>
+                            <span class="sub-title pl-3">사업가 -> 부동산 개발 법인 대표 등</span>
+                            <span class="sub-title pl-3">의료직 -> 간호사, 간호조무사 등</span>
+                            <span class="sub-title pl-3">기타 -> 자영업자 (식당 운영 등) / 자산가 / 투자자 등</span>
+                        </div>
+                        <v-text-field
+                            v-model="detailJob"
+                            class="text-none input-text"
+                            density="compact"
+                            placeholder="상세 직업"
+                            variant="underlined"
+                            :clearable="true"
+                            counter="50"
+                            :rules="detailJobRules"
+                        ></v-text-field>
+                    </div>
+                    <div class="d-flex flex-column ga-3">
+                        <span class="title-text">(4) 학력</span>
+                        <div style="display: grid; grid-template-columns: repeat(3, 1fr); grid-gap: 8px;">
+                            <signup-radio
+                                v-for="({ value, title }, i) in educationOptions"
+                                :key="`edu_${i}`"
+                                :group-value="education"
+                                :value="value"
+                                :title="title"
+                                @click="val => (education = val)"
+                            />
+                        </div>
+                    </div>
+                    <div class="d-flex flex-column ga-3">
+                        <span class="title-text">(5) 흡연 여부</span>
+                        <div style="display: grid; grid-template-columns: repeat(2, 1fr); grid-gap: 8px;">
+                            <signup-radio
+                                v-for="({ value, title }, i) in smokingOptions"
+                                :key="`smo_${i}`"
+                                :group-value="smoking"
+                                :value="value"
+                                :title="title"
+                                @click="val => (smoking = val)"
+                            />
+                        </div>
+                    </div>
+                    <div class="d-flex flex-column ga-3">
+                        <span class="title-text">(6) 음주 여부</span>
+                        <div style="display: grid; grid-template-columns: repeat(2, 1fr); grid-gap: 8px;">
+                            <signup-radio
+                                v-for="({ value, title }, i) in drinkingOptions"
+                                :key="`dri_${i}`"
+                                :group-value="drinking"
+                                :value="value"
+                                :title="title"
+                                @click="val => (drinking = val)"
+                            />
+                        </div>
+                    </div>
+                    <div class="d-flex flex-column ga-2">
+                        <span class="title-text">(7) MBTI</span>
+                        <span class="sub-title">- 잘 기억이 안나거나 모르는 경우 패스할 수 있어요 !</span>
+                        <div class="d-flex justify-center align-center w-100">
+                            <div style="display: grid; grid-template-columns: repeat(2, 1fr); grid-gap: 8px; width: 80%; margin-inline: auto;">
+                                <template v-for="(el, i) in mbtiOptions" :key="`mbti_${i}`">
+                                    <signup-radio
+                                        v-for="({ value, title }, j) in el"
+                                        :key="`mbti_${i}_${j}`"
+                                        :group-value="mbti[i]"
+                                        :value="value"
+                                        :title="title"
+                                        @click="val => (mbti[i] = val)"
+                                    />
+                                </template>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="d-flex flex-column ga-2">
+                        <span class="title-text">(8) 나의 성격을 단어로 표현한다면?</span>
+                        <span class="sub-title">- 최대 3가지를 선택해주세요!</span>
+                        <div style="display: grid; grid-template-columns: repeat(3, 1fr); grid-gap: 8px;">
+                            <signup-radio
+                                v-for="({ value, title }, i) in characterOptions"
+                                :key="`per_${i}`"
+                                :group-value="character"
+                                :value="value"
+                                :title="title"
+                                @click="
+                                    val =>
+                                        character.includes(val)
+                                            ? (character = character.filter(el => el !== val))
+                                            : character.length < 3 && character.push(val)
+                                "
+                            />
+                        </div>
+                    </div>
+                    <div class="d-flex flex-column ga-2">
+                        <span class="title-text">(9) 나의 관심사 / 취미를 모두 골라주세요 !</span>
+                        <span class="sub-title">- 최대 3가지를 선택해주세요!</span>
+                        <div style="display: grid; grid-template-columns: repeat(3, 1fr); grid-gap: 8px;">
+                            <signup-radio
+                                v-for="({ value, title }, i) in hobbyOptions"
+                                :key="`hob_${i}`"
+                                :group-value="hobby"
+                                :value="value"
+                                :title="title"
+                                @click="val => (hobby.includes(val) ? (hobby = hobby.filter(el => el !== val)) : hobby.length < 3 && hobby.push(val))"
+                            />
+                        </div>
+                    </div>
+                    <div class="d-flex flex-column ga-2">
+                        <span class="title-text">(10) 어떤 데이트를 선호하시나요 ?</span>
+                        <span class="sub-title">- 1가지를 선택해주세요!</span>
+                        <div style="display: grid; grid-template-columns: repeat(2, 1fr); grid-gap: 8px;">
+                            <signup-radio
+                                v-for="({ value, title }, i) in preferredDateOptions"
+                                :key="`dat_${i}`"
+                                :group-value="preferredDate"
+                                :value="value"
+                                :title="title"
+                                @click="val => (preferredDate = val)"
+                            />
+                        </div>
+                    </div>
+                </div>
+            </v-form>
+            <div class="d-flex flex-column security-text mb-9">
+                <span>수집된 개인정보는</span>
+                <span>매칭 외 다른 용도로 활용되지 않습니다.</span>
+            </div>
+            <div>
+                <v-btn class="bottom-btn" @click="onClicked">사진 등록하러 가기</v-btn>
+            </div>
+        </div>
+    </main-body>
 </template>
 
 <style scoped>

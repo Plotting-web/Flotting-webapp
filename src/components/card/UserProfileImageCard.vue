@@ -1,5 +1,4 @@
 <script setup>
-import { ref } from "vue";
 import ProfileImage from "@/components/image/ProfileImage.vue";
 
 defineProps({
@@ -12,30 +11,60 @@ defineProps({
         default: null
     }
 });
-
-const testManagerImageUrl = ref("https://image.kr.canon/pds/gallery/open/1257249062209_0d8F3Kb90P.jpg");
-const testUserImageUrl = ref(
-    "https://i.namu.wiki/i/RmPNdn0sjKx-SYRoeRffcS5pc1rZXK-uA6PQqqU_kLFrqdMVdD3vM9HeF4c_1DLloZ1qu8KZLDwRwO8y-3vNriadzKfcXOeWaQFwwLC2Bn_HxoX1E-clw78tDqSLGLb37UHelCwkxGLeqKIpHvqPtA.webp"
-);
 </script>
 
 <template>
-    <v-card width="100%" style="box-shadow: 4px 4px 10px 0px #60E0E0; border-radius: 16px;" :to="to">
-        <div class="w-100 pa-4 d-flex flex-column ga-4 justify-center align-center">
-            <v-card style="border-radius: 16px; width: 98px;">
-                <div
-                    class="w-100 d-flex flex-column justify-end align-start pl-6 pb-3"
-                    style="aspect-ratio: 1; background-color: #F1F1F1; background-size: cover;  background-position: 50%; background-image: url('https://image.kr.canon/pds/gallery/open/1257249062209_0d8F3Kb90P.jpg')"
-                ></div>
-            </v-card>
-            <div class="text-center w-100" style="height: 63px; background: #F1F1F1; border-radius: 16px;"></div>
+    <v-card
+        width="100%"
+        :to="to"
+        style="
+            box-shadow: 4px 4px 10px 0px #60e0e0;
+            border-radius: 16px;
+        "
+    >
+        <div
+            style="
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                width: 100%;
+                padding: 16px;
+                gap: 16px;
+            "
+        >
             <div
-                class="w-100 d-flex flex-column justify-end align-start pl-6 pb-3 font-weight-bold"
-                style="border-radius: 16px; aspect-ratio: 1; background-color: #F1F1F1; background-size: cover;  background-position: 50%; background-image: url('https://i.namu.wiki/i/RmPNdn0sjKx-SYRoeRffcS5pc1rZXK-uA6PQqqU_kLFrqdMVdD3vM9HeF4c_1DLloZ1qu8KZLDwRwO8y-3vNriadzKfcXOeWaQFwwLC2Bn_HxoX1E-clw78tDqSLGLb37UHelCwkxGLeqKIpHvqPtA.webp'); font-size: 18px; text-shadow: -1px 0px white, 0px 1px white, 1px 0px white, 0px -1px white; "
+                style="
+                    width: 98px;
+                    height: 98px;
+                    border-radius: 16px;
+                    background-color: #f1f1f1;
+                    background-size: cover;
+                    background-position: 50%;
+                "
+                :style="`background-image: url(https://image.kr.canon/pds/gallery/open/1257249062209_0d8F3Kb90P.jpg)`"
+            />
+            <div
+                style="
+                    width: 100%;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    align-items: center;
+                    height: 64px;
+                    background: #f1f1f1;
+                    border-radius: 16px;
+                "
             >
-                <span>원빈</span>
-                <span>가수, 서울 강남구</span>
+                매니저 코멘트
             </div>
+            <profile-image
+                title="원빈, 20"
+                sub-title="가수, 서울 강남구"
+                radius
+                active
+                src="https://image.fnnews.com/resource/media/image/2023/12/16/202312160703001203_l.jpg"
+            />
         </div>
     </v-card>
 </template>
