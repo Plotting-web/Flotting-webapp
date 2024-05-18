@@ -3,14 +3,11 @@ import { onBeforeMount, ref } from "vue";
 import UserProfileImageCard from "@/components/card/UserProfileImageCard.vue";
 import { fetchApiResource } from "@/axios/commonApi";
 
-import PlotLogo from "@/components/icon/PlotLogo.vue";
-import kakaoTalkLogo from "@/images/KakaoTalkLogo.png";
 import MainHeader from "@/components/layout/MainHeader.vue";
 import MainBody from "@/components/layout/MainBody.vue";
-import MainNavigation from "@/components/layout/MainNavigation.vue";
 import DashboardDoneCard from "@/views/dashboard/card/DashboardDoneCard.vue";
 import DashboardFindingCard from "@/views/dashboard/card/DashboardFindingCard.vue";
-import DashboardInactivityCard from "@/views/dashboard/card/DashboardInactivityCard.vue";
+import DashboardDormantCard from "@/views/dashboard/card/DashboardDormantCard.vue";
 
 const tab = ref(null);
 
@@ -31,22 +28,23 @@ const signup = async () => {
 <template>
     <main-header start="setting" end="store" />
     <main-body is-header is-navigation>
-        <div class="d1">
-            <div class="d2">
+        <div class="view-layout">
+            <div class="view-title">
                 이번주 프로필
             </div>
             <user-profile-image-card to="/profile" />
             <user-profile-image-card to="/profile" />
             <user-profile-image-card to="/profile" />
-            <dashboard-inactivity-card />
+            <dashboard-dormant-card />
             <dashboard-done-card />
             <dashboard-finding-card />
         </div>
     </main-body>
+    <main-navigation />
 </template>
 
 <style scoped>
-.d1 {
+.view-layout {
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -54,7 +52,7 @@ const signup = async () => {
     gap: 24px;
 }
 
-.d2 {
+.view-title {
     display: flex;
     justify-content: center;
     align-items: center;

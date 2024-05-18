@@ -14,15 +14,19 @@ const { dialog } = storeToRefs(store);
         </div>
         <div class="card-body">
             <div class="card-body-content">
-                <p>인연의 연락처를 확인하기 위해</p>
-                <p><span style="font-weight: 800;">매칭권 구매가</span> 필요합니다 😀</p>
+                <p>새로운 인연을</p>
+                <p>수락하면 매칭이 성사됩니다!</p>
+                <br />
+                <p>매칭권 1개가 차감되며,</p>
+                <p>서로의 전화번호를</p>
+                <p>즉시 확인할 수 있어요 :)</p>
             </div>
             <div class="card-body-caution">
                 <p>*상대방이 거절하거나, 무응답하는 경우</p>
                 <p>매칭권 1개가 다시 지급됩니다</p>
             </div>
-            <v-btn class="card-body-btn1" @click="dialog = false">매칭권 가격 알아보기!</v-btn>
-            <v-btn class="card-body-btn2" @click="dialog = false">새로운 인연 포기할게요..</v-btn>
+            <v-btn class="card-body-btn1" @click="dialog = false">연락처 확인하기!</v-btn>
+            <v-btn class="card-body-btn2" @click="dialog = false">조금만 더 고민해볼게요!</v-btn>
         </div>
     </v-card>
 </template>
@@ -61,10 +65,10 @@ const { dialog } = storeToRefs(store);
     background-color: #f1f1f1;
     border-radius: 16px;
     padding: 16px;
-    font-size: 16px;
-    font-weight: 500;
+    font-size: 15px;
+    font-weight: 700;
     text-align: center;
-    margin-bottom: 20px;
+    margin-bottom: 16px;
 }
 
 .card-body-caution {
@@ -73,7 +77,7 @@ const { dialog } = storeToRefs(store);
     font-weight: 700;
     text-align: center;
     color: #f30000;
-    margin-bottom: 28px;
+    margin-bottom: 16px;
 }
 
 .card-body-btn1 {

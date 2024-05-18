@@ -39,7 +39,7 @@ main {
     width: 100%;
     height: 100%;
     margin-inline: auto;
-    max-width: 500px;
+    max-width: 430px;
     min-width: 320px;
 }
 </style>

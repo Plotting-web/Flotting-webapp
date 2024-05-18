@@ -79,7 +79,7 @@ header {
     gap: 16px;
     margin-inline: auto;
     height: 100%;
-    max-width: 500px;
+    max-width: 430px;
     min-width: 320px;
 }
 

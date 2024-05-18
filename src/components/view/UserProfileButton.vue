@@ -4,8 +4,10 @@ import PassIcon from "@/components/icon/PassIcon.vue";
 import { userProfileDialogStore } from "@/components/view/store/userProfileDialogStore";
 import { storeToRefs } from "pinia";
 import UserProfileDialogPurchaseCard from "@/components/view/UserProfileDialogPurchaseCard.vue";
-import UserProfileDialogRefuseCard from "@/components/view/UserProfileDialogRefuseCard.vue";
-import UserProfileDialogSendingCard from "@/components/view/UserProfileDialogSendingCard.vue";
+import UserProfileDialogPassCard from "@/components/view/UserProfileDialogPassCard.vue";
+import UserProfileDialogSendCard from "@/components/view/UserProfileDialogSendCard.vue";
+import UserProfileDialogSendDoneCard from "@/components/view/UserProfileDialogSendDoneCard.vue";
+import UserProfileDialogAgreeCard from "@/components/view/UserProfileDialogAgreeCard.vue";
 import { ref } from "vue";
 
 const store = userProfileDialogStore();
@@ -25,7 +27,7 @@ const isPlot = ref(false);
             v-if="!isPlot"
             color="#60E0E0"
             style="width: 49%; height: 82px; box-shadow: 4px 4px 10px 0 #60e0e0; border-radius: 16px;"
-            @click="() => onClickBtn('sending')"
+            @click="() => onClickBtn('send')"
         >
             <div class="d-flex flex-column justify-center align-center h-100" style="gap: 4px;">
                 <heart-icon></heart-icon>
@@ -46,7 +48,7 @@ const isPlot = ref(false);
         <v-btn
             color="#60E0E0"
             style="width: 49%; height: 82px; box-shadow: 0px 4px 4px 0px #00000040; border-radius: 16px;"
-            @click="() => onClickBtn('refuse')"
+            @click="() => onClickBtn('pass')"
         >
             <div class="d-flex flex-column justify-center align-center h-100" style="gap: 4px;">
                 <pass-icon></pass-icon>
@@ -56,8 +58,10 @@ const isPlot = ref(false);
     </div>
     <v-dialog v-model="dialog" width="auto" :persistent="true">
         <user-profile-dialog-purchase-card v-if="status === 'purchase'" />
-        <user-profile-dialog-refuse-card v-else-if="status === 'refuse'" />
-        <user-profile-dialog-sending-card v-else-if="status === 'sending'" />
+        <user-profile-dialog-pass-card v-else-if="status === 'pass'" />
+        <user-profile-dialog-send-card v-else-if="status === 'send'" />
+        <user-profile-dialog-agree-card v-else-if="status === 'agree'" />
+        <user-profile-dialog-send-done-card v-else-if="status === 'send-done'" />
     </v-dialog>
 </template>
 

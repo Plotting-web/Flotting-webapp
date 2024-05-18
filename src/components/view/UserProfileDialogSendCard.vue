@@ -4,7 +4,11 @@ import { userProfileDialogStore } from "@/components/view/store/userProfileDialo
 import PlotLogo from "@/components/icon/PlotLogo.vue";
 
 const store = userProfileDialogStore();
-const { dialog } = storeToRefs(store);
+const { dialog, status } = storeToRefs(store);
+
+const onClickSend = () => {
+    status.value = "send-done";
+};
 </script>
 
 <template>
@@ -14,15 +18,18 @@ const { dialog } = storeToRefs(store);
         </div>
         <div class="card-body">
             <div class="card-body-content">
-                <p>인연의 연락처를 확인하기 위해</p>
-                <p><span style="font-weight: 800;">매칭권 구매가</span> 필요합니다 😀</p>
+                <p>매칭권 1개를 사용하면</p>
+                <p>좋아요를 보낼 수 있어요!</p>
+                <br />
+                <p>매칭이 성사되면 문자로 알려드려요!</p>
+                <p>새로운 인연의 연락처를 확인하세요 :)</p>
             </div>
             <div class="card-body-caution">
                 <p>*상대방이 거절하거나, 무응답하는 경우</p>
-                <p>매칭권 1개가 다시 지급됩니다</p>
+                <p>사용한 매칭권을 다시 지급해드려요!</p>
             </div>
-            <v-btn class="card-body-btn1" @click="dialog = false">매칭권 가격 알아보기!</v-btn>
-            <v-btn class="card-body-btn2" @click="dialog = false">새로운 인연 포기할게요..</v-btn>
+            <v-btn class="card-body-btn1" @click="onClickSend">좋아요 보내기!</v-btn>
+            <v-btn class="card-body-btn2" @click="dialog = false">조금만 더 고민해볼게요!</v-btn>
         </div>
     </v-card>
 </template>
@@ -61,10 +68,10 @@ const { dialog } = storeToRefs(store);
     background-color: #f1f1f1;
     border-radius: 16px;
     padding: 16px;
-    font-size: 16px;
-    font-weight: 500;
+    font-size: 15px;
+    font-weight: 700;
     text-align: center;
-    margin-bottom: 20px;
+    margin-bottom: 16px;
 }
 
 .card-body-caution {
@@ -73,7 +80,7 @@ const { dialog } = storeToRefs(store);
     font-weight: 700;
     text-align: center;
     color: #f30000;
-    margin-bottom: 28px;
+    margin-bottom: 16px;
 }
 
 .card-body-btn1 {

@@ -46,7 +46,7 @@ footer {
     margin-inline: auto;
     height: 100%;
     gap: 0;
-    max-width: 500px;
+    max-width: 430px;
     min-width: 320px;
 }
 

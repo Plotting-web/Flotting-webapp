@@ -26,9 +26,10 @@ const certNumber = ref("");
 const onClickReqBtn = () => {
     console.log("onClickReqBtn");
     if (phoneNumber.value.length < 13) return alert("유효한 전화 번호가 아닙니다.");
-    isRequest.value = true;
+
     console.log("인증번호 전송 API");
     alert("인증번호가 전송되었습니다.");
+    isRequest.value = true;
 };
 const onClickResBtn = () => {
     console.log("인증번호 확인 API");
