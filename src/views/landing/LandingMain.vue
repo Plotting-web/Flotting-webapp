@@ -21,7 +21,7 @@ const onClickLogin = () => {
 };
 
 const userInfo = userInfoStore();
-const status = ref("DORMANT");
+const status = ref("NONE");
 
 onMounted(() => {
     if (!userInfo.isValid()) {
