@@ -11,7 +11,7 @@ import MainBody from "@/components/layout/MainBody.vue";
             <div class="d-flex justify-center w-100">
                 <div
                     class="text-white font-weight-bold d-flex justify-center align-center"
-                    style="width: 268px; height: 63px; background-color: #60E0E0B2; box-shadow: 4px 4px 10px 0px #60E0E0; border-radius: 16px; font-size: 25px;"
+                    style="width: 100%; height: 63px; background-color: #60E0E0B2; box-shadow: 4px 4px 10px 0px #60E0E0; border-radius: 16px; font-size: 25px;"
                 >
                     좋아요 현황
                 </div>
