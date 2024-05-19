@@ -29,23 +29,6 @@ const onClickResign = () => {
         <div class="view-layout">
             <span class="title">내 상태 변경</span>
             <div class="content-layout">
-                <div class="content-title-layout">
-                    <p class="content-title">좋아요만 받기!</p>
-                    <toggle-button v-model="toggle" on-label="ON" off-label="OFF" class="toggle-content" @change="val => onChangeToggle(val)" />
-                    <!-- <div class="toggle-layout">
-                        
-                    </div> -->
-                </div>
-                <div class="content-text">
-                    <div>
-                        <p>매주 새로운 인연을 소개받지 않고, 나에게 먼저 좋아요를 보낸 사람이 있을 때만 문자로 알려드립니다!</p>
-                    </div>
-                    <div>
-                        <p>ON에서 OFF로 변경하는 경우, 다음주부터 다시 새로운 인연을 소개드려요!</p>
-                    </div>
-                </div>
-            </div>
-            <div class="content-layout">
                 <p class="content-title">서비스 휴면</p>
                 <div class="content-text">
                     <div>
@@ -142,12 +125,6 @@ const onClickResign = () => {
     gap: 8px;
 }
 
-.content-title-layout {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
 .content-title {
     width: fit-content;
     padding: 16px 32px;
@@ -156,12 +133,6 @@ const onClickResign = () => {
     text-align: center;
     background-color: #f7f7f7;
     border-radius: 16px;
-}
-
-.toggle-content {
-    --toggle-width: 80px;
-    --toggle-height: 30px;
-    --toggle-font-size: 20px;
 }
 
 .content-text {
