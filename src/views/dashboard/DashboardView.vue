@@ -40,7 +40,6 @@ const signup = async () => {
             <dashboard-finding-card />
         </div>
     </main-body>
-    <main-navigation />
 </template>
 
 <style scoped>
