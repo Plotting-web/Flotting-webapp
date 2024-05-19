@@ -55,7 +55,7 @@ const onClickResBtn = () => {
                         maxlength="13"
                         @input="onChangeReqInput($event)"
                     />
-                    <v-btn class="login-cert-req-btn" :disabled="isRequest" @click="onClickReqBtn">인증번호 발송</v-btn>
+                    <v-btn class="login-cert-req-btn" :disabled="isRequest || phoneNumber.length !== 13" @click="onClickReqBtn">인증번호 발송</v-btn>
                 </div>
                 <input
                     v-model="certNumber"
