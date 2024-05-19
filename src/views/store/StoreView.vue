@@ -2,14 +2,14 @@
 import MainHeader from "@/components/layout/MainHeader.vue";
 import MainBody from "@/components/layout/MainBody.vue";
 import MainNavigation from "@/components/layout/MainNavigation.vue";
-import PlotLogo from "@/components/icon/PlotLogo.vue";
 import { ref } from "vue";
+import DialogCard from "@/components/card/DialogCard.vue";
 
 const dialog = ref(null);
 const selectedItem = ref(null);
 
-const gender = ref("W");
-const sale = ref(false);
+const gender = ref("M");
+const sale = ref(true);
 
 const manList = [
     {
@@ -163,10 +163,7 @@ const list = sale.value ? (gender.value === "M" ? manSaleList : womanSaleList) :
             </div>
         </div>
         <v-dialog v-model="dialog" width="auto" :persistent="true">
-            <v-card v-if="!!selectedItem" class="d-card-layout">
-                <div class="d-card-header">
-                    <plot-logo width="70" height="35" />
-                </div>
+            <dialog-card v-if="!!selectedItem">
                 <div class="d-card-body">
                     <div class="d-card-body-content">
                         <p style="font-size: 18px; font-weight: 700;">🏧 상품 결제창 🏧</p>
@@ -192,7 +189,7 @@ const list = sale.value ? (gender.value === "M" ? manSaleList : womanSaleList) :
                         문자로 안내받기
                     </v-btn>
                 </div>
-            </v-card>
+            </dialog-card>
         </v-dialog>
     </main-body>
     <main-navigation />
@@ -318,26 +315,6 @@ const list = sale.value ? (gender.value === "M" ? manSaleList : womanSaleList) :
     color: #8c8c8c;
     gap: 8px;
     padding-inline: 12px;
-}
-
-.d-card-layout {
-    display: flex;
-    flex-direction: column;
-    padding-top: 20px;
-    background-color: #ffffff;
-    width: 310px;
-    height: fit-content;
-    border-radius: 16px !important;
-    box-shadow: 0px 4px 4px #60e0e0;
-}
-
-.d-card-header {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: #60e0e0;
-    width: 100%;
-    height: 60px;
 }
 
 .d-card-body {

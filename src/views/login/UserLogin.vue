@@ -13,10 +13,9 @@ const onChangeReqInput = e => {
     }
 };
 const onChangeResInput = e => {
-    e.target.value = e.target.value.replace(/[^0-9]/g, "");
-    if (e.target.value.length > 6) {
-        e.target.value = e.target.value.slice(0, 6);
-    }
+    const val = e.target.value.replace(/[^0-9]/g, "").slice(0, 6);
+    e.target.value = val;
+    certNumber.value = val;
 };
 
 const phoneNumber = ref("");
@@ -37,16 +36,16 @@ const onClickResBtn = () => {
 </script>
 
 <template>
-    <main-header />
+    <main-header start="back" />
     <main-body is-header>
         <div class="login-layout">
             <div class="login-card">
-                <span class="login-title">
+                <p class="login-title">
                     LOGIN
-                </span>
-                <span class="login-sub-title">
+                </p>
+                <p class="login-sub-title">
                     PLOT은 본인인증을 완료해야 이용 가능합니다!
-                </span>
+                </p>
                 <div class="login-cert-req">
                     <input
                         v-model="phoneNumber"
@@ -99,6 +98,7 @@ const onClickResBtn = () => {
 }
 
 .login-sub-title {
+    width: 100%;
     text-align: center;
     background: #ffffff;
     border: 1px solid #d9d9d9;

@@ -2,7 +2,7 @@
 import { ref } from "vue";
 import MainHeader from "@/components/layout/MainHeader.vue";
 import MainBody from "@/components/layout/MainBody.vue";
-import PlotLogo from "@/components/icon/PlotLogo.vue";
+import DialogCard from "@/components/card/DialogCard.vue";
 
 const dormantDialog = ref(null);
 const resignDialog = ref(null);
@@ -31,14 +31,17 @@ const onClickResign = () => {
             <div class="content-layout">
                 <div class="content-title-layout">
                     <p class="content-title">좋아요만 받기!</p>
-                    <toggle-button v-model="toggle" @change="val => onChangeToggle(val)" />
+                    <toggle-button v-model="toggle" on-label="ON" off-label="OFF" class="toggle-content" @change="val => onChangeToggle(val)" />
+                    <!-- <div class="toggle-layout">
+                        
+                    </div> -->
                 </div>
                 <div class="content-text">
                     <div>
-                        <p>나의 상태가 ‘휴면’으로 변경되며, 나의 프로필이 모두에게 비공개 됩니다.</p>
+                        <p>매주 새로운 인연을 소개받지 않고, 나에게 먼저 좋아요를 보낸 사람이 있을 때만 문자로 알려드립니다!</p>
                     </div>
                     <div>
-                        <p>이후 재이용 시 프로필 재등록 없이 바로 다시 서비스 재이용이 가능합니다.</p>
+                        <p>ON에서 OFF로 변경하는 경우, 다음주부터 다시 새로운 인연을 소개드려요!</p>
                     </div>
                 </div>
             </div>
@@ -76,10 +79,7 @@ const onClickResign = () => {
             </div>
         </div>
         <v-dialog v-model="dormantDialog" width="auto" :persistent="true">
-            <v-card class="card-layout">
-                <div class="card-header">
-                    <plot-logo width="70" height="35" />
-                </div>
+            <dialog-card>
                 <div class="card-body">
                     <div class="card-body-content">
                         <p>나의 서비스 상태가 ‘휴면’으로 변경되며, 나의 프로필이 모두에게 비공개 됩니다.</p>
@@ -91,13 +91,10 @@ const onClickResign = () => {
                     <v-btn class="card-body-btn1" @click="dormantDialog = false">서비스 계속 이용</v-btn>
                     <v-btn class="card-body-btn2" @click="onClickDormant">서비스 휴면</v-btn>
                 </div>
-            </v-card>
+            </dialog-card>
         </v-dialog>
         <v-dialog v-model="resignDialog" width="auto" :persistent="true">
-            <v-card class="card-layout">
-                <div class="card-header">
-                    <plot-logo width="70" height="35" />
-                </div>
+            <dialog-card>
                 <div class="card-body">
                     <div class="card-body-content">
                         <p>탈퇴하면 직접 입력한 프로필 정보, 잔여 매칭권, 좋아요를 주고 받은 이력 등 모든 개인정보가 삭제됩니다.</p>
@@ -109,7 +106,7 @@ const onClickResign = () => {
                     <v-btn class="card-body-btn1" @click="resignDialog = false">서비스 계속 이용</v-btn>
                     <v-btn class="card-body-btn2" @click="onClickResign">서비스 탈퇴</v-btn>
                 </div>
-            </v-card>
+            </dialog-card>
         </v-dialog>
     </main-body>
 </template>
@@ -161,6 +158,12 @@ const onClickResign = () => {
     border-radius: 16px;
 }
 
+.toggle-content {
+    --toggle-width: 80px;
+    --toggle-height: 30px;
+    --toggle-font-size: 20px;
+}
+
 .content-text {
     padding: 24px 20px;
     width: 100%;
@@ -172,6 +175,7 @@ const onClickResign = () => {
     text-align: center;
     background-color: #f1f1f1;
     border-radius: 16px;
+    word-break: keep-all;
 }
 
 .btn-layout {
@@ -205,26 +209,6 @@ const onClickResign = () => {
     transition: all 0.2s ease-in-out;
 }
 
-.card-layout {
-    display: flex;
-    flex-direction: column;
-    padding-top: 20px;
-    background-color: #ffffff;
-    width: 310px;
-    height: fit-content;
-    border-radius: 16px !important;
-    box-shadow: 0px 4px 4px #60e0e0;
-}
-
-.card-header {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: #60e0e0;
-    width: 100%;
-    height: 60px;
-}
-
 .card-body {
     display: flex;
     flex-direction: column;
@@ -243,6 +227,7 @@ const onClickResign = () => {
     text-align: center;
     margin-bottom: 28px;
     color: #000000;
+    word-break: keep-all;
 }
 
 .card-body-btn1 {
