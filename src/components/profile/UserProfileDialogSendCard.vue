@@ -1,6 +1,6 @@
 <script setup>
 import { storeToRefs } from "pinia";
-import { userProfileDialogStore } from "@/components/view/store/userProfileDialogStore";
+import { userProfileDialogStore } from "@/components/profile/store/userProfileDialogStore";
 import PlotLogo from "@/components/icon/PlotLogo.vue";
 
 const store = userProfileDialogStore();

@@ -1,19 +1,20 @@
 import axios from "axios";
-import { userInfoStore } from "@/store/user/userInfoStore";
+import { loginStore } from "@/store/loginStore";
 
-export const createInstance = axios.create({
-    headers: {
-        "Access-Control-Allow-Origin": "*",
-        "Content-type": "application/json"
-    },
-    baseURL: process.env.VUE_FLOTTING_API_URL
-});
+axios.defaults.headers = {
+    "Access-Control-Allow-Origin": "*",
+    "Content-type": "application/json"
+};
 
-createInstance.interceptors.request.use(
+axios.defaults.baseURL = process.env.VUE_FLOTTING_API_URL;
+
+axios.interceptors.request.use(
     config => {
-        const userInfo = userInfoStore();
+        const accessToken = loginStore().getAccessToken();
         console.log("Request Interceptor:", config);
-        config.headers.Authorization = `Bearer ${userInfo.getUserAccessToken()}`;
+        if (!!accessToken) {
+            config.headers.Authorization = `Bearer ${accessToken}`;
+        }
         return config;
     },
     error => {
@@ -22,7 +23,7 @@ createInstance.interceptors.request.use(
     }
 );
 
-createInstance.interceptors.response.use(
+axios.interceptors.response.use(
     response => {
         console.log("Response Interceptor:", response);
         return response;

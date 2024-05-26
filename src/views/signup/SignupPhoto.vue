@@ -5,12 +5,11 @@ import SignupImage from "@/views/signup/components/SignupImage.vue";
 import SignupProgress from "@/views/signup/components/SignupProgress.vue";
 import { signupInfoStore } from "@/views/signup/store/singupInfoStore";
 import { storeToRefs } from "pinia";
-import { userInfoStore } from "@/store/user/userInfoStore";
-import { createInstance } from "@/axios/axios";
 import MainBody from "@/components/layout/MainBody.vue";
+import { loginStore } from "@/store/loginStore";
 
 const singupInfo = signupInfoStore();
-const userInfo = userInfoStore();
+const loginInfo = loginStore();
 const { profileImages, identityVerification } = storeToRefs(userInfo);
 const onClicked = async () => {
     const data = singupInfo.getTotal();
@@ -20,7 +19,7 @@ const onClicked = async () => {
     //     return;
     // }
     console.log("param > ", {
-        userId: userInfo.getUserNo(),
+        userId: loginInfo.getUserNo(),
         userDetailRequestDto: {
             ...data,
             userStatus: "INPROGRESS",
@@ -29,8 +28,8 @@ const onClicked = async () => {
         }
     });
 
-    createInstance
-        .post(`user/detail-info?userId=${userInfo.getUserNo()}`, { ...data, userStatus: "INPROGRESS" })
+    axios
+        .post(`user/detail-info?userId=${loginInfo.getUserNo()}`, { ...data, userStatus: "INPROGRESS" })
         .then(res => {
             console.log(res);
             router.push("/signup/end");

@@ -1,13 +1,13 @@
 <script setup>
 import HeartIcon from "@/components/icon/HeartIcon.vue";
 import PassIcon from "@/components/icon/PassIcon.vue";
-import { userProfileDialogStore } from "@/components/view/store/userProfileDialogStore";
+import { userProfileDialogStore } from "@/components/profile/store/userProfileDialogStore";
 import { storeToRefs } from "pinia";
-import UserProfileDialogPurchaseCard from "@/components/view/UserProfileDialogPurchaseCard.vue";
-import UserProfileDialogPassCard from "@/components/view/UserProfileDialogPassCard.vue";
-import UserProfileDialogSendCard from "@/components/view/UserProfileDialogSendCard.vue";
-import UserProfileDialogSendDoneCard from "@/components/view/UserProfileDialogSendDoneCard.vue";
-import UserProfileDialogAgreeCard from "@/components/view/UserProfileDialogAgreeCard.vue";
+import UserProfileDialogPurchaseCard from "@/components/profile/UserProfileDialogPurchaseCard.vue";
+import UserProfileDialogPassCard from "@/components/profile/UserProfileDialogPassCard.vue";
+import UserProfileDialogSendCard from "@/components/profile/UserProfileDialogSendCard.vue";
+import UserProfileDialogSendDoneCard from "@/components/profile/UserProfileDialogSendDoneCard.vue";
+import UserProfileDialogAgreeCard from "@/components/profile/UserProfileDialogAgreeCard.vue";
 import { ref } from "vue";
 
 const store = userProfileDialogStore();

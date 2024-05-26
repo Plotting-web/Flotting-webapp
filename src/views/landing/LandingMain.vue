@@ -1,11 +1,11 @@
 <script setup>
 import router from "@/router";
-import { userInfoStore } from "@/store/user/userInfoStore";
 import { onMounted, ref } from "vue";
-import { createInstance } from "@/axios/axios";
 import PlotLogo from "@/components/icon/PlotLogo.vue";
 import MainBody from "@/components/layout/MainBody.vue";
 import kakaoTalkLogo from "@/images/KakaoTalkLogo.png";
+import { loginStore } from "@/store/loginStore";
+import axios from "axios";
 
 const onClickStart = () => {
     router.push("/login");
@@ -20,15 +20,16 @@ const onClickLogin = () => {
     router.push("/login/temp");
 };
 
-const userInfo = userInfoStore();
+const loginInfo = loginStore();
 const status = ref("NONE");
 
 onMounted(() => {
-    if (!userInfo.isValid()) {
+    if (!loginInfo.isLogin()) {
         return;
     }
-    createInstance
-        .get(`user/info/${userInfo.getUserNo()}`)
+
+    axios
+        .get(`user/info/${loginInfo.getUserNo()}`)
         .then(response => {
             const { data } = response;
             switch (data.userStatus) {
@@ -112,12 +113,12 @@ const onClickDormant = () => {};
                 </div>
             </div>
             <div v-else class="menu-layout">
-                <v-btn class="menu-btn" @click="onClickSignUp">
+                <!-- <v-btn class="menu-btn" @click="onClickSignUp">
                     회원가입(테스트용)
                 </v-btn>
                 <v-btn class="menu-btn" @click="onClickLogin">
                     로그인(테스트용)
-                </v-btn>
+                </v-btn> -->
                 <v-btn class="menu-btn" @click="onClickStart">
                     START
                 </v-btn>

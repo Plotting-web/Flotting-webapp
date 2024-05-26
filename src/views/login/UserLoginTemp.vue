@@ -54,7 +54,7 @@ import { ref } from "vue";
 
 import router from "@/router";
 import { userInfoStore } from "@/store/user/userInfoStore";
-import { createInstance } from "@/axios/axios";
+import axios from "axios";
 
 const visible = true;
 
@@ -65,7 +65,7 @@ const accountInfo = ref({
     password: ""
 });
 const userLogin = () => {
-    createInstance
+    axios
         .post("user/login", accountInfo.value)
         .then(res => {
             userInfo.setUserInfo(res.data);

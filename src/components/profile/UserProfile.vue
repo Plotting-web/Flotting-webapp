@@ -2,7 +2,14 @@
 import CarouselLeft from "@/components/icon/CarouselLeft.vue";
 import ProfileImage from "@/components/image/ProfileImage.vue";
 import CarouselRight from "@/components/icon/CarouselRight.vue";
-import UserProfileNavigation from "@/components/view/UserProfileNavigation.vue";
+import UserProfileNavigation from "@/components/profile/UserProfileNavigation.vue";
+
+defineProps({
+    status: {
+        type: String,
+        default: "default" // default, sending, pending, success, fail, self
+    }
+});
 </script>
 
 <template>
@@ -113,7 +120,7 @@ import UserProfileNavigation from "@/components/view/UserProfileNavigation.vue";
             </div>
         </div>
         <div style="display: flex; flex-direction: column; gap: 10px;">
-            <user-profile-navigation />
+            <user-profile-navigation :status="status" />
         </div>
     </div>
 </template>

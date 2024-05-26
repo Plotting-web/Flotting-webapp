@@ -16,7 +16,6 @@ import SignupSecond from "@/views/signup/SignupSecond.vue";
 import SignupThird from "@/views/signup/SignupThird.vue";
 import SignupPhoto from "@/views/signup/SignupPhoto.vue";
 import SignupEnd from "@/views/signup/SignupEnd.vue";
-import { userInfoStore } from "@/store/user/userInfoStore";
 import LandingMain from "@/views/landing/LandingMain.vue";
 import LandingIntro from "@/views/landing/LandingIntro.vue";
 import UserLogout from "@/views/login/UserLogout.vue";
@@ -24,12 +23,13 @@ import UserState from "@/views/state/UserState.vue";
 import UserLoginTemp from "@/views/login/UserLoginTemp.vue";
 import NavigationLayout from "@/components/layout/NavigationLayout.vue";
 import ProfileView from "@/views/profile/ProfileView.vue";
+import { loginStore } from "@/store/loginStore";
 
 const routes = [
     { path: "/login", component: UserLogin },
-    { path: "/login/temp", component: UserLoginTemp },
+    // { path: "/login/temp", component: UserLoginTemp },
     { path: "/logout", component: UserLogout },
-    { path: "/signupTest", component: SignupSimple },
+    // { path: "/signupTest", component: SignupSimple },
     {
         path: "/",
         component: LandingMain
@@ -125,9 +125,8 @@ const router = createRouter({
     }
 });
 router.beforeEach((to, from, next) => {
-    const userStore = userInfoStore();
-    if (!["/login", "/signupTest", "/", "/intro", "/login/temp"].includes(to.path) && !userStore.getUserAccessToken()) {
-        next("/login/temp");
+    if (!["/", "/login", "/intro"].includes(to.path) && !loginStore().isLogin()) {
+        next("/login");
     } else {
         next();
     }

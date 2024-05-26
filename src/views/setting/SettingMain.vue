@@ -11,14 +11,12 @@ import MainNavigation from "@/components/layout/MainNavigation.vue";
             <div class="card-layout">
                 <v-btn to="/setting/my-profile" class="setting-btn">
                     <div class="setting-btn-content">
-                        <p>나의 프로필</p>
-                        <p>확인하기!</p>
+                        <p>나의 프로필 확인하기!</p>
                     </div>
                 </v-btn>
                 <v-btn to="/setting/inquire" class="setting-btn">
                     <div class="setting-btn-content">
-                        <p>매니저에게</p>
-                        <p>문의하기!</p>
+                        <p>매니저에게 문의하기!</p>
                     </div>
                 </v-btn>
                 <v-btn to="/setting/notice" class="setting-btn">
@@ -28,8 +26,8 @@ import MainNavigation from "@/components/layout/MainNavigation.vue";
                 </v-btn>
                 <v-btn to="/setting/invite" class="setting-btn">
                     <div class="setting-btn-content">
-                        <p>매칭권 무료</p>
-                        <p>이벤트!</p>
+                        <p>매칭권</p>
+                        <p>무료 이벤트!</p>
                     </div>
                 </v-btn>
                 <v-btn to="/setting/block" class="setting-btn">
@@ -52,8 +50,7 @@ import MainNavigation from "@/components/layout/MainNavigation.vue";
     display: flex;
     flex-direction: column;
     width: 100%;
-    padding-inline: 24px;
-    padding-top: 36px;
+    padding: 36px 24px;
 }
 
 .card-layout {
@@ -67,16 +64,16 @@ import MainNavigation from "@/components/layout/MainNavigation.vue";
 }
 .setting-btn {
     width: 100%;
-    height: 76px;
-    box-shadow: 0px 4px 4px 0px #00000040;
+    height: 66px;
+    box-shadow: 0px 4px 4px rgba(96, 224, 224, 0.55);
     background: #f1f1f1;
     border-radius: 16px;
 }
 
 .setting-btn-content {
     text-align: center;
-    font-size: 23px;
-    font-weight: 900;
+    font-size: 18px;
+    font-weight: 700;
     letter-spacing: 0;
 }
 </style>

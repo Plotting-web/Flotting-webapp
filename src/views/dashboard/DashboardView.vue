@@ -1,7 +1,6 @@
 <script setup>
 import { onBeforeMount, ref } from "vue";
 import UserProfileImageCard from "@/components/card/UserProfileImageCard.vue";
-import { fetchApiResource } from "@/axios/commonApi";
 
 import MainHeader from "@/components/layout/MainHeader.vue";
 import MainBody from "@/components/layout/MainBody.vue";
@@ -18,7 +17,7 @@ onBeforeMount(() => {
 });
 const signup = async () => {
     try {
-        await fetchApiResource("test", "GET");
+        // 조회
     } catch (error) {
         console.log(error);
     }
@@ -29,9 +28,9 @@ const signup = async () => {
     <main-header start="setting" end="store" />
     <main-body is-header is-navigation>
         <div class="view-layout">
-            <div class="view-title">
+            <p class="view-title">
                 이번주 프로필
-            </div>
+            </p>
             <user-profile-image-card to="/profile" />
             <user-profile-image-card to="/profile" />
             <user-profile-image-card to="/profile" />
@@ -47,20 +46,22 @@ const signup = async () => {
     width: 100%;
     display: flex;
     flex-direction: column;
-    padding: 32px 24px;
+    justify-content: center;
+    align-items: center;
+    padding: 24px;
     gap: 24px;
 }
 
 .view-title {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    width: 260px;
+    height: 52px;
     color: white;
     font-weight: bold;
     padding-block: 15px;
-    background-color: #60e0e0b2;
+    background: rgba(96, 224, 224, 0.7);
     box-shadow: 4px 4px 10px 0 #60e0e0;
     border-radius: 16px;
-    font-size: 25px;
+    font-size: 20px;
+    text-align: center;
 }
 </style>
