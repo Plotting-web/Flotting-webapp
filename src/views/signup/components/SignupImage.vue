@@ -8,10 +8,13 @@ defineProps({
     }
 });
 
+const emit = defineEmits(["update:image"]);
+
 const inputRef = ref(null);
 const imageSrc = ref(null);
 const onChangedImage = files => {
     imageSrc.value = files[0] ? URL.createObjectURL(files[0]) : null;
+    emit("update:image", files[0]);
 };
 
 const onClicked = key => {
@@ -21,6 +24,7 @@ const onClicked = key => {
 const onClickedCloseIcon = () => {
     imageSrc.value = null;
     inputRef.value = "";
+    emit("update:image", null);
 };
 </script>
 

@@ -2,52 +2,122 @@
 import HomeIcon from "@/components/icon/HomeIcon.vue";
 import CogIcon from "@/components/icon/CogIcon.vue";
 import router from "@/router";
+import PlotLogo from "@/components/icon/PlotLogo.vue";
 
 defineProps({
     start: {
         type: String,
-        default: "cog"
+        default: ""
     },
     title: {
         type: Boolean,
-        default: true
+        default: false
     },
     end: {
         type: String,
-        default: "store"
+        default: ""
     }
 });
 </script>
 
 <template>
-    <header class="position-fixed w-100" style="top: 0; height: 60px; background-color: #60e0e0; z-index: 1000;">
-        <div class="d-flex justify-space-between align-center ga-4 mx-auto h-100 px-4" style="max-width: 390px; min-width: 360px;">
-            <div class="w-25">
-                <v-btn v-if="start === 'cog'" icon="true" color="#60e0e0" style="box-shadow: none;" href="/setting"
-                    ><cog-icon width="35" height="35"
-                /></v-btn>
-                <v-btn v-else-if="start === 'back'" icon="true" color="#60e0e0" style="box-shadow: none;" @click="router.go(-1)"
-                    ><v-icon icon="mdi-arrow-left" size="large" color="white"></v-icon
-                ></v-btn>
-            </div>
-            <div class="d-flex justify-center align-center w-100">
-                <v-btn v-if="title" class="text-none" color="#60e0e0" style="box-shadow: none;" href="/dashboard" variant="text">
-                    <span style="font-size: 30px; line-height: 36px; font-weight: 400; color: #FFFFFF; letter-spacing: 0;">Plotting</span>
+    <div class="header-layout">
+        <header>
+            <div class="header-default header-side">
+                <v-btn v-if="start === 'setting'" icon="true" color="#60e0e0" href="/setting">
+                    <cog-icon width="35" height="35" />
                 </v-btn>
-                <span v-else style="font-size: 30px; line-height: 36px; font-weight: 400; color: #FFFFFF; letter-spacing: 0;">Plotting</span>
+                <v-btn v-else-if="start === 'back'" icon="true" color="#60e0e0" @click="router.go(-1)">
+                    <v-icon icon="mdi-arrow-left" size="large" color="white"></v-icon>
+                </v-btn>
             </div>
-            <div class="w-25">
-                <v-btn v-if="end === 'store'" icon="true" color="#60e0e0" style="box-shadow: none;" href="/store"><home-icon /></v-btn>
-                <div v-if="end === 'mail'" style="display: flex; gap: 3px;">
-                    <div style="display: flex; flex-direction: column;">
+            <div class="header-default header-middle">
+                <v-btn v-if="title" color="#60e0e0" href="/dashboard" variant="text">
+                    <plot-logo width="63" height="30" />
+                </v-btn>
+                <plot-logo v-else width="63" height="30" />
+            </div>
+            <div class="header-default header-side">
+                <v-btn v-if="end === 'store'" icon="true" color="#60e0e0" href="/store">
+                    <home-icon />
+                </v-btn>
+                <div v-else-if="end === 'mail'" class="store-layout">
+                    <div class="store-title">
                         <v-icon icon="mdi-email-open" color="white" size="30" />
-                        <span style="font-weight: 700;font-size: 10px;line-height: 12px;color: #FFFFFF;">매칭권</span>
+                        <span class="store-title-text">
+                            매칭권
+                        </span>
                     </div>
-                    <span style="font-weight: 700; font-size: 25px; line-height: 30px; color: #FFFFFF;">5</span>
+                    <span class="store-count">
+                        5
+                    </span>
                 </div>
             </div>
-        </div>
-    </header>
+        </header>
+    </div>
 </template>
 
-<style scoped></style>
+<style scoped>
+.v-btn {
+    box-shadow: none;
+}
+
+.header-layout {
+    width: 100%;
+    position: fixed;
+    top: 0;
+    height: 60px;
+    background-color: #60e0e0;
+    z-index: 1000;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-inline: 16px;
+    gap: 16px;
+    margin-inline: auto;
+    height: 100%;
+    max-width: 430px;
+    min-width: 320px;
+}
+
+.header-side {
+    width: 25%;
+}
+
+.header-middle {
+    width: 100%;
+}
+
+.header-default {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.store-layout {
+    display: flex;
+    gap: 3px;
+}
+
+.store-title {
+    display: flex;
+    flex-direction: column;
+}
+
+.store-title-text {
+    color: #ffffff;
+    font-weight: 700;
+    text-align: center;
+    font-size: 10px;
+}
+
+.store-count {
+    color: #ffffff;
+    font-weight: 700;
+    text-align: center;
+    font-size: 25px;
+}
+</style>

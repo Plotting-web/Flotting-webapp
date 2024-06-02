@@ -1,29 +1,84 @@
-<script setup></script>
+<script setup>
+import MainHeader from "@/components/layout/MainHeader.vue";
+import MainBody from "@/components/layout/MainBody.vue";
+
+const onClickedCopyButton = () => {
+    navigator.clipboard.writeText("test");
+};
+</script>
 
 <template>
-    <div class="d-flex flex-column justify-center align-center" style="width:100%; padding: 27px 24px; gap: 24px;">
-        <div
-            class="d-flex flex-column justify-center align-center"
-            style="border-radius: 16px; width: 236px; height: 51px; box-shadow: 0px 4px 4px 0px #60E0E0; background: #F1F1F1;"
-        >
-            <span style="font-weight: 900; font-size: 23px; line-height: 28px;">지인 차단</span>
-        </div>
-        <div
-            class="d-flex flex-column justify-center align-center"
-            style="border-radius: 16px; width: 100%; height: 110px; box-shadow: 0px 4px 4px 0px #60E0E0;"
-        >
-            <span style="font-weight: 900; font-size: 23px; line-height: 28px;">연락처에 저장된 지인들을</span>
-            <span style="font-weight: 900; font-size: 23px; line-height: 28px;">소개 상대에서 제외 합니다</span>
-        </div>
-        <div style="width: 100%; height: 303px; box-shadow: 4px 4px 10px 0px #60E0E0; border-radius: 16px; padding: 24px 21px;">
-            <div class="d-flex flex-column justify-center align-center" style="width: 100%; height: 100%; background: #F1F1F1; border-radius: 16px;">
-                <span style="font-weight: 300; font-size: 20px; line-height: 24px;">현재 해당 기능개발 중입니다!</span>
-                <br />
-                <span style="font-weight: 300; font-size: 20px; line-height: 24px;">완료되면 카카오 알람톡이</span>
-                <span style="font-weight: 300; font-size: 20px; line-height: 24px;">발송될 예정입니다.</span>
+    <main-header start="back" end="store" title />
+    <main-body is-header is-navigation>
+        <div class="view-layout">
+            <span class="title">지인 차단</span>
+            <div class="sub-title">
+                <p>연락처에 저장된 지인들을</p>
+                <p>소개 상대에서 제외 합니다</p>
+            </div>
+            <div class="body-layout">
+                <div class="content">
+                    <p>현재 해당 기능개발 중입니다!</p>
+                    <br />
+                    <p>완료되면 해당 소식을</p>
+                    <p>문자로 알려드리겠습니다 :)</p>
+                </div>
             </div>
         </div>
-    </div>
+    </main-body>
 </template>
 
-<style scoped></style>
+<style scoped>
+.view-layout {
+    width: 100%;
+    padding: 28px 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 24px;
+}
+
+.title {
+    min-width: 240px;
+    padding: 12px 24px;
+    border-radius: 16px;
+    box-shadow: 0px 4px 4px 0px #60e0e0;
+    background: #f1f1f1;
+    font-weight: 900;
+    font-size: 23px;
+    text-align: center;
+}
+
+.sub-title {
+    width: 100%;
+    padding-block: 32px;
+    font-weight: 900;
+    font-size: 23px;
+    text-align: center;
+    border-radius: 16px;
+    box-shadow: 0px 4px 4px 0px #60e0e0;
+}
+
+.body-layout {
+    width: 100%;
+    box-shadow: 4px 4px 10px 0px #60e0e0;
+    border-radius: 16px;
+    padding: 24px;
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 300px;
+    background: #f1f1f1;
+    border-radius: 16px;
+    font-weight: 700;
+    font-size: 20px;
+    text-align: center;
+    padding-block: 32px;
+}
+</style>

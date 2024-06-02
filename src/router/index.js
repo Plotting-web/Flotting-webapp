@@ -1,32 +1,34 @@
 import { createWebHistory, createRouter } from "vue-router";
-import UserDashboard from "@/views/dashboard/UserDashboard.vue";
+import DashboardView from "@/views/dashboard/DashboardView.vue";
 import UserLogin from "@/views/login/UserLogin";
-import MainLayout from "@/components/layout/MainLayout";
 import SignupSimple from "@/views/signup/SignupSimple.vue";
-import UserProfile from "@/views/profile/UserProfile.vue";
-import UserPlotting from "@/views/plotting/UserPlotting.vue";
 import SettingMain from "@/views/setting/SettingMain.vue";
 import SettingInquire from "@/views/setting/SettingInquire.vue";
-import SettingNotice from "@/views/setting/SettingNotice.vue";
 import SettingInvite from "@/views/setting/SettingInvite.vue";
 import SettingBlock from "@/views/setting/SettingBlock.vue";
 import SettingStatus from "@/views/setting/SettingStatus.vue";
-import AlarmMain from "@/views/alarm/AlarmMain.vue";
-import StoreMain from "@/views/store/StoreMain.vue";
+import StoreView from "@/views/store/StoreView.vue";
 import TestMain from "@/views/test/TestMain.vue";
 import SettingMyProfile from "@/views/setting/SettingMyProfile.vue";
 import SignupGuide from "@/views/signup/SignupGuide.vue";
-import SignupInfo from "@/views/signup/SignupInfo.vue";
-import SignupWorld from "@/views/signup/SignupWorld.vue";
-import SignupHobby from "@/views/signup/SignupHobby.vue";
+import SignupFirst from "@/views/signup/SignupFirst.vue";
+import SignupSecond from "@/views/signup/SignupSecond.vue";
+import SignupThird from "@/views/signup/SignupThird.vue";
 import SignupPhoto from "@/views/signup/SignupPhoto.vue";
 import SignupEnd from "@/views/signup/SignupEnd.vue";
-import { userInfoStore } from "@/store/user/userInfoStore";
 import LandingMain from "@/views/landing/LandingMain.vue";
 import LandingIntro from "@/views/landing/LandingIntro.vue";
+import UserLogout from "@/views/login/UserLogout.vue";
+import UserState from "@/views/state/UserState.vue";
+import UserLoginTemp from "@/views/login/UserLoginTemp.vue";
+import NavigationLayout from "@/components/layout/NavigationLayout.vue";
+import ProfileView from "@/views/profile/ProfileView.vue";
+import { loginStore } from "@/store/loginStore";
 
 const routes = [
     { path: "/login", component: UserLogin },
+    { path: "/login/temp", component: UserLoginTemp },
+    { path: "/logout", component: UserLogout },
     { path: "/signupTest", component: SignupSimple },
     {
         path: "/",
@@ -38,15 +40,15 @@ const routes = [
     },
     {
         path: "/",
-        component: MainLayout,
+        component: NavigationLayout,
         children: [
             {
                 path: "dashboard",
-                component: UserDashboard
+                component: DashboardView
             },
             {
-                path: "plotting",
-                component: UserPlotting
+                path: "state",
+                component: UserState
             },
             {
                 path: "setting",
@@ -55,10 +57,6 @@ const routes = [
             {
                 path: "setting/inquire",
                 component: SettingInquire
-            },
-            {
-                path: "setting/notice",
-                component: SettingNotice
             },
             {
                 path: "setting/invite",
@@ -71,36 +69,33 @@ const routes = [
             {
                 path: "setting/status",
                 component: SettingStatus
-            },
-            {
-                path: "alarm",
-                component: AlarmMain
             }
         ]
-    },
-    {
-        path: "/profile",
-        component: UserProfile
     },
     {
         path: "/setting/my-profile",
         component: SettingMyProfile
     },
     {
+        path: "/profile",
+        component: ProfileView
+    },
+
+    {
         path: "/signup/guide",
         component: SignupGuide
     },
     {
-        path: "/signup/info",
-        component: SignupInfo
+        path: "/signup/1",
+        component: SignupFirst
     },
     {
-        path: "/signup/world",
-        component: SignupWorld
+        path: "/signup/2",
+        component: SignupSecond
     },
     {
-        path: "/signup/hobby",
-        component: SignupHobby
+        path: "/signup/3",
+        component: SignupThird
     },
     {
         path: "/signup/photo",
@@ -116,7 +111,7 @@ const routes = [
     },
     {
         path: "/store",
-        component: StoreMain
+        component: StoreView
     }
 ];
 
@@ -130,14 +125,9 @@ const router = createRouter({
     }
 });
 router.beforeEach((to, from, next) => {
-    const userStore = userInfoStore();
-    if (to.path === "/login" || to.path === "/signupTest" || to.path === "/") {
-        userStore.resetUserAccessToken();
-        next();
+    if (!["/", "/login", "/intro", "/login/temp", "/signupTest"].includes(to.path) && !loginStore().isLogin()) {
+        next("/login");
     } else {
-        if (!userStore.getUserAccessToken()) {
-            next("/login");
-        }
         next();
     }
 });

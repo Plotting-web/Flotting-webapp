@@ -7,7 +7,7 @@ import UserProfile from "@/components/profile/UserProfile.vue";
 <template>
     <main-header start="back" end="store" title />
     <main-body is-header>
-        <user-profile status="self" />
+        <user-profile />
     </main-body>
 </template>
 

@@ -1,28 +1,79 @@
-<script setup></script>
+<script setup>
+import MainHeader from "@/components/layout/MainHeader.vue";
+import MainBody from "@/components/layout/MainBody.vue";
+import MainNavigation from "@/components/layout/MainNavigation.vue";
+</script>
 
 <template>
-    <div class="d-flex align-center" style="width: 100%; padding: 57px 24px;">
-        <div class="d-flex flex-column" style="width: 100%; border-radius: 16px; box-shadow: 4px 4px 10px 0px #60E0E0; padding: 53px 36px; gap:16px;">
-            <v-btn to="/setting/my-profile" style="height: 73px; box-shadow: 0px 4px 4px 0px #00000040; background: #F1F1F1; border-radius: 16px;">
-                <span style="font-weight: 900; font-size: 23px; line-height: 28px;">나의 프로필</span>
-            </v-btn>
-            <v-btn to="/setting/inquire" style="height: 73px; box-shadow: 0px 4px 4px 0px #00000040; background: #F1F1F1; border-radius: 16px;">
-                <span style="font-weight: 900; font-size: 23px; line-height: 28px;">고객 문의</span>
-            </v-btn>
-            <v-btn to="/setting/notice" style="height: 73px; box-shadow: 0px 4px 4px 0px #00000040; background: #F1F1F1; border-radius: 16px;">
-                <span style="font-weight: 900; font-size: 23px; line-height: 28px;">공지 사항</span>
-            </v-btn>
-            <v-btn to="/setting/invite" style="height: 73px; box-shadow: 0px 4px 4px 0px #00000040; background: #F1F1F1; border-radius: 16px;">
-                <span style="font-weight: 900; font-size: 23px; line-height: 28px;">친구 초대</span>
-            </v-btn>
-            <v-btn to="/setting/block" style="height: 73px; box-shadow: 0px 4px 4px 0px #00000040; background: #F1F1F1; border-radius: 16px;">
-                <span style="font-weight: 900; font-size: 23px; line-height: 28px;">지인 차단</span>
-            </v-btn>
-            <v-btn to="/setting/status" style="height: 73px; box-shadow: 0px 4px 4px 0px #00000040; background: #F1F1F1; border-radius: 16px;">
-                <span style="font-weight: 900; font-size: 23px; line-height: 28px;">상태 변경</span>
-            </v-btn>
+    <main-header start="setting" end="store" title />
+    <main-body is-header is-navigation>
+        <div class="view-layout">
+            <div class="card-layout">
+                <v-btn to="/setting/my-profile" class="setting-btn">
+                    <div class="setting-btn-content">
+                        <p>나의 프로필 확인하기!</p>
+                    </div>
+                </v-btn>
+                <v-btn to="/setting/inquire" class="setting-btn">
+                    <div class="setting-btn-content">
+                        <p>매니저에게 문의하기!</p>
+                    </div>
+                </v-btn>
+                <v-btn to="/setting/notice" class="setting-btn">
+                    <div class="setting-btn-content">
+                        <p>공지 사항</p>
+                    </div>
+                </v-btn>
+                <v-btn to="/setting/invite" class="setting-btn">
+                    <div class="setting-btn-content">
+                        <p>매칭권</p>
+                        <p>무료 이벤트!</p>
+                    </div>
+                </v-btn>
+                <v-btn to="/setting/block" class="setting-btn">
+                    <div class="setting-btn-content">
+                        <p>지인 차단</p>
+                    </div>
+                </v-btn>
+                <v-btn to="/setting/status" class="setting-btn">
+                    <div class="setting-btn-content">
+                        <p>상태 변경</p>
+                    </div>
+                </v-btn>
+            </div>
         </div>
-    </div>
+    </main-body>
 </template>
 
-<style scoped></style>
+<style scoped>
+.view-layout {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding: 36px 24px;
+}
+
+.card-layout {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    border-radius: 16px;
+    box-shadow: 4px 4px 10px 0px #60e0e0;
+    padding: 36px 56px;
+    gap: 16px;
+}
+.setting-btn {
+    width: 100%;
+    height: 66px;
+    box-shadow: 0px 4px 4px rgba(96, 224, 224, 0.55);
+    background: #f1f1f1;
+    border-radius: 16px;
+}
+
+.setting-btn-content {
+    text-align: center;
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: 0;
+}
+</style>

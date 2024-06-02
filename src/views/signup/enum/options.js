@@ -1,174 +1,174 @@
 export const locationOptions = [
     {
-        value: "1",
+        value: "SEOUL_NORTH",
         title: "서울 북부"
     },
     {
-        value: "2",
+        value: "SEOUL_SOUTH",
         title: "서울 남부"
     },
     {
-        value: "3",
+        value: "SEOUL_EAST",
         title: "서울 동부"
     },
     {
-        value: "4",
+        value: "SEOUL_WEST",
         title: "서울 서부"
     },
     {
-        value: "5",
+        value: "GGYEONGGI_NORTH",
         title: "경기 북부"
     },
     {
-        value: "6",
+        value: "GGYEONGGI_SOUTH",
         title: "경기 남부"
     },
     {
-        value: "7",
+        value: "GGYEONGGI_EAST",
         title: "경기 동부"
     },
     {
-        value: "8",
+        value: "GGYEONGGI_WEST",
         title: "경기 서부"
     }
 ];
 
 export const genderOptions = [
     {
-        value: "1",
+        value: "M",
         title: "남성"
     },
     {
-        value: "2",
+        value: "W",
         title: "여성"
     }
 ];
 
 export const appliedPathOptions = [
     {
-        value: "1",
+        value: "SMALL_CLASS_C",
         title: "소모임"
     },
     {
-        value: "2",
+        value: "FRIP",
         title: "프립"
     },
     {
-        value: "3",
+        value: "PORTAL_SEARCH",
         title: "포탈 검색"
     },
     {
-        value: "4",
+        value: "NAVER",
         title: "네이버 카페"
     },
     {
-        value: "5",
+        value: "SNS",
         title: "인스타그램"
     },
     {
-        value: "6",
+        value: "NAVER_STORE",
         title: "네이버스토어"
     },
     {
-        value: "7",
+        value: "WADIZ",
         title: "와디즈"
     },
     {
-        value: "8",
+        value: "ETC",
         title: "기타"
     },
     {
-        value: "9",
+        value: "RECOMMEND",
         title: "지인 추천"
     }
 ];
 
 export const jobOptions = [
     {
-        value: "1",
+        value: "MAJOR_COMPANY",
         title: "대기업"
     },
     {
-        value: "2",
+        value: "MID_COMPANY",
         title: "중견기업"
     },
     {
-        value: "3",
+        value: "PUBLIC_COMPANY",
         title: "공기업/공무원"
     },
     {
-        value: "4",
+        value: "STARTUP",
         title: "스타트업"
     },
     {
-        value: "5",
+        value: "MINOR_COMPANY",
         title: "중소기업"
     },
     {
-        value: "6",
+        value: "STUDENT",
         title: "학생"
     },
     {
-        value: "7",
+        value: "PROFESSIONAL",
         title: "전문직\n(회계사 등)"
     },
     {
-        value: "8",
+        value: "MEDICAL",
         title: "의료직\n(간호사 등)"
     },
     {
-        value: "9",
+        value: "LAB",
         title: "연구기술직"
     },
     {
-        value: "10",
+        value: "EDU",
         title: "교육직"
     },
     {
-        value: "11",
+        value: "BUSNINESS",
         title: "사업가"
     },
     {
-        value: "12",
+        value: "ETC",
         title: "기타"
     }
 ];
 
 export const educationOptions = [
     {
-        value: "1",
+        value: "HIGH_SCHOOL_GRADUATION",
         title: "고등학교 졸업"
     },
     {
-        value: "2",
+        value: "JUNIOR_COLLEGE_ATTENDING",
         title: "전문대 재학"
     },
     {
-        value: "3",
+        value: "JUNIOR_COLLEGE_GRADUATION",
         title: "전문대 졸업"
     },
     {
-        value: "4",
+        value: "COLLEGE_ATTENDING",
         title: "대학교 재학"
     },
     {
-        value: "5",
+        value: "COLLEGE_GRADUATION",
         title: "대학교 졸업"
     },
     {
-        value: "6",
+        value: "COLLEGE_ACADEMY_ATTENDING",
         title: "대학원 재학"
     },
     {
-        value: "7",
+        value: "COLLEGE_ACADEMY_GRADUATION",
         title: "대학원 졸업"
     },
     {
-        value: "8",
+        value: "DOCTOR_INPROGRESS",
         title: "박사과정 진행"
     },
     {
-        value: "9",
+        value: "DOCTOR_COMPLETE",
         title: "박사과정 수료"
     }
 ];
@@ -186,19 +186,19 @@ export const smokingOptions = [
 
 export const drinkingOptions = [
     {
-        value: "1",
+        value: "THREE_WEEK",
         title: "자주 마심\n(주 3회 이상)"
     },
     {
-        value: "2",
+        value: "TWO_WEEK",
         title: "가끔 마심\n(주 2회 이상)"
     },
     {
-        value: "3",
+        value: "ONE_WEEK",
         title: "거의 안 마심\n(월 1~2회)"
     },
     {
-        value: "4",
+        value: "ZERO_WEEK",
         title: "아예 안 마심\n(월 1회 이하)"
     }
 ];
@@ -206,175 +206,175 @@ export const drinkingOptions = [
 export const mbtiOptions = [
     [
         {
-            value: "E",
+            value: "e",
             title: "E"
         },
         {
-            value: "I",
+            value: "i",
             title: "I"
         }
     ],
     [
         {
-            value: "S",
+            value: "s",
             title: "S"
         },
         {
-            value: "N",
+            value: "n",
             title: "N"
         }
     ],
     [
         {
-            value: "T",
+            value: "t",
             title: "T"
         },
         {
-            value: "F",
+            value: "f",
             title: "F"
         }
     ],
     [
         {
-            value: "P",
+            value: "p",
             title: "P"
         },
         {
-            value: "J",
+            value: "j",
             title: "J"
         }
     ]
 ];
 
-export const personalityOptions = [
+export const characterOptions = [
     {
-        value: "1",
+        value: "EXTROVERTED",
         title: "외향적인"
     },
     {
-        value: "2",
+        value: "CUTE",
         title: "애교있는"
     },
     {
-        value: "3",
+        value: "HUMOROUS",
         title: "유머있는"
     },
     {
-        value: "4",
+        value: "KING",
         title: "친절한"
     },
     {
-        value: "5",
+        value: "CALM",
         title: "차분한"
     },
     {
-        value: "6",
+        value: "POSITIVE",
         title: "긍정적인"
     },
     {
-        value: "7",
+        value: "INTELLIGENT",
         title: "지적인"
     },
     {
-        value: "8",
+        value: "UNIQUE",
         title: "4차원"
     },
     {
-        value: "9",
+        value: "PASSIONATE",
         title: "열정적인"
     },
     {
-        value: "10",
+        value: "THOUGHTFUL",
         title: "사려깊은"
     },
     {
-        value: "11",
+        value: "SERIOUS",
         title: "진지한"
     },
     {
-        value: "12",
+        value: "SENSIBLE",
         title: "센스있는"
     }
 ];
 
 export const hobbyOptions = [
     {
-        value: "1",
+        value: "EXERCISE",
         title: "운동"
     },
     {
-        value: "2",
+        value: "SELF_IMPROVEMENT",
         title: "자기계발"
     },
     {
-        value: "3",
+        value: "READING",
         title: "독서"
     },
     {
-        value: "4",
+        value: "FOREIGN_LANGUAGE",
         title: "외국어"
     },
     {
-        value: "5",
+        value: "CAFE",
         title: "카페"
     },
     {
-        value: "6",
+        value: "COOKING",
         title: "요리"
     },
     {
-        value: "7",
+        value: "MUSIC",
         title: "음악"
     },
     {
-        value: "8",
+        value: "INSTRUMENT",
         title: "악기 연주"
     },
     {
-        value: "9",
+        value: "WALK",
         title: "산책"
     },
     {
-        value: "10",
+        value: "ANIMAL",
         title: "반려동물"
     },
     {
-        value: "11",
+        value: "TRAVEL",
         title: "여행"
     },
     {
-        value: "12",
+        value: "FASHION",
         title: "패션"
     },
     {
-        value: "13",
+        value: "FAMOUS_RESTAURANT",
         title: "맛집탐방"
     },
     {
-        value: "14",
+        value: "MOVIE",
         title: "영화/넷플릭스"
     },
     {
-        value: "15",
+        value: "ETC",
         title: "기타 등등"
     }
 ];
 
-export const datingOptions = [
+export const preferredDateOptions = [
     {
-        value: "1",
+        value: "시간될 때마다 최대한 자주 보기",
         title: "시간될 때마다\n최대한 자주 보기"
     },
     {
-        value: "2",
+        value: "일주일에 1~2 번 데이트",
         title: "일주일에\n1~2 번 데이트"
     },
     {
-        value: "3",
+        value: "일주일에 3~4 번 데이트",
         title: "일주일에\n3~4 번 데이트"
     },
     {
-        value: "4",
+        value: "데이트 일정은 조율 가능!",
         title: "데이트 일정은 조율 가능!"
     }
 ];
