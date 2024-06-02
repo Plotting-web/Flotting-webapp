@@ -21,7 +21,9 @@ export const loginStore = defineStore(
         const setRefreshToken = val => (refreshToken.value = val);
 
         const isLogin = () => {
-            return !!accessToken.value && accessToken.value !== "" && !!refreshToken.value && refreshToken.value != "";
+            return !!accessToken.value;
+            // TODO: refreshToken 로직 개발 끝나면 다시 돌려놔야함.
+            // return !!accessToken.value && !!refreshToken.value;
         };
 
         const getUserInfo = () => {
@@ -40,7 +42,7 @@ export const loginStore = defineStore(
             this.userNo.value = userNo;
         };
 
-        const setToken = ({ accessToken, refreshToken }) => {
+        const setToken = ({ accessToken = "", refreshToken = "" }) => {
             this.accessToken.value = accessToken;
             this.refreshToken.value = refreshToken;
         };
@@ -74,7 +76,7 @@ export const loginStore = defineStore(
             storage: localStorage,
             strategies: [
                 {
-                    UserNo: "login"
+                    UserNo: "l"
                 }
             ]
         }

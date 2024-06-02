@@ -27,9 +27,9 @@ import { loginStore } from "@/store/loginStore";
 
 const routes = [
     { path: "/login", component: UserLogin },
-    // { path: "/login/temp", component: UserLoginTemp },
+    { path: "/login/temp", component: UserLoginTemp },
     { path: "/logout", component: UserLogout },
-    // { path: "/signupTest", component: SignupSimple },
+    { path: "/signupTest", component: SignupSimple },
     {
         path: "/",
         component: LandingMain
@@ -125,7 +125,7 @@ const router = createRouter({
     }
 });
 router.beforeEach((to, from, next) => {
-    if (!["/", "/login", "/intro"].includes(to.path) && !loginStore().isLogin()) {
+    if (!["/", "/login", "/intro", "/login/temp", "/signupTest"].includes(to.path) && !loginStore().isLogin()) {
         next("/login");
     } else {
         next();

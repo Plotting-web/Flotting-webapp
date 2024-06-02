@@ -1,17 +1,18 @@
 import axios from "axios";
 import { loginStore } from "@/store/loginStore";
 
-axios.defaults.headers = {
-    "Access-Control-Allow-Origin": "*",
-    "Content-type": "application/json"
-};
+const instance = axios.create({
+    headers: {
+        "Access-Control-Allow-Origin": "*",
+        "Content-type": "application/json"
+    },
+    baseURL: process.env.VUE_FLOTTING_API_URL
+});
 
-axios.defaults.baseURL = process.env.VUE_FLOTTING_API_URL;
-
-axios.interceptors.request.use(
+instance.interceptors.request.use(
     config => {
         const accessToken = loginStore().getAccessToken();
-        console.log("Request Interceptor:", config);
+        // console.log("Request Interceptor:", config);
         if (!!accessToken) {
             config.headers.Authorization = `Bearer ${accessToken}`;
         }
@@ -23,9 +24,9 @@ axios.interceptors.request.use(
     }
 );
 
-axios.interceptors.response.use(
+instance.interceptors.response.use(
     response => {
-        console.log("Response Interceptor:", response);
+        // console.log("Response Interceptor:", response);
         return response;
     },
     error => {
@@ -33,3 +34,5 @@ axios.interceptors.response.use(
         return Promise.reject(error);
     }
 );
+
+export { instance };

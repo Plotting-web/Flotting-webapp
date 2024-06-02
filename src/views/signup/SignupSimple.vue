@@ -67,8 +67,8 @@
 </template>
 <script setup>
 import { ref } from "vue";
-import { fetchApiResource } from "@/axios/commonApi";
 import router from "@/router";
+import { instance } from "@/axios/axios";
 
 const userData = ref({
     email: "",
@@ -79,12 +79,10 @@ const userData = ref({
     job: "PUBLIC_COMPANY"
 });
 
-const signup = async () => {
-    try {
-        await fetchApiResource("user/signin", "POST", userData.value);
-        router.push("/login");
-    } catch (error) {
-        console.log(error);
-    }
+const signup = () => {
+    instance
+        .post("user/signin", userData.value)
+        .then(res => router.push("/login/temp"))
+        .catch(error => console.error(error));
 };
 </script>

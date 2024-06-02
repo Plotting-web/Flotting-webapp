@@ -113,12 +113,12 @@ const onClickDormant = () => {};
                 </div>
             </div>
             <div v-else class="menu-layout">
-                <!-- <v-btn class="menu-btn" @click="onClickSignUp">
-                    회원가입(테스트용)
+                <v-btn class="menu-btn" @click="onClickSignUp">
+                    회원가입(DEV)
                 </v-btn>
                 <v-btn class="menu-btn" @click="onClickLogin">
-                    로그인(테스트용)
-                </v-btn> -->
+                    로그인(DEV)
+                </v-btn>
                 <v-btn class="menu-btn" @click="onClickStart">
                     START
                 </v-btn>

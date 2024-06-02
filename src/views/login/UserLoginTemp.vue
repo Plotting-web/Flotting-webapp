@@ -53,24 +53,27 @@
 import { ref } from "vue";
 
 import router from "@/router";
-import { userInfoStore } from "@/store/user/userInfoStore";
-import axios from "axios";
+import { loginStore } from "@/store/loginStore";
+import { instance } from "@/axios/axios";
 
 const visible = true;
-
-const userInfo = userInfoStore();
 
 const accountInfo = ref({
     phoneNumber: "",
     password: ""
 });
 const userLogin = () => {
-    axios
+    instance
         .post("user/login", accountInfo.value)
         .then(res => {
-            userInfo.setUserInfo(res.data);
+            console.log(res.data);
+            loginStore.setUserInfo(res.data);
+            loginStore.setToken(res.data);
             router.push("/");
         })
-        .catch(error => console.log(error));
+        .catch(error => {
+            console.log(error);
+            alert("로그인에 실패하였습니다. 잠시 후에 시도해주십시오.");
+        });
 };
 </script>
