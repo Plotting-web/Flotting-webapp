@@ -5,6 +5,7 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build --mode dev --history-api-fallback",
+    "build:dev": "vue-cli-service build --mode dev --history-api-fallback",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
