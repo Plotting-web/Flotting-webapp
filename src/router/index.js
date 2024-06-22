@@ -18,6 +18,7 @@ import SignupPhoto from "@/views/signup/SignupPhoto.vue";
 import SignupEnd from "@/views/signup/SignupEnd.vue";
 import LandingMain from "@/views/landing/LandingMain.vue";
 import LandingIntro from "@/views/landing/LandingIntro.vue";
+import LandingLoading from "@/views/landing/LandingLoading.vue";
 import UserLogout from "@/views/login/UserLogout.vue";
 import UserState from "@/views/state/UserState.vue";
 import UserLoginTemp from "@/views/login/UserLoginTemp.vue";
@@ -27,9 +28,8 @@ import { loginStore } from "@/store/loginStore";
 
 const routes = [
     { path: "/login", component: UserLogin },
-    { path: "/login/temp", component: UserLoginTemp },
     { path: "/logout", component: UserLogout },
-    { path: "/signupTest", component: SignupSimple },
+    { path: "/loading", component: LandingLoading },
     {
         path: "/",
         component: LandingMain
@@ -106,12 +106,14 @@ const routes = [
         component: SignupEnd
     },
     {
-        path: "/test",
-        component: TestMain
-    },
-    {
         path: "/store",
         component: StoreView
+    },
+    { path: "/login/temp", component: UserLoginTemp },
+    { path: "/signupTest", component: SignupSimple },
+    {
+        path: "/test",
+        component: TestMain
     }
 ];
 

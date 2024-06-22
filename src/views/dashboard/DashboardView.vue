@@ -8,19 +8,29 @@ import DashboardDoneCard from "@/views/dashboard/card/DashboardDoneCard.vue";
 import DashboardFindingCard from "@/views/dashboard/card/DashboardFindingCard.vue";
 import DashboardDormantCard from "@/views/dashboard/card/DashboardDormantCard.vue";
 
-const tab = ref(null);
-
 const list = ref([]);
 
 onBeforeMount(() => {
     signup();
 });
+
+const test = data => {
+    console.log("test fetched");
+    return new Promise((resolve, reject) => {
+        resolve(data);
+        // reject(data);
+    });
+};
+
 const signup = async () => {
-    try {
-        // 조회
-    } catch (error) {
-        console.log(error);
-    }
+    // 조회
+    test([])
+        .then(val => {
+            console.log(val);
+        })
+        .catch(error => {
+            console.log("error >> ", error);
+        });
 };
 </script>
 

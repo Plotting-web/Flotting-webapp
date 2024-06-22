@@ -6,6 +6,7 @@ import { onMounted } from "vue";
 import { signupInfoStore } from "@/views/signup/store/singupInfoStore";
 import MainBody from "@/components/layout/MainBody.vue";
 import { loginStore } from "@/store/loginStore";
+import { instance } from "@/axios/axios";
 
 const router = useRouter();
 
@@ -17,7 +18,7 @@ const loginInfo = loginStore();
 const signupInfo = signupInfoStore();
 
 onMounted(() => {
-    axios
+    instance
         .get(`user/info/${loginInfo.getUserNo()}`)
         .then(response => {
             const { data } = response;

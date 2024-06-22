@@ -30,6 +30,10 @@ export const locationOptions = [
     {
         value: "GGYEONGGI_WEST",
         title: "경기 서부"
+    },
+    {
+        value: "INCHOEN",
+        title: "인천"
     }
 ];
 
@@ -378,3 +382,21 @@ export const preferredDateOptions = [
         title: "데이트 일정은 조율 가능!"
     }
 ];
+
+export const getTitleByOptions = (options, val) => {
+    for (const option of options) {
+        if (Array.isArray(option)) {
+            for (const innerOption of option) {
+                if (innerOption.value === val) {
+                    return innerOptions.title;
+                }
+            }
+        } else {
+            if (option.value === val) {
+                return option.title;
+            }
+        }
+    }
+
+    return "";
+};
