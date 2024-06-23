@@ -3,7 +3,8 @@ import { loginStore } from "@/store/loginStore";
 
 const instance = axios.create({
     headers: {
-        "Access-Control-Allow-Origin": "*",
+        // TODO : CORS 에러 해결 되면 주석 해제
+        // "Access-Control-Allow-Origin": "*",
         "Content-type": "application/json"
     },
     baseURL: process.env.VUE_FLOTTING_API_URL
@@ -27,7 +28,7 @@ instance.interceptors.request.use(
 instance.interceptors.response.use(
     response => {
         // console.log("Response Interceptor:", response);
-        return response;
+        return response.data;
     },
     error => {
         console.error("Response Error Interceptor:", error);

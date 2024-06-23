@@ -2,13 +2,13 @@
 import MainHeader from "@/components/layout/MainHeader.vue";
 import MainBody from "@/components/layout/MainBody.vue";
 import MainNavigation from "@/components/layout/MainNavigation.vue";
-import { ref } from "vue";
+import { onBeforeMount, ref } from "vue";
 import DialogCard from "@/components/card/DialogCard.vue";
+import { instance } from "@/axios/axios";
 
 const dialog = ref(null);
 const selectedItem = ref(null);
 
-const gender = ref("M");
 const sale = ref(true);
 
 const manList = [
@@ -101,7 +101,20 @@ const clickedText = () => {
     alert("문자로 안내해드렸습니다!");
 };
 
-const list = sale.value ? (gender.value === "M" ? manSaleList : womanSaleList) : gender.value === "M" ? manList : womanList;
+// const list = sale.value ? (gender.value === "M" ? manSaleList : womanSaleList) : gender.value === "M" ? manList : womanList;
+const list = ref([]);
+onBeforeMount(() => {
+    instance.get("tickets/v1").then(res => {
+        console.log(res);
+        const body = res?.body;
+        console.log(body);
+        list.value = body?.tickets ?? [];
+    });
+});
+
+const getSale = item => {
+    return Math.round((item.price / item.nominalPrice) * 100);
+};
 </script>
 
 <template>
@@ -125,7 +138,7 @@ const list = sale.value ? (gender.value === "M" ? manSaleList : womanSaleList) :
                 </div>
                 <v-card
                     v-for="(item, i) in list"
-                    :key="item.title + item.sale"
+                    :key="item.id"
                     class="card-default"
                     :style="i === 1 && 'border-color: #FF0000'"
                     @click="
@@ -136,15 +149,15 @@ const list = sale.value ? (gender.value === "M" ? manSaleList : womanSaleList) :
                     "
                 >
                     <div class="card-content">
-                        <span class="card-title">{{ item.title }}</span>
+                        <span class="card-title">{{ `매칭권 ${item.bundleCount}회` }}</span>
                         <div class="card-price-layout">
                             <div class="card-price-discount">
-                                <span>{{ item.sale }}%</span>
+                                <span>{{ getSale(item) }}%</span>
                                 <span>OFF</span>
                             </div>
                             <div class="card-price">
-                                <span style="text-decoration: line-through; ">{{ item.originPrice }}</span>
-                                <span style="color: #FF0000;">{{ item.discountPrice }}</span>
+                                <span style="text-decoration: line-through; ">{{ item.nominalPrice.toLocaleString() }}</span>
+                                <span style="color: #FF0000;">{{ item.price.toLocaleString() }}</span>
                             </div>
                         </div>
                     </div>
@@ -168,15 +181,15 @@ const list = sale.value ? (gender.value === "M" ? manSaleList : womanSaleList) :
                     <div class="d-card-body-content">
                         <p style="font-size: 18px; font-weight: 700;">🏧 상품 결제창 🏧</p>
                         <div class="d-price-layout">
-                            <p style="font-size: 18px;">{{ selectedItem.title }}</p>
+                            <p style="font-size: 18px;">{{ `매칭권 ${selectedItem.bundleCount}회` }}</p>
                             <div style="display: flex; gap: 5px;">
                                 <div class="d-price-discount-layout">
-                                    <span>{{ selectedItem.sale }}%</span>
+                                    <span>{{ getSale(selectedItem) }}%</span>
                                     <span>OFF</span>
                                 </div>
                                 <div class="d-price">
-                                    <span style="text-decoration: line-through; ">{{ selectedItem.originPrice }}</span>
-                                    <span style="color: #FF0000;">{{ selectedItem.discountPrice }}</span>
+                                    <span style="text-decoration: line-through; ">{{ selectedItem.nominalPrice.toLocaleString() }}</span>
+                                    <span style="color: #FF0000;">{{ selectedItem.price.toLocaleString() }}</span>
                                 </div>
                             </div>
                         </div>
@@ -185,8 +198,11 @@ const list = sale.value ? (gender.value === "M" ? manSaleList : womanSaleList) :
                             <p>매칭권 충전 및 확인 문자 발송해드려요 :)</p>
                         </div>
                     </div>
-                    <v-btn class="d-card-body-btn1" @click="clickedText">
+                    <v-btn class="d-card-body-btn d-card-body-btn-mb" @click="clickedText">
                         문자로 안내받기
+                    </v-btn>
+                    <v-btn class="d-card-body-btn" @click="dialog = false">
+                        새로운 인연 포기하기
                     </v-btn>
                 </div>
             </dialog-card>
@@ -265,6 +281,7 @@ const list = sale.value ? (gender.value === "M" ? manSaleList : womanSaleList) :
     justify-content: space-between;
     align-items: center;
 }
+
 .card-title {
     color: #35a8aa;
     font-size: 22px;
@@ -291,10 +308,11 @@ const list = sale.value ? (gender.value === "M" ? manSaleList : womanSaleList) :
     font-size: 16px;
     font-weight: 700;
 }
+
 .card-topic {
     position: absolute;
     right: 18px;
-    top: 5px;
+    top: 2px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -306,6 +324,7 @@ const list = sale.value ? (gender.value === "M" ? manSaleList : womanSaleList) :
     font-weight: 700;
     font-size: 11px;
 }
+
 .card-policy {
     width: 100%;
     display: flex;
@@ -340,7 +359,7 @@ const list = sale.value ? (gender.value === "M" ? manSaleList : womanSaleList) :
     gap: 32px;
 }
 
-.d-card-body-btn1 {
+.d-card-body-btn {
     width: 100%;
     font-size: 20px;
     font-weight: 700;
@@ -351,6 +370,10 @@ const list = sale.value ? (gender.value === "M" ? manSaleList : womanSaleList) :
     border: 1px solid #60e0e0;
     border-radius: 24px;
     letter-spacing: 0;
+}
+
+.d-card-body-btn-mb {
+    margin-bottom: 10px;
 }
 
 .d-price-layout {
