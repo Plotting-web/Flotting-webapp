@@ -1,24 +1,26 @@
 <script setup>
 import router from "@/router";
-import { onMounted, ref } from "vue";
+import { onBeforeMount, onMounted, ref } from "vue";
 import PlotLogo from "@/components/icon/PlotLogo.vue";
 import MainBody from "@/components/layout/MainBody.vue";
 import kakaoTalkLogo from "@/images/KakaoTalkLogo.png";
-import { loginStore } from "@/store/loginStore";
 import { instance } from "@/axios/axios";
+import { tokenStore } from "@/store/tokenStore";
+import { userStore } from "@/store/userStore";
+import { signupInfoStore } from "@/views/signup/store/singupInfoStore";
 
 const niceFormRef = ref(null);
-
 const encDataRef = ref(null);
 const tokenVersionIdRef = ref(null);
 const integrityValueRef = ref(null);
 
 const onClickStart = () => {
+    const returnUrl = "http://localhost:8080/nice/callback";
     instance
-        .get("/nice/v1/enc/access-data")
-        .then(data => {
-            if (!!data.body.encryptedData) {
-                openNicePopup(data.body.encryptedData);
+        .get(`/nice/v1/enc/access-data?returnUrl=${returnUrl}`)
+        .then(res => {
+            if (!!res.body.encryptedData) {
+                openNicePopup(res.body.encryptedData);
             } else {
                 console.error("encryptedData not found.");
             }
@@ -26,7 +28,6 @@ const onClickStart = () => {
         .catch(error => {
             console.error(error);
         });
-    // const returnUrl = `${process.env.VUE_FLOTTING_API_URL}/api/nice/v1/login`;
 };
 
 const openNicePopup = ({ encryptedData, integrityValue, tokenVersionId }) => {
@@ -54,7 +55,6 @@ const openNicePopup = ({ encryptedData, integrityValue, tokenVersionId }) => {
                         integrityValue: integrityValueRef.value.value,
                         encData: encDataRef.value.value
                     };
-
                     loginByNice(data);
                 }
             } catch (e) {}
@@ -65,7 +65,6 @@ const openNicePopup = ({ encryptedData, integrityValue, tokenVersionId }) => {
 };
 
 const loginByNice = data => {
-    console.log("data >> ", data);
     if (!data.encData) {
         alert("인증에 실패하였습니다. 다시 시도해주십시오.");
         return;
@@ -73,58 +72,70 @@ const loginByNice = data => {
     instance
         .post("/nice/v1/login", data)
         .then(res => {
-            console.log("res >> ", res);
+            tokenStore().set(res.body.tokenData);
+            userStore().set(res.body);
+            getUserInfo();
         })
-        .catch(error => console.error(error));
+        .catch();
+};
+
+const getUserInfo = () => {
+    instance
+        .get(`/users/v1/info`)
+        .then(res => {
+            userStore().set(res.body);
+            signupInfoStore().set(res.body);
+            switch (res.body.userStatusType) {
+                case "PROFILE_REGISTRATION": // 프로필 등록 전
+                case "WITHDRAWN": // 탈퇴
+                    router.push("/signup/guide");
+                    break;
+                case "ACTIVE": // 활동
+                    router.push("/dashboard");
+                    break;
+                case "PROFILE_APPROVAL": // 프로필 승인 전
+                case "DORMANT": // 휴면
+                case "BLOCKED": // 블락
+                case "REJECTED": // 반려
+                default:
+                    status.value = res.body.userStatusType;
+                    break;
+            }
+        })
+        .catch();
 };
 
 const onClickIntro = () => {
     router.push("/intro");
 };
-const onClickSignUp = () => {
-    router.push("/signupTest");
-};
-const onClickLogin = () => {
-    router.push("/login/temp");
-};
 
-const loginInfo = loginStore();
 const status = ref("NONE");
 
+onBeforeMount(() => {
+    if (!tokenStore().isLogin()) {
+        userStore().reset();
+        tokenStore().reset();
+    } else {
+        status.value = userStore().getStatus();
+    }
+});
+
 onMounted(() => {
-    if (!loginInfo.isLogin()) {
+    userStore().log();
+    tokenStore().log();
+    if (!tokenStore().isLogin()) {
         return;
     }
-
-    instance
-        .get(`/user/info/${loginInfo.getUserId()}`)
-        .then(data => {
-            switch (data.userStatus) {
-                case "NORMAL": // 프로필 등록이 승인된 유저
-                    router.push("/dashboard");
-                    break;
-                case null:
-                case "NONE": // 프로필 등록이 안된 유저
-                    router.push("/signup/guide");
-                    break;
-                default:
-                    status.value = data.userStatus;
-            }
-        })
-        .catch(error => {
-            console.error(error);
-        });
+    getUserInfo();
 });
 
 const onClickKakao = () => {
     alert("카카오톡 이동");
 };
 
-const onClickDormant = () => {};
-
-/**
- *  NONE("승인전&카카오로그인만"),INPROGRESS("프로필등록완료&승인전"), REJECT("반려"), DORMANT("휴면"), NORMAL("활성"), FORCED_WITHDRAWAL("강제탈퇴");
- */
+const onClickDormant = () => {
+    alert("휴면 처리");
+};
 </script>
 
 <template>
@@ -134,7 +145,7 @@ const onClickDormant = () => {};
                 <plot-logo width="120" height="60" />
                 <span style="">검증된 직장인을 위한 후불제 소개팅</span>
             </div>
-            <div v-if="status === 'INPROGRESS'" class="card-layout">
+            <div v-if="status === 'PROFILE_APPROVAL'" class="card-layout">
                 <div class="card">
                     <p style="margin-top: 40px; margin-bottom: 20px;">등록하신 프로필을 심사중입니다.</p>
                     <p>12시간 내로 프로필 심사 결과가</p>
@@ -144,7 +155,7 @@ const onClickDormant = () => {};
                     </v-btn>
                 </div>
             </div>
-            <div v-else-if="status === 'FORCED_WITHDRAWAL'" class="card-layout">
+            <div v-else-if="status === 'BLOCKED'" class="card-layout">
                 <div class="card">
                     <p>고객님은 서비스 이용이</p>
                     <p style="margin-bottom: 20px;">잠시 보류된 상태입니다.</p>
@@ -156,7 +167,7 @@ const onClickDormant = () => {};
                     </v-btn>
                 </div>
             </div>
-            <div v-else-if="status === 'REJECT'" class="card-layout">
+            <div v-else-if="status === 'REJECTED'" class="card-layout">
                 <div class="card">
                     <p>심사가 반려되었습니다.</p>
                     <p style="margin-bottom: 20px;">관리자에게 문의 부탁드립니다.</p>
@@ -180,12 +191,6 @@ const onClickDormant = () => {};
                 </div>
             </div>
             <div v-else class="menu-layout">
-                <v-btn class="menu-btn" @click="onClickSignUp">
-                    회원가입(DEV)
-                </v-btn>
-                <v-btn class="menu-btn" @click="onClickLogin">
-                    로그인(DEV)
-                </v-btn>
                 <v-btn class="menu-btn" @click="onClickStart">
                     START
                 </v-btn>

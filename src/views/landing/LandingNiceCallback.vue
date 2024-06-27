@@ -1,12 +1,14 @@
 <script setup>
-import router from "@/router";
 import { onMounted } from "vue";
+import { useRoute } from "vue-router";
+
+const route = useRoute();
 
 onMounted(() => {
-    window.opener.document.getElementById("encData").value = router.query.enc_data;
-    if (router.query.enc_data !== "undefined" && window.opener.document.getElementById("encData").value !== undefined) {
-        if (window.opener.document.getElementById("encData").value !== "undefined") {
-            window.opener.document.getElementById("encData").value = router.query.enc_data;
+    window.opener.document.getElementById("enc_data").value = route.query.enc_data;
+    if (route.query.enc_data !== "undefined" && window.opener.document.getElementById("enc_data").value !== undefined) {
+        if (window.opener.document.getElementById("enc_data").value !== "undefined") {
+            window.opener.document.getElementById("enc_data").value = route.query.enc_data;
         }
     }
     window.close();

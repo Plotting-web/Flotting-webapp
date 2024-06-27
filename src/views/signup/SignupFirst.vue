@@ -6,16 +6,16 @@ import SignupProgress from "@/views/signup/components/SignupProgress.vue";
 import SignupRadio from "@/views/signup/components/SignupRadio.vue";
 import { signupInfoStore } from "@/views/signup/store/singupInfoStore";
 import { storeToRefs } from "pinia";
-import { appliedPathOptions, genderOptions, locationOptions } from "@/views/signup/enum/options";
+import { inflowPathOptions, genderOptions, residenceTypeOptions } from "@/views/signup/enum/options";
 import MainBody from "@/components/layout/MainBody.vue";
 
 const store = signupInfoStore();
-const { name, birthday, height, gender, location, detailLocation, appliedPath, recommendUserName } = storeToRefs(store);
+const { name, birthDate, height, gender, residenceType, detailResidence, inflowPath, referralCode } = storeToRefs(store);
 const form = ref();
 const onClickedDone = async () => {
     const { valid } = await form.value.validate();
 
-    const radioValid = gender.value !== "" && location.value !== "" && appliedPath.value !== "";
+    const radioValid = gender.value !== "" && residenceType.value !== "" && inflowPath.value !== "";
 
     if (!valid || !radioValid) {
         alert("1 ~ 6번까지 모든 문항을 입력해주세요!");
@@ -27,14 +27,14 @@ const onClickedDone = async () => {
 
 const nameRules = [value => !!value || "필수 값 입니다.", value => value.length >= 2 || "2 글자 이상", value => value.length <= 10 || "10 글자 이하"];
 
-const birthdayRules = [
+const birthDateRules = [
     value => !!value || "필수 값 입니다.",
     value => /[0-9]/.test(value) || "숫자만 입력해주세요.",
     value => value.length === 6 || "YYMMDD",
     value => /(?:\d{2})(0[1-9]|1[0-2])(0[1-9]|[12]\d|3[01])$/.test(value) || "잘못된 형식 입니다."
 ];
 
-const detailLocationRules = [
+const detailResidenceRules = [
     value => !!value || "필수 값 입니다.",
     value => /[^0-9]/.test(value) || "글자만 입력해주세요.",
     value => value.length <= 10 || "10 글자 이하로 입력해주세요."
@@ -58,18 +58,18 @@ const detailLocationRules = [
                             :clearable="true"
                             :rules="nameRules"
                             counter="10"
+                            disabled
                         ></v-text-field>
                     </div>
                     <div class="d-flex flex-column">
-                        <span class="text-none title-text">(2) 본인 생년월일 6자리</span>
+                        <span class="text-none title-text">(2) 생년월일</span>
                         <v-text-field
-                            v-model="birthday"
+                            v-model="birthDate"
                             class="text-none input-text"
-                            placeholder="010830"
+                            placeholder="20010830"
                             variant="underlined"
                             :clearable="true"
-                            :rules="birthdayRules"
-                            counter="6"
+                            disabled
                         ></v-text-field>
                     </div>
                     <div class="d-flex flex-column ga-2">
@@ -97,6 +97,7 @@ const detailLocationRules = [
                                 :group-value="gender"
                                 :value="value"
                                 :title="title"
+                                disabled
                                 @click="val => (gender = val)"
                             />
                         </div>
@@ -105,12 +106,12 @@ const detailLocationRules = [
                         <span class="text-none title-text">(5-1) 본인 거주지</span>
                         <div style="display: grid; grid-template-columns: repeat(3, 1fr); grid-gap: 8px;">
                             <signup-radio
-                                v-for="({ value, title }, i) in locationOptions"
+                                v-for="({ value, title }, i) in residenceTypeOptions"
                                 :key="`loc_${i}`"
-                                :group-value="location"
+                                :group-value="residenceType"
                                 :value="value"
                                 :title="title"
-                                @click="val => (location = val)"
+                                @click="val => (residenceType = val)"
                             />
                         </div>
                     </div>
@@ -118,32 +119,32 @@ const detailLocationRules = [
                         <span class="text-none title-text">(5-2) 본인 상세 거주지</span>
                         <span class="sub-title">- 상세 주소 입력 시 00시 00구 까지 입력</span>
                         <v-text-field
-                            v-model="detailLocation"
+                            v-model="detailResidence"
                             class="text-none input-text"
                             placeholder="서울시 서초구"
                             variant="underlined"
                             :clearable="true"
                             counter="10"
-                            :rules="detailLocationRules"
+                            :rules="detailResidenceRules"
                         ></v-text-field>
                     </div>
                     <div class="d-flex flex-column ga-3">
                         <span class="text-none title-text">(6) 신청 경로</span>
                         <div style="display: grid; grid-template-columns: repeat(3, 1fr); grid-gap: 8px;">
                             <signup-radio
-                                v-for="({ value, title }, i) in appliedPathOptions"
+                                v-for="({ value, title }, i) in inflowPathOptions"
                                 :key="`applied_${i}`"
-                                :group-value="appliedPath"
+                                :group-value="inflowPath"
                                 :value="value"
                                 :title="title"
-                                @click="val => (appliedPath = val)"
+                                @click="val => (inflowPath = val)"
                             />
                         </div>
                     </div>
                     <div class="d-flex flex-column ga-3">
                         <span class="text-none title-text">(7) 추천인 코드</span>
                         <v-text-field
-                            v-model="recommendUserName"
+                            v-model="referralCode"
                             class="text-none input-text"
                             density="compact"
                             placeholder="예시 ) 김현욱"

@@ -9,29 +9,6 @@ import DashboardFindingCard from "@/views/dashboard/card/DashboardFindingCard.vu
 import DashboardDormantCard from "@/views/dashboard/card/DashboardDormantCard.vue";
 
 const list = ref([]);
-
-onBeforeMount(() => {
-    signup();
-});
-
-const test = data => {
-    console.log("test fetched");
-    return new Promise((resolve, reject) => {
-        resolve(data);
-        // reject(data);
-    });
-};
-
-const signup = async () => {
-    // 조회
-    test([])
-        .then(val => {
-            console.log(val);
-        })
-        .catch(error => {
-            console.log("error >> ", error);
-        });
-};
 </script>
 
 <template>

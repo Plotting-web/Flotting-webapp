@@ -1,5 +1,5 @@
 import axios from "axios";
-import { loginStore } from "@/store/loginStore";
+import { tokenStore } from "@/store/tokenStore";
 
 const instance = axios.create({
     headers: {
@@ -12,8 +12,8 @@ const instance = axios.create({
 
 instance.interceptors.request.use(
     config => {
-        const accessToken = loginStore().getAccessToken();
-        // console.log("Request Interceptor:", config);
+        const accessToken = tokenStore().getAccessToken();
+        console.log("Request Interceptor:", config);
         if (!!accessToken) {
             config.headers.Authorization = `Bearer ${accessToken}`;
         }
@@ -27,7 +27,7 @@ instance.interceptors.request.use(
 
 instance.interceptors.response.use(
     response => {
-        // console.log("Response Interceptor:", response);
+        console.log("Response Interceptor:", response);
         return response.data;
     },
     error => {

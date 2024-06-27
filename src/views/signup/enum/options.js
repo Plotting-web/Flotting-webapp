@@ -1,4 +1,4 @@
-export const locationOptions = [
+export const residenceTypeOptions = [
     {
         value: "SEOUL_NORTH",
         title: "서울 북부"
@@ -32,23 +32,23 @@ export const locationOptions = [
         title: "경기 서부"
     },
     {
-        value: "INCHOEN",
+        value: "INCHEON",
         title: "인천"
     }
 ];
 
 export const genderOptions = [
     {
-        value: "M",
+        value: "MALE",
         title: "남성"
     },
     {
-        value: "W",
+        value: "FEMALE",
         title: "여성"
     }
 ];
 
-export const appliedPathOptions = [
+export const inflowPathOptions = [
     {
         value: "SMALL_CLASS_C",
         title: "소모임"
@@ -87,13 +87,13 @@ export const appliedPathOptions = [
     }
 ];
 
-export const jobOptions = [
+export const occupationTypeOptions = [
     {
-        value: "MAJOR_COMPANY",
+        value: "LARGE_COMPANY",
         title: "대기업"
     },
     {
-        value: "MID_COMPANY",
+        value: "MEDIUM_COMPANY",
         title: "중견기업"
     },
     {
@@ -105,7 +105,7 @@ export const jobOptions = [
         title: "스타트업"
     },
     {
-        value: "MINOR_COMPANY",
+        value: "SME",
         title: "중소기업"
     },
     {
@@ -121,58 +121,58 @@ export const jobOptions = [
         title: "의료직\n(간호사 등)"
     },
     {
-        value: "LAB",
+        value: "RESEARCH",
         title: "연구기술직"
     },
     {
-        value: "EDU",
+        value: "EDUCATION",
         title: "교육직"
     },
     {
-        value: "BUSNINESS",
+        value: "BUSINESS",
         title: "사업가"
     },
     {
-        value: "ETC",
+        value: "OTHERS",
         title: "기타"
     }
 ];
 
-export const educationOptions = [
+export const educationTypeOptions = [
     {
-        value: "HIGH_SCHOOL_GRADUATION",
+        value: "HIGH_SCHOOL_GRADUATE",
         title: "고등학교 졸업"
     },
     {
-        value: "JUNIOR_COLLEGE_ATTENDING",
+        value: "JUNIOR_COLLEGE_STUDENT",
         title: "전문대 재학"
     },
     {
-        value: "JUNIOR_COLLEGE_GRADUATION",
+        value: "JUNIOR_COLLEGE_GRADUATE",
         title: "전문대 졸업"
     },
     {
-        value: "COLLEGE_ATTENDING",
+        value: "UNIVERSITY_STUDENT",
         title: "대학교 재학"
     },
     {
-        value: "COLLEGE_GRADUATION",
+        value: "UNIVERSITY_GRADUATE",
         title: "대학교 졸업"
     },
     {
-        value: "COLLEGE_ACADEMY_ATTENDING",
+        value: "GRADUATE_SCHOOL_STUDENT",
         title: "대학원 재학"
     },
     {
-        value: "COLLEGE_ACADEMY_GRADUATION",
+        value: "GRADUATE_SCHOOL_GRADUATE",
         title: "대학원 졸업"
     },
     {
-        value: "DOCTOR_INPROGRESS",
+        value: "DOCTORAL_STUDENT",
         title: "박사과정 진행"
     },
     {
-        value: "DOCTOR_COMPLETE",
+        value: "DOCTORAL_GRADUATE",
         title: "박사과정 수료"
     }
 ];
@@ -188,21 +188,21 @@ export const smokingOptions = [
     }
 ];
 
-export const drinkingOptions = [
+export const drinkFrequencyTypeOptions = [
     {
-        value: "THREE_WEEK",
+        value: "OFTEN",
         title: "자주 마심\n(주 3회 이상)"
     },
     {
-        value: "TWO_WEEK",
+        value: "SOMETIMES",
         title: "가끔 마심\n(주 2회 이상)"
     },
     {
-        value: "ONE_WEEK",
+        value: "RARELY",
         title: "거의 안 마심\n(월 1~2회)"
     },
     {
-        value: "ZERO_WEEK",
+        value: "NEVER",
         title: "아예 안 마심\n(월 1회 이하)"
     }
 ];
@@ -250,9 +250,9 @@ export const mbtiOptions = [
     ]
 ];
 
-export const characterOptions = [
+export const personalitiesOptions = [
     {
-        value: "EXTROVERTED",
+        value: "OUTGOING",
         title: "외향적인"
     },
     {
@@ -264,7 +264,7 @@ export const characterOptions = [
         title: "유머있는"
     },
     {
-        value: "KING",
+        value: "KIND",
         title: "친절한"
     },
     {
@@ -280,7 +280,7 @@ export const characterOptions = [
         title: "지적인"
     },
     {
-        value: "UNIQUE",
+        value: "QUIRKY",
         title: "4차원"
     },
     {
@@ -296,12 +296,12 @@ export const characterOptions = [
         title: "진지한"
     },
     {
-        value: "SENSIBLE",
+        value: "SENSITIVE",
         title: "센스있는"
     }
 ];
 
-export const hobbyOptions = [
+export const interestsOptions = [
     {
         value: "EXERCISE",
         title: "운동"
@@ -331,15 +331,15 @@ export const hobbyOptions = [
         title: "음악"
     },
     {
-        value: "INSTRUMENT",
+        value: "PLYING_INSTRUMENT",
         title: "악기 연주"
     },
     {
-        value: "WALK",
+        value: "WALKING",
         title: "산책"
     },
     {
-        value: "ANIMAL",
+        value: "PETS",
         title: "반려동물"
     },
     {
@@ -351,34 +351,30 @@ export const hobbyOptions = [
         title: "패션"
     },
     {
-        value: "FAMOUS_RESTAURANT",
+        value: "FOOD_TRAVEL",
         title: "맛집탐방"
     },
     {
-        value: "MOVIE",
+        value: "MOVIES_OTT",
         title: "영화/넷플릭스"
-    },
-    {
-        value: "ETC",
-        title: "기타 등등"
     }
 ];
 
-export const preferredDateOptions = [
+export const datePreferenceTypeOptions = [
     {
-        value: "시간될 때마다 최대한 자주 보기",
+        value: "FREQUENTLY",
         title: "시간될 때마다\n최대한 자주 보기"
     },
     {
-        value: "일주일에 1~2 번 데이트",
+        value: "ONCE_OR_TWICE_A_WEEK",
         title: "일주일에\n1~2 번 데이트"
     },
     {
-        value: "일주일에 3~4 번 데이트",
+        value: "THREE_OR_FOUR_TIMES_A_WEEK",
         title: "일주일에\n3~4 번 데이트"
     },
     {
-        value: "데이트 일정은 조율 가능!",
+        value: "FLEXIBLE_SCHEDULE",
         title: "데이트 일정은 조율 가능!"
     }
 ];

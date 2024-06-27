@@ -5,76 +5,98 @@ export const signupInfoStore = defineStore(
     "signupInfoStore",
     () => {
         const name = ref(""); // 이름
-        const birthday = ref(""); // 생년월일
-        const height = ref(150); // 키
+        const birthDate = ref(""); // 생년월일
         const gender = ref(""); // 성별
-        const location = ref(""); // 거주지
-        const detailLocation = ref(""); // 상세 거주지
-        const appliedPath = ref(""); // 신청 경로
-        const recommendUserName = ref(""); // 추천인
-        const lifeStyle = ref(""); // 세계관 질문 1
-        const somethingWantToSay = ref(""); // 세계관 질문 2
-        const nickName = ref(""); // 닉네임
-        const job = ref(""); // 직업
-        const detailJob = ref(""); // 상세 직업
-        const education = ref(""); // 학력
+        const height = ref(150); // 키
+        const residenceType = ref(""); // 주소
+        const detailResidence = ref(""); // 상세 주소
+        const lifestyle = ref(""); // 세계관 질문 1
+        const messageToFuturePartner = ref(""); // 파트터에게 메시지
+        const inflowPath = ref(""); // 신청 경로
+        const referralCode = ref(""); // 추천인코드
+        const nickname = ref(""); // 닉네임
+        const occupationType = ref(""); // 직업
+        const detailOccupation = ref(""); // 상세 직업
+        const educationType = ref(""); // 학력
         const smoking = ref(""); // 흡연
-        const drinking = ref(""); // 음주
+        const drinkFrequencyType = ref(""); // 음주
         const mbti = ref(["", "", "", ""]); // mbti
-        const character = ref([]); // 성격
-        const hobby = ref([]); // 취미
-        const preferredDate = ref(""); // 데이트 유형
+        const personalities = ref([]); // 성격
+        const interests = ref([]); // 취미
+        const datePreferenceType = ref(""); // 데이트 유형
         const profileImages = ref(Array.from({ length: 6 }));
         const identityVerification = ref("");
 
-        const getTotal = () => {
+        const get = () => {
             return {
                 name: name.value,
-                birthday: birthday.value,
-                height: height.value,
+                birthDate: birthDate.value,
                 gender: gender.value,
-                location: location.value,
-                detailLocation: detailLocation.value,
-                appliedPath: appliedPath.value,
-                recommendUserName: recommendUserName.value,
-                lifeStyle: lifeStyle.value,
-                somethingWantToSay: somethingWantToSay.value,
-                nickName: nickName.value,
-                job: job.value,
-                detailJob: detailJob.value,
-                education: education.value,
-                smoking: smoking.value === "Y",
-                drinking: drinking.value,
-                mbti: mbti.value.join(""),
-                character: character.value,
-                hobby: hobby.value,
-                preferredDate: preferredDate.value,
+                height: height.value,
+                residenceType: residenceType.value,
+                detailResidence: detailResidence.value,
+                inflowPath: inflowPath.value,
+                referralCode: referralCode.value,
+                lifestyle: lifestyle.value,
+                messageToFuturePartner: messageToFuturePartner.value,
+                nickname: nickname.value,
+                occupationType: occupationType.value,
+                detailOccupation: detailOccupation.value,
+                educationType: educationType.value,
+                smoking: smoking.value,
+                drinkFrequencyType: drinkFrequencyType.value,
+                mbti: mbti.value,
+                personalities: personalities.value,
+                interests: interests.value,
+                datePreferenceType: datePreferenceType.value,
                 profileImages: profileImages.value,
                 identityVerification: identityVerification.value
             };
         };
 
+        const getRegisterInfo = () => {
+            return {
+                height: height.value,
+                residenceType: residenceType.value,
+                detailResidence: detailResidence.value,
+                inflowPath: inflowPath.value,
+                referralCode: referralCode.value,
+                lifestyle: lifestyle.value,
+                messageToFuturePartner: messageToFuturePartner.value,
+                nickname: nickname.value,
+                occupationType: occupationType.value,
+                detailOccupation: detailOccupation.value,
+                educationType: educationType.value,
+                isSmoking: smoking.value === "Y",
+                drinkFrequencyType: drinkFrequencyType.value,
+                mbti: mbti.value.join(""),
+                personalities: personalities.value,
+                interests: interests.value,
+                datePreferenceType: datePreferenceType.value
+            };
+        };
+
         const reset = () => {
             name.value = "";
-            birthday.value = "";
-            height.value = 150;
+            birthDate.value = "";
             gender.value = "";
-            location.value = "";
-            detailLocation.value = "";
-            appliedPath.value = "";
-            recommendUserName.value = "";
-            lifeStyle.value = "";
-            somethingWantToSay.value = "";
-            nickName.value = "";
-            job.value = "";
-            detailJob.value = "";
-            education.value = "";
+            height.value = 150;
+            residenceType.value = "";
+            detailResidence.value = "";
+            inflowPath.value = "";
+            referralCode.value = "";
+            lifestyle.value = "";
+            messageToFuturePartner.value = "";
+            nickname.value = "";
+            occupationType.value = "";
+            detailOccupation.value = "";
+            educationType.value = "";
             smoking.value = "";
-            drinking.value = "";
+            drinkFrequencyType.value = "";
             mbti.value = ["", "", "", ""];
-            character.value = [];
-            hobby.value = [];
-            preferredDate.value = "";
+            personalities.value = [];
+            interests.value = [];
+            datePreferenceType.value = "";
             profileImages.value = Array.from({ length: 6 });
             identityVerification.value = "";
         };
@@ -89,68 +111,71 @@ export const signupInfoStore = defineStore(
 
         const set = info => {
             !!info.name && (name.value = info.name);
-            !!info.birthday && (birthday.value = info.birthday);
-            !!info.height && (height.value = info.height);
+            !!info.birthDate && (birthDate.value = info.birthDate);
             !!info.gender && (gender.value = info.gender);
+            !!info.height && (height.value = info.height);
             !!info.location && (location.value = info.location);
-            !!info.detailLocation && (detailLocation.value = info.detailLocation);
-            !!info.appliedPath && (appliedPath.value = info.appliedPath);
-            !!info.recommendUserName && (recommendUserName.value = info.recommendUserName);
-            !!info.lifeStyle && (lifeStyle.value = info.lifeStyle);
-            !!info.somethingWantToSay && (lifeStyle.value = info.somethingWantToSay);
-            !!info.nickName && (nickName.value = info.nickName);
-            !!info.job && (job.value = info.job);
-            !!info.detailJob && (detailJob.value = info.detailJob);
-            !!info.education && (education.value = info.education);
+            !!info.residenceType && (residenceType.value = info.residenceType);
+            !!info.detailResidence && (detailResidence.value = info.detailResidence);
+            !!info.inflowPath && (inflowPath.value = info.inflowPath);
+            !!info.referralCode && (referralCode.value = info.referralCode);
+            !!info.lifestyle && (lifestyle.value = info.lifestyle);
+            !!info.messageToFuturePartner && (messageToFuturePartner.value = info.messageToFuturePartner);
+            !!info.nickname && (nickname.value = info.nickname);
+            !!info.occupationType && (occupationType.value = info.occupationType);
+            !!info.detailOccupation && (detailOccupation.value = info.detailOccupation);
+            !!info.educationType && (educationType.value = info.educationType);
             !!info.smoking && (smoking.value = info.smoking);
-            !!info.drinking && (drinking.value = info.drinking);
+            !!info.drinkFrequencyType && (drinkFrequencyType.value = info.drinkFrequencyType);
             !!info.mbti && (mbti.value = info.mbti.split(""));
-            !!info.character && (character.value = info.character);
-            !!info.hobby && (hobby.value = info.hobby);
-            !!info.preferredDate && (preferredDate.value = info.preferredDate);
-            // profileImages.value = Array.from({ length: 6 });
-            // identityVerification.value = "";
+            !!info.personalities && (personalities.value = info.personalities);
+            !!info.interests && (interests.value = info.interests);
+            !!info.datePreferenceType && (datePreferenceType.value = info.datePreferenceType);
+        };
+
+        const validateImageInfo = () => {
+            return !!profileImages.value[0] && !!profileImages.value[2] && !!profileImages.value[4] && !!identityVerification.value;
+        };
+
+        const log = () => {
+            console.log("SignupInfo Store", get());
         };
 
         return {
             name,
-            birthday,
+            birthDate,
             height,
             gender,
-            location,
-            detailLocation,
-            appliedPath,
-            recommendUserName,
-            lifeStyle,
-            somethingWantToSay,
-            nickName,
-            job,
-            detailJob,
-            education,
+            residenceType,
+            detailResidence,
+            inflowPath,
+            referralCode,
+            lifestyle,
+            messageToFuturePartner,
+            nickname,
+            occupationType,
+            detailOccupation,
+            educationType,
             smoking,
-            drinking,
+            drinkFrequencyType,
             mbti,
-            character,
-            hobby,
-            preferredDate,
+            personalities,
+            interests,
+            datePreferenceType,
             profileImages,
             identityVerification,
-            getTotal,
+            get,
             reset,
             setProfileImage,
             setIdentityVerification,
-            set
+            set,
+            getRegisterInfo,
+            validateImageInfo
         };
     },
     {
         persist: {
-            enabled: true,
-            storage: sessionStorage,
-            strategies: [
-                {
-                    key: "signup"
-                }
-            ]
+            storage: sessionStorage
         }
     }
 );

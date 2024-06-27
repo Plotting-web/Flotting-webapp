@@ -104,12 +104,15 @@ const clickedText = () => {
 // const list = sale.value ? (gender.value === "M" ? manSaleList : womanSaleList) : gender.value === "M" ? manList : womanList;
 const list = ref([]);
 onBeforeMount(() => {
-    instance.get("/tickets/v1").then(res => {
-        console.log(res);
-        const body = res?.body;
-        console.log(body);
-        list.value = body?.tickets ?? [];
-    });
+    instance
+        .get("/tickets/v1")
+        .then(res => {
+            // console.log(res);
+            const body = res?.body;
+            // console.log(body);
+            list.value = body?.tickets ?? [];
+        })
+        .catch();
 });
 
 const getSale = item => {

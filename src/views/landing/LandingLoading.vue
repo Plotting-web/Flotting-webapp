@@ -1,35 +1,6 @@
 <script setup>
-import router from "@/router";
-import { onMounted, ref } from "vue";
 import PlotLogo from "@/components/icon/PlotLogo.vue";
 import MainBody from "@/components/layout/MainBody.vue";
-import { useRoute } from "vue-router";
-
-onMounted(() => {
-    console.log("router.query > ", router.query);
-    // if (!loginInfo.isLogin()) {
-    //     return;
-    // }
-    // axios
-    //     .get(`user/info/${loginInfo.getUserNo()}`)
-    //     .then(response => {
-    //         const { data } = response;
-    //         switch (data.userStatus) {
-    //             case "NORMAL": // 프로필 등록이 승인된 유저
-    //                 router.push("/dashboard");
-    //                 break;
-    //             case null:
-    //             case "NONE": // 프로필 등록이 안된 유저
-    //                 router.push("/signup/guide");
-    //                 break;
-    //             default:
-    //                 status.value = data.userStatus;
-    //         }
-    //     })
-    //     .catch(error => {
-    //         console.error(error);
-    //     });
-});
 </script>
 
 <template>

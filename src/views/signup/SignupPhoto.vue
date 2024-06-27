@@ -1,49 +1,34 @@
 <script setup>
 import MainHeader from "@/components/layout/MainHeader.vue";
-import router from "@/router";
+import MainBody from "@/components/layout/MainBody.vue";
 import SignupImage from "@/views/signup/components/SignupImage.vue";
 import SignupProgress from "@/views/signup/components/SignupProgress.vue";
+import router from "@/router";
+import { instance } from "@/axios/axios";
 import { signupInfoStore } from "@/views/signup/store/singupInfoStore";
-import { storeToRefs } from "pinia";
-import MainBody from "@/components/layout/MainBody.vue";
-import { loginStore } from "@/store/loginStore";
 
-const singupInfo = signupInfoStore();
-const loginInfo = loginStore();
-const { profileImages, identityVerification } = storeToRefs(userInfo);
+const { getRegisterInfo, setProfileImage, setIdentityVerification, validateImageInfo } = signupInfoStore();
 const onClicked = async () => {
-    const data = singupInfo.getTotal();
-    const { profileImages, identityVerification } = data;
-    // if (!profileImages[0] || !profileImages[2] || !profileImages[4] || !identityVerification) {
-    //     alert("필수 등록 사진을 등록해주세요!");
-    //     return;
+    const data = getRegisterInfo();
+    console.log("data >> ", data);
+    // TODO: 프로필 이미지 등록 완료되면 주석 해제
+    // const { profileImages, identityVerification } = data;
+    // if (!validateImageInfo()) {
+    //     return alert("필수 등록 사진을 등록해주세요!");
     // }
-    console.log("param > ", {
-        userId: loginInfo.getUserId(),
-        userDetailRequestDto: {
-            ...data,
-            userStatus: "INPROGRESS",
-            identityVerificationURI: identityVerification,
-            profileImageURIs: profileImages
-        }
-    });
-
-    axios
-        .post(`user/detail-info?userId=${loginInfo.getUserId()}`, { ...data, userStatus: "INPROGRESS" })
-        .then(res => {
-            console.log(res);
+    instance
+        .post(`/users/v1/register`, data)
+        .then(() => {
             router.push("/signup/end");
         })
-        .catch(error => {
-            console.error(error);
-        });
+        .catch();
 };
 
 const onUpdateImage = (idx, val) => {
     if (idx < 6) {
-        singupInfo.setProfileImage(idx, val);
+        setProfileImage(idx, val);
     } else {
-        singupInfo.setIdentityVerification(val);
+        setIdentityVerification(val);
     }
 };
 </script>

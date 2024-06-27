@@ -21,10 +21,11 @@ import LandingIntro from "@/views/landing/LandingIntro.vue";
 import LandingLoading from "@/views/landing/LandingLoading.vue";
 import UserLogout from "@/views/login/UserLogout.vue";
 import UserState from "@/views/state/UserState.vue";
-import UserLoginTemp from "@/views/login/UserLoginTemp.vue";
 import NavigationLayout from "@/components/layout/NavigationLayout.vue";
 import ProfileView from "@/views/profile/ProfileView.vue";
-import { loginStore } from "@/store/loginStore";
+import LandingNiceCallback from "@/views/landing/LandingNiceCallback.vue";
+import { userStore } from "@/store/userStore";
+import { tokenStore } from "@/store/tokenStore";
 
 const routes = [
     { path: "/login", component: UserLogin },
@@ -109,12 +110,12 @@ const routes = [
         path: "/store",
         component: StoreView
     },
-    { path: "/login/temp", component: UserLoginTemp },
     { path: "/signupTest", component: SignupSimple },
     {
         path: "/test",
         component: TestMain
-    }
+    },
+    { path: "/nice/callback", component: LandingNiceCallback }
 ];
 
 const router = createRouter({
@@ -127,8 +128,14 @@ const router = createRouter({
     }
 });
 router.beforeEach((to, from, next) => {
-    if (!["/", "/login", "/intro", "/login/temp", "/signupTest"].includes(to.path) && !loginStore().isLogin()) {
-        next("/login");
+    const allowList = ["/", "/intro", "/nice/callback"];
+    const signupList = ["/signup/guide", "/signup/1", "/signup/2", "/signup/3", "/signup/photo"];
+    if (
+        (!allowList.includes(to.path) && !tokenStore().isLogin()) ||
+        (signupList.includes(to.path) && userStore().getStatus() !== "PROFILE_REGISTRATION") ||
+        (["/signup/end"].includes(to.path) && userStore().getStatus() !== "PROFILE_APPROVAL")
+    ) {
+        next("/");
     } else {
         next();
     }
