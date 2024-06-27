@@ -7,12 +7,14 @@ export const loginStore = defineStore(
         const name = ref("");
         const phoneNumber = ref("");
         const email = ref("");
-        const userNo = ref("");
+        const userId = ref("");
         const accessToken = ref("");
         const refreshToken = ref("");
+        const accessTokenExpiredAt = ref("");
+        const refreshTokenExpiredAt = ref("");
 
-        const getUserNo = () => userNo.value;
-        const setUserNo = val => (userNo.value = val);
+        const getUserId = () => userId.value;
+        const setUserId = val => (userId.value = val);
 
         const getAccessToken = () => accessToken.value;
         const setAccessToken = val => (accessToken.value = val);
@@ -31,7 +33,7 @@ export const loginStore = defineStore(
                 name: name.value,
                 phoneNumber: phoneNumber.value,
                 email: email.value,
-                userNo: userNo.value
+                userId: userId.value
             };
         };
 
@@ -39,7 +41,7 @@ export const loginStore = defineStore(
             this.name.value = name;
             this.phoneNumber.value = phoneNumber;
             this.email.value = email;
-            this.userNo.value = userNo;
+            this.userId.value = userNo;
         };
 
         const setToken = ({ accessToken = "", refreshToken = "" }) => {
@@ -51,9 +53,18 @@ export const loginStore = defineStore(
             name.value = "";
             phoneNumber.value = "";
             email.value = "";
-            userNo.value = "";
+            userId.value = "";
             accessToken.value = "";
             refreshToken.value = "";
+        };
+
+        const setTokenInfo = data => {
+            userId.value = data.userId;
+            const tokenData = data.tokenData;
+            accessToken.value = tokenData.accessToken;
+            refreshToken.value = tokenData.refreshToken;
+            accessTokenExpiredAt.value = tokenData.accessTokenExpiredAt;
+            refreshTokenExpiredAt.value = tokenData.refreshTokenExpiredAt;
         };
 
         return {
@@ -65,9 +76,10 @@ export const loginStore = defineStore(
             getUserInfo,
             setUserInfo,
             setToken,
-            getUserNo,
-            setUserNo,
-            reset
+            getUserId,
+            setUserId,
+            reset,
+            setTokenInfo
         };
     },
     {

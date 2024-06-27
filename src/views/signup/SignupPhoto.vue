@@ -19,7 +19,7 @@ const onClicked = async () => {
     //     return;
     // }
     console.log("param > ", {
-        userId: loginInfo.getUserNo(),
+        userId: loginInfo.getUserId(),
         userDetailRequestDto: {
             ...data,
             userStatus: "INPROGRESS",
@@ -29,7 +29,7 @@ const onClicked = async () => {
     });
 
     axios
-        .post(`user/detail-info?userId=${loginInfo.getUserNo()}`, { ...data, userStatus: "INPROGRESS" })
+        .post(`user/detail-info?userId=${loginInfo.getUserId()}`, { ...data, userStatus: "INPROGRESS" })
         .then(res => {
             console.log(res);
             router.push("/signup/end");

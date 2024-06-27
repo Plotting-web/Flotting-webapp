@@ -19,7 +19,7 @@ const signupInfo = signupInfoStore();
 
 onMounted(() => {
     instance
-        .get(`user/info/${loginInfo.getUserNo()}`)
+        .get(`/user/info/${loginInfo.getUserId()}`)
         .then(response => {
             const { data } = response;
             signupInfo.set(data);

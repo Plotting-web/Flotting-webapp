@@ -5,11 +5,79 @@ import PlotLogo from "@/components/icon/PlotLogo.vue";
 import MainBody from "@/components/layout/MainBody.vue";
 import kakaoTalkLogo from "@/images/KakaoTalkLogo.png";
 import { loginStore } from "@/store/loginStore";
-import axios from "axios";
+import { instance } from "@/axios/axios";
+
+const niceFormRef = ref(null);
+
+const encDataRef = ref(null);
+const tokenVersionIdRef = ref(null);
+const integrityValueRef = ref(null);
 
 const onClickStart = () => {
-    router.push("/login");
+    instance
+        .get("/nice/v1/enc/access-data")
+        .then(data => {
+            if (!!data.body.encryptedData) {
+                openNicePopup(data.body.encryptedData);
+            } else {
+                console.error("encryptedData not found.");
+            }
+        })
+        .catch(error => {
+            console.error(error);
+        });
+    // const returnUrl = `${process.env.VUE_FLOTTING_API_URL}/api/nice/v1/login`;
 };
+
+const openNicePopup = ({ encryptedData, integrityValue, tokenVersionId }) => {
+    encDataRef.value.value = encryptedData;
+    tokenVersionIdRef.value.value = tokenVersionId;
+    integrityValueRef.value.value = integrityValue;
+
+    const option =
+        "width=500, height=550, top=100, left=100, fullscreen=no, menubar=no, status=no, toolbar=no, titlebar=yes, location=no, scrollbar=no";
+    const win = window.open("https://nice.checkplus.co.kr/CheckPlusSafeModel/service.cb", "nicePopup", option);
+
+    niceFormRef.value.action = "https://nice.checkplus.co.kr/CheckPlusSafeModel/service.cb";
+    niceFormRef.value.target = "nicePopup";
+    niceFormRef.value.submit();
+    encDataRef.value.value = "";
+
+    if (win !== null) {
+        const interval = window.setInterval(function() {
+            try {
+                if (win.closed) {
+                    window.clearInterval(interval);
+
+                    const data = {
+                        tokenVersionId: tokenVersionIdRef.value.value,
+                        integrityValue: integrityValueRef.value.value,
+                        encData: encDataRef.value.value
+                    };
+
+                    loginByNice(data);
+                }
+            } catch (e) {}
+        }, 1000);
+
+        return win;
+    }
+};
+
+const loginByNice = data => {
+    console.log("data >> ", data);
+    if (!data.encData) {
+        alert("인증에 실패하였습니다. 다시 시도해주십시오.");
+        return;
+    }
+    instance
+        .post("/nice/v1/login", data)
+        .then(res => {
+            console.log("res >> ", res);
+        })
+        .catch(error => console.error(error));
+};
+
 const onClickIntro = () => {
     router.push("/intro");
 };
@@ -28,10 +96,9 @@ onMounted(() => {
         return;
     }
 
-    axios
-        .get(`user/info/${loginInfo.getUserNo()}`)
-        .then(response => {
-            const { data } = response;
+    instance
+        .get(`/user/info/${loginInfo.getUserId()}`)
+        .then(data => {
             switch (data.userStatus) {
                 case "NORMAL": // 프로필 등록이 승인된 유저
                     router.push("/dashboard");
@@ -128,6 +195,12 @@ const onClickDormant = () => {};
             </div>
         </div>
     </main-body>
+    <form ref="niceFormRef" method="post">
+        <input id="m" type="hidden" name="m" value="service" />
+        <input id="token_version_id" ref="tokenVersionIdRef" type="hidden" name="token_version_id" />
+        <input id="enc_data" ref="encDataRef" type="hidden" name="enc_data" />
+        <input id="integrity_value" ref="integrityValueRef" type="hidden" name="integrity_value" />
+    </form>
 </template>
 
 <style scoped>

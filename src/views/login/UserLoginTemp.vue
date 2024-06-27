@@ -64,7 +64,7 @@ const accountInfo = ref({
 });
 const userLogin = () => {
     instance
-        .post("user/login", accountInfo.value)
+        .post("/user/login", accountInfo.value)
         .then(res => {
             console.log(res.data);
             loginStore.setUserInfo(res.data);
