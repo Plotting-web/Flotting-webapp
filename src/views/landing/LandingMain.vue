@@ -25,8 +25,8 @@ const onClickStart = () => {
                 console.error("encryptedData not found.");
             }
         })
-        .catch(error => {
-            console.error(error);
+        .catch(() => {
+            alert("시스템 오류가 발생했습니다. 잠시 후 다시 시도해주세요.");
         });
 };
 
@@ -76,7 +76,9 @@ const loginByNice = data => {
             userStore().set(res.body);
             getUserInfo();
         })
-        .catch();
+        .catch(() => {
+            alert("시스템 오류가 발생했습니다. 잠시 후 다시 시도해주세요.");
+        });
 };
 
 const getUserInfo = () => {
@@ -102,7 +104,9 @@ const getUserInfo = () => {
                     break;
             }
         })
-        .catch();
+        .catch(() => {
+            alert("시스템 오류가 발생했습니다. 잠시 후 다시 시도해주세요.");
+        });
 };
 
 const onClickIntro = () => {
