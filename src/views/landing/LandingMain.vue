@@ -15,7 +15,7 @@ const tokenVersionIdRef = ref(null);
 const integrityValueRef = ref(null);
 
 const onClickStart = () => {
-    const returnUrl = "http://localhost:8080/nice/callback";
+    const returnUrl = process.env.VUE_APP_BASE_URL + "nice/callback";
     instance
         .get(`/nice/v1/enc/access-data?returnUrl=${returnUrl}`)
         .then(res => {
@@ -74,14 +74,14 @@ const loginByNice = data => {
         .then(res => {
             tokenStore().set(res.body.tokenData);
             userStore().set(res.body);
-            getUserInfo();
+            getUserInfo(true);
         })
         .catch(() => {
             alert("시스템 오류가 발생했습니다. 잠시 후 다시 시도해주세요.");
         });
 };
 
-const getUserInfo = () => {
+const getUserInfo = (isLogin = false) => {
     instance
         .get(`/users/v1/info`)
         .then(res => {
@@ -90,7 +90,7 @@ const getUserInfo = () => {
             switch (res.body.userStatusType) {
                 case "PROFILE_REGISTRATION": // 프로필 등록 전
                 case "WITHDRAWN": // 탈퇴
-                    router.push("/signup/guide");
+                    isLogin && router.push("/signup/guide");
                     break;
                 case "ACTIVE": // 활동
                     router.push("/dashboard");
