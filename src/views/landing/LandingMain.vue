@@ -15,7 +15,7 @@ const tokenVersionIdRef = ref(null);
 const integrityValueRef = ref(null);
 
 const onClickStart = () => {
-    const returnUrl = process.env.VUE_APP_BASE_URL + "nice/callback";
+    const returnUrl = process.env.VUE_APP_BASE_URL + "/nice/callback";
     instance
         .get(`/nice/v1/enc/access-data?returnUrl=${returnUrl}`)
         .then(res => {
