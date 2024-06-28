@@ -1,9 +1,11 @@
 <script setup>
 import router from "@/router";
 import { signupInfoStore } from "@/views/signup/store/singupInfoStore";
-import { loginStore } from "@/store/loginStore";
+import { userStore } from "@/store/userStore";
+import { tokenStore } from "@/store/tokenStore";
 
-loginStore().reset();
+tokenStore().reset();
+userStore().reset();
 signupInfoStore().reset();
 router.push("/");
 </script>

@@ -3,11 +3,67 @@ import CarouselLeft from "@/components/icon/CarouselLeft.vue";
 import ProfileImage from "@/components/image/ProfileImage.vue";
 import CarouselRight from "@/components/icon/CarouselRight.vue";
 import UserProfileNavigation from "@/components/profile/UserProfileNavigation.vue";
+import { characterOptions, getTitleByOptions, hobbyOptions, jobOptions, locationOptions, preferredDateOptions } from "@/views/signup/enum/options";
 
 defineProps({
     status: {
         type: String,
         default: "default" // default, sending, pending, success, fail, self
+    },
+    profileImages: {
+        type: Array,
+        default: () => [
+            "https://image.fnnews.com/resource/media/image/2023/12/16/202312160703001203_l.jpg",
+            "https://i.namu.wiki/i/VE44Pr9Xrqrinf43GS7Yu945HyT3XyKWhmisPJcZ6qaCqV9J4oLnpUOHSrY-rjBh8j6ZI-3KtYkNf9x8sBe0Ew.webp",
+            "https://cdn.k-trendynews.com/news/photo/202312/162732_242532_2228.jpg"
+        ]
+    },
+    managerImage: {
+        type: String,
+        default: "https://image.kr.canon/pds/gallery/open/1257249062209_0d8F3Kb90P.jpg"
+    },
+    managerComment: {
+        type: String,
+        default:
+            "아담하면서도 볼륨있는 몸매 라인과 맑고 큰 눈이 돋보이는 여성 회원입니다. 또래에 비해 성숙한 사고와 뛰어난 공감 능력을 갖춘 다양한 매력을 가진 분입니다."
+    },
+    job: {
+        type: String,
+        default: "MINOR_COMPANY"
+    },
+    location: {
+        type: String,
+        default: "SEOUL_SOUTH"
+    },
+    height: {
+        type: Number,
+        default: 155
+    },
+    mbti: {
+        type: String,
+        default: "ENFP"
+    },
+    preferredDate: {
+        type: String,
+        default: "일주일에 1~2 번 데이트"
+    },
+    characters: {
+        type: Array,
+        default: () => ["EXTROVERTED", "CUTE", "HUMOROUS"]
+    },
+    hobbes: {
+        type: Array,
+        default: () => ["EXERCISE", "SELF_IMPROVEMENT", "READING"]
+    },
+    lifeStyle: {
+        type: String,
+        default:
+            "저는 병원에서 해외 국가들을 대상으로 마케팅을 하는 업무를 하고 있습니다. 성인이 되서 바로 경제적으로 독립해서 살고 있어서 또래들보다 철이 빨리 들었다는 이야기를 많이 들어요 ! 독립해서 살고 있어서 또래들보다 철이 빨리 들었다는 이야기를 많이 들어요 !"
+    },
+    somethingWantToSay: {
+        type: String,
+        default:
+            "저랑 잘 맞는 분을 만나게 된다면 퇴근 후 데이트나, 드라이브, 주말엔 종종 글램핑도 가고싶어요 :D 그리고 하고싶은 것도 많아서 이야기 하다보면 같이 가고 싶어지실꺼에요 ㅎ"
     }
 });
 </script>
@@ -21,45 +77,34 @@ defineProps({
             <template #next="{ props }">
                 <carousel-right @click="props.onClick"></carousel-right>
             </template>
-            <v-carousel-item>
-                <profile-image
-                    src="https://i.namu.wiki/i/RmPNdn0sjKx-SYRoeRffcS5pc1rZXK-uA6PQqqU_kLFrqdMVdD3vM9HeF4c_1DLloZ1qu8KZLDwRwO8y-3vNriadzKfcXOeWaQFwwLC2Bn_HxoX1E-clw78tDqSLGLb37UHelCwkxGLeqKIpHvqPtA.webp"
-                />
-            </v-carousel-item>
-            <v-carousel-item>
-                <profile-image
-                    src="https://i.namu.wiki/i/VE44Pr9Xrqrinf43GS7Yu945HyT3XyKWhmisPJcZ6qaCqV9J4oLnpUOHSrY-rjBh8j6ZI-3KtYkNf9x8sBe0Ew.webp"
-                />
-            </v-carousel-item>
-            <v-carousel-item>
-                <profile-image src="https://cdn.k-trendynews.com/news/photo/202312/162732_242532_2228.jpg" />
+            <v-carousel-item v-for="(src, idx) in profileImages" :key="`profile-item-${idx}`">
+                <profile-image :src="src" />
             </v-carousel-item>
         </v-carousel>
         <div class="prf-manager-comment-layout">
             <div class="prf-manager-title-layout">
-                <div class="prf-manager-title-img"></div>
+                <div class="prf-manager-title-img" :style="`background-image: url(${managerImage})`"></div>
                 <span class="prf-manager-title-text">
                     매니저의 코멘트를 살펴보세요 !
                 </span>
             </div>
             <div class="prf-manager-comment-text">
-                아담하면서도 볼륨있는 몸매 라인과 맑고 큰 눈이 돋보이는 여성 회원입니다. 또래에 비해 성숙한 사고와 뛰어난 공감 또래에 비해 성숙한
-                사고와 뛰어난 공감 능력을 갖춘 다양한 매력을 가진 분입니다.
+                {{ managerComment }}
             </div>
         </div>
         <div class="prf-main-layout">
             <div class="prf-main-1-layout">
                 <div class="prf-main-1-icon-layout">
                     <v-icon icon="mdi-account-circle" size="30" />
-                    <span class="prf-main-1-text">중소기업</span>
+                    <span class="prf-main-1-text">{{ getTitleByOptions(jobOptions, job) }}</span>
                 </div>
                 <div class="prf-main-1-icon-layout">
                     <v-icon icon="mdi-map-marker-radius" size="30" />
-                    <span class="prf-main-1-text">서울 남부</span>
+                    <span class="prf-main-1-text">{{ getTitleByOptions(locationOptions, location) }}</span>
                 </div>
                 <div class="prf-main-1-icon-layout">
                     <v-icon icon="mdi-format-list-bulleted" size="30" />
-                    <span class="prf-main-1-text">155CM</span>
+                    <span class="prf-main-1-text">{{ height }}CM</span>
                 </div>
             </div>
             <div class="prf-main-2-layout">
@@ -69,32 +114,20 @@ defineProps({
                 <div class="prf-main-2-content">
                     <div class="prf-main-2-row">
                         <div class="prf-main-2-item" style="width: auto;">
-                            ENFP
+                            {{ mbti }}
                         </div>
                         <div class="prf-main-2-item">
-                            일주일에 1~2번 데이트
-                        </div>
-                    </div>
-                    <div class="prf-main-2-row">
-                        <div class="prf-main-2-item">
-                            긍정적인
-                        </div>
-                        <div class="prf-main-2-item">
-                            센스있는
-                        </div>
-                        <div class="prf-main-2-item">
-                            애교있는
+                            {{ preferredDate }}
                         </div>
                     </div>
                     <div class="prf-main-2-row">
-                        <div class="prf-main-2-item">
-                            반려동물
+                        <div v-for="(val, idx) in characters" :key="`profile-character-${idx}`" class="prf-main-2-item">
+                            {{ getTitleByOptions(characterOptions, val) }}
                         </div>
-                        <div class="prf-main-2-item">
-                            카페
-                        </div>
-                        <div class="prf-main-2-item">
-                            운동
+                    </div>
+                    <div class="prf-main-2-row">
+                        <div v-for="(val, idx) in hobbes" :key="`profile-hobby-${idx}`" class="prf-main-2-item">
+                            {{ getTitleByOptions(hobbyOptions, val) }}
                         </div>
                     </div>
                 </div>
@@ -105,17 +138,14 @@ defineProps({
                 </div>
                 <div class="prf-main-3-divider" />
                 <div class="prf-main-3-text">
-                    저는 병원에서 해외 국가들을 대상으로 마케팅을 하는 업무를 하고 있습니다. 성인이 되서 바로 경제적으로 독립해서 살고 있어서
-                    또래들보다 철이 빨리 들었다는 이야기를 많이 들어요 ! 독립해서 살고 있어서 또래들보다 철이 빨리 들었다는 이야기를 많이 들어요 !
-                    들어요 !
+                    {{ lifeStyle }}
                 </div>
                 <div class="prf-main-4-title">
                     나의 미래 연인에게 하고싶은 말
                 </div>
                 <div class="prf-main-4-divider" />
                 <div class="prf-main-4-text">
-                    저랑 잘 맞는 분을 만나게 된다면 퇴근 후 데이트나, 드라이브, 주말엔 종종 글램핑도 가고싶어요 :D 그리고 하고싶은 것도 많아서 이야기
-                    하다보면 같이 가고 싶어지실꺼에요 ㅎ
+                    {{ somethingWantToSay }}
                 </div>
             </div>
         </div>
@@ -162,6 +192,8 @@ defineProps({
     height: 70px;
     background-color: #f1f1f1;
     border-radius: 70px;
+    background-size: cover;
+    background-position: 50%;
 }
 
 .prf-manager-title-text {

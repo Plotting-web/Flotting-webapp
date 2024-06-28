@@ -81,7 +81,7 @@ const userData = ref({
 
 const signup = () => {
     instance
-        .post("user/signin", userData.value)
+        .post("/user/signin", userData.value)
         .then(res => router.push("/login/temp"))
         .catch(error => console.error(error));
 };

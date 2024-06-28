@@ -2,31 +2,13 @@
 import MainHeader from "@/components/layout/MainHeader.vue";
 import SignupProgress from "@/views/signup/components/SignupProgress.vue";
 import { useRouter } from "vue-router";
-import { onMounted } from "vue";
-import { signupInfoStore } from "@/views/signup/store/singupInfoStore";
 import MainBody from "@/components/layout/MainBody.vue";
-import { loginStore } from "@/store/loginStore";
 
 const router = useRouter();
 
 const onClickedDone = () => {
     router.push("/signup/1");
 };
-
-const loginInfo = loginStore();
-const signupInfo = signupInfoStore();
-
-onMounted(() => {
-    axios
-        .get(`user/info/${loginInfo.getUserNo()}`)
-        .then(response => {
-            const { data } = response;
-            signupInfo.set(data);
-        })
-        .catch(error => {
-            console.error(error);
-        });
-});
 </script>
 
 <template>

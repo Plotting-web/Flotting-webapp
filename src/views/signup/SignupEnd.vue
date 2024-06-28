@@ -6,8 +6,8 @@ import { signupInfoStore } from "@/views/signup/store/singupInfoStore";
 import MainBody from "@/components/layout/MainBody.vue";
 
 const store = signupInfoStore();
+store.reset();
 const onClicked = () => {
-    console.log(store.getTotal());
     router.push("/intro");
 };
 </script>

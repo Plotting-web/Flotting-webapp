@@ -8,20 +8,7 @@ import DashboardDoneCard from "@/views/dashboard/card/DashboardDoneCard.vue";
 import DashboardFindingCard from "@/views/dashboard/card/DashboardFindingCard.vue";
 import DashboardDormantCard from "@/views/dashboard/card/DashboardDormantCard.vue";
 
-const tab = ref(null);
-
 const list = ref([]);
-
-onBeforeMount(() => {
-    signup();
-});
-const signup = async () => {
-    try {
-        // 조회
-    } catch (error) {
-        console.log(error);
-    }
-};
 </script>
 
 <template>

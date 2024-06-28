@@ -5,12 +5,12 @@ import router from "@/router";
 import SignupProgress from "@/views/signup/components/SignupProgress.vue";
 import SignupRadio from "@/views/signup/components/SignupRadio.vue";
 import {
-    characterOptions,
-    preferredDateOptions,
-    drinkingOptions,
-    educationOptions,
-    hobbyOptions,
-    jobOptions,
+    personalitiesOptions,
+    datePreferenceTypeOptions,
+    drinkFrequencyTypeOptions,
+    educationTypeOptions,
+    interestsOptions,
+    occupationTypeOptions,
     mbtiOptions,
     smokingOptions
 } from "@/views/signup/enum/options";
@@ -19,21 +19,32 @@ import { storeToRefs } from "pinia";
 import MainBody from "@/components/layout/MainBody.vue";
 
 const store = signupInfoStore();
-const { nickName, detailJob, job, education, smoking, drinking, mbti, character, hobby, preferredDate } = storeToRefs(store);
+const {
+    nickname,
+    detailOccupation,
+    occupationType,
+    educationType,
+    smoking,
+    drinkFrequencyType,
+    mbti,
+    personalities,
+    interests,
+    datePreferenceType
+} = storeToRefs(store);
 const form = ref();
 
 const onClicked = async () => {
     const { valid } = await form.value.validate();
 
     const radioValid =
-        job.value !== "" &&
-        education.value !== "" &&
+        occupationType.value !== "" &&
+        educationType.value !== "" &&
         smoking.value !== null &&
-        drinking !== "" &&
+        drinkFrequencyType !== "" &&
         mbti.value.filter(el => el === "").length === 0 &&
-        character.value.length > 0 &&
-        hobby.value.length > 0 &&
-        preferredDate.value !== "";
+        personalities.value.length > 0 &&
+        interests.value.length > 0 &&
+        datePreferenceType.value !== "";
 
     if (!valid || !radioValid) {
         alert("6번을 제외하고 1 ~ 10번까지 모든 문항을 입력해주세요!");
@@ -42,14 +53,14 @@ const onClicked = async () => {
     await router.push("/signup/photo");
 };
 
-const nickNameRules = [
+const nicknameRules = [
     value => !!value || "필수 값 입니다.",
     value => /^[가-힣a-zA-Z]+$/.test(value) || "한글 or 영어만 입력가능합니다.",
     value => String(value).length >= 3 || "3 글자 이상",
     value => String(value).length <= 10 || "10 글자 이하"
 ];
 
-const detailJobRules = [
+const detailOccupationRules = [
     value => !!value || "필수 값 입니다.",
     value => /^[가-힣a-zA-Z]+$/.test(value) || "한글 or 영어만 입력가능합니다.",
     value => String(value).length >= 4 || "4 글자 이상",
@@ -75,14 +86,14 @@ const detailJobRules = [
                         <span class="title-text">(1) 닉네임</span>
                         <span class="sub-title">- 프로필에는 닉네임만 보여집니다.</span>
                         <v-text-field
-                            v-model="nickName"
+                            v-model="nickname"
                             class="text-none input-text"
                             density="compact"
                             placeholder="엘리"
                             variant="underlined"
                             :clearable="true"
                             counter="10"
-                            :rules="nickNameRules"
+                            :rules="nicknameRules"
                         ></v-text-field>
                     </div>
                     <div class="d-flex flex-column ga-2">
@@ -90,12 +101,12 @@ const detailJobRules = [
                         <span class="sub-title">- 대학생 / 대학원생의 경우 학생으로 선택해주세요</span>
                         <div style="display: grid; grid-template-columns: repeat(3, 1fr); grid-gap: 8px;">
                             <signup-radio
-                                v-for="({ value, title }, i) in jobOptions"
-                                :key="`job_${i}`"
-                                :group-value="job"
+                                v-for="({ value, title }, i) in occupationTypeOptions"
+                                :key="`occupationType_${i}`"
+                                :group-value="occupationType"
                                 :value="value"
                                 :title="title"
-                                @click="val => (job = val)"
+                                @click="val => (occupationType = val)"
                             />
                         </div>
                     </div>
@@ -110,26 +121,26 @@ const detailJobRules = [
                             <span class="sub-title pl-3">기타 -> 자영업자 (식당 운영 등) / 자산가 / 투자자 등</span>
                         </div>
                         <v-text-field
-                            v-model="detailJob"
+                            v-model="detailOccupation"
                             class="text-none input-text"
                             density="compact"
                             placeholder="상세 직업"
                             variant="underlined"
                             :clearable="true"
                             counter="50"
-                            :rules="detailJobRules"
+                            :rules="detailOccupationRules"
                         ></v-text-field>
                     </div>
                     <div class="d-flex flex-column ga-3">
                         <span class="title-text">(4) 학력</span>
                         <div style="display: grid; grid-template-columns: repeat(3, 1fr); grid-gap: 8px;">
                             <signup-radio
-                                v-for="({ value, title }, i) in educationOptions"
+                                v-for="({ value, title }, i) in educationTypeOptions"
                                 :key="`edu_${i}`"
-                                :group-value="education"
+                                :group-value="educationType"
                                 :value="value"
                                 :title="title"
-                                @click="val => (education = val)"
+                                @click="val => (educationType = val)"
                             />
                         </div>
                     </div>
@@ -150,12 +161,12 @@ const detailJobRules = [
                         <span class="title-text">(6) 음주 여부</span>
                         <div style="display: grid; grid-template-columns: repeat(2, 1fr); grid-gap: 8px;">
                             <signup-radio
-                                v-for="({ value, title }, i) in drinkingOptions"
+                                v-for="({ value, title }, i) in drinkFrequencyTypeOptions"
                                 :key="`dri_${i}`"
-                                :group-value="drinking"
+                                :group-value="drinkFrequencyType"
                                 :value="value"
                                 :title="title"
-                                @click="val => (drinking = val)"
+                                @click="val => (drinkFrequencyType = val)"
                             />
                         </div>
                     </div>
@@ -182,16 +193,16 @@ const detailJobRules = [
                         <span class="sub-title">- 최대 3가지를 선택해주세요!</span>
                         <div style="display: grid; grid-template-columns: repeat(3, 1fr); grid-gap: 8px;">
                             <signup-radio
-                                v-for="({ value, title }, i) in characterOptions"
+                                v-for="({ value, title }, i) in personalitiesOptions"
                                 :key="`per_${i}`"
-                                :group-value="character"
+                                :group-value="personalities"
                                 :value="value"
                                 :title="title"
                                 @click="
                                     val =>
-                                        character.includes(val)
-                                            ? (character = character.filter(el => el !== val))
-                                            : character.length < 3 && character.push(val)
+                                        personalities.includes(val)
+                                            ? (personalities = personalities.filter(el => el !== val))
+                                            : personalities.length < 3 && personalities.push(val)
                                 "
                             />
                         </div>
@@ -201,12 +212,17 @@ const detailJobRules = [
                         <span class="sub-title">- 최대 3가지를 선택해주세요!</span>
                         <div style="display: grid; grid-template-columns: repeat(3, 1fr); grid-gap: 8px;">
                             <signup-radio
-                                v-for="({ value, title }, i) in hobbyOptions"
+                                v-for="({ value, title }, i) in interestsOptions"
                                 :key="`hob_${i}`"
-                                :group-value="hobby"
+                                :group-value="interests"
                                 :value="value"
                                 :title="title"
-                                @click="val => (hobby.includes(val) ? (hobby = hobby.filter(el => el !== val)) : hobby.length < 3 && hobby.push(val))"
+                                @click="
+                                    val =>
+                                        interests.includes(val)
+                                            ? (interests = interests.filter(el => el !== val))
+                                            : interests.length < 3 && interests.push(val)
+                                "
                             />
                         </div>
                     </div>
@@ -215,12 +231,12 @@ const detailJobRules = [
                         <span class="sub-title">- 1가지를 선택해주세요!</span>
                         <div style="display: grid; grid-template-columns: repeat(2, 1fr); grid-gap: 8px;">
                             <signup-radio
-                                v-for="({ value, title }, i) in preferredDateOptions"
+                                v-for="({ value, title }, i) in datePreferenceTypeOptions"
                                 :key="`dat_${i}`"
-                                :group-value="preferredDate"
+                                :group-value="datePreferenceType"
                                 :value="value"
                                 :title="title"
-                                @click="val => (preferredDate = val)"
+                                @click="val => (datePreferenceType = val)"
                             />
                         </div>
                     </div>

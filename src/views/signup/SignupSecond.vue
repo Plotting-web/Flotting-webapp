@@ -8,7 +8,7 @@ import { storeToRefs } from "pinia";
 import MainBody from "@/components/layout/MainBody.vue";
 
 const store = signupInfoStore();
-const { lifeStyle, somethingWantToSay } = storeToRefs(store);
+const { lifestyle, messageToFuturePartner } = storeToRefs(store);
 const form = ref();
 
 const rules = [
@@ -48,7 +48,7 @@ const onClicked = async () => {
                             <span class="text-none sub-title">- 본인의 라이프 스타일 소개</span>
                         </div>
                         <v-textarea
-                            v-model="lifeStyle"
+                            v-model="lifestyle"
                             class="text-none textarea-text"
                             rows="5"
                             auto-grow
@@ -65,7 +65,7 @@ const onClicked = async () => {
                             <span class="text-none sub-title">- 본인의 취미, 연인과 해보고 싶은 데이트, 추구하는 연애 가치관 작성</span>
                         </div>
                         <v-textarea
-                            v-model="somethingWantToSay"
+                            v-model="messageToFuturePartner"
                             class="text-none textarea-text"
                             rows="5"
                             auto-grow
