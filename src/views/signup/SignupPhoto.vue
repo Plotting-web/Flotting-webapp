@@ -6,6 +6,7 @@ import SignupProgress from "@/views/signup/components/SignupProgress.vue";
 import router from "@/router";
 import { instance } from "@/axios/axios";
 import { signupInfoStore } from "@/views/signup/store/singupInfoStore";
+import { userStore } from "@/store/userStore";
 
 const { getRegisterInfo, setProfileImage, setIdentityVerification, validateImageInfo } = signupInfoStore();
 const onClicked = async () => {
@@ -19,6 +20,7 @@ const onClicked = async () => {
     instance
         .post(`/users/v1/register`, data)
         .then(() => {
+            userStore().set({ genderType: "PROFILE_APPROVAL" });
             router.push("/signup/end");
         })
         .catch(() => {

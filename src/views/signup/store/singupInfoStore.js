@@ -5,8 +5,8 @@ export const signupInfoStore = defineStore(
     "signupInfoStore",
     () => {
         const name = ref(""); // 이름
-        const birthDate = ref(""); // 생년월일
-        const gender = ref(""); // 성별
+        const birthdate = ref(""); // 생년월일
+        const genderType = ref(""); // 성별
         const height = ref(150); // 키
         const residenceType = ref(""); // 주소
         const detailResidence = ref(""); // 상세 주소
@@ -30,8 +30,8 @@ export const signupInfoStore = defineStore(
         const get = () => {
             return {
                 name: name.value,
-                birthDate: birthDate.value,
-                gender: gender.value,
+                birthdate: birthdate.value,
+                genderType: genderType.value,
                 height: height.value,
                 residenceType: residenceType.value,
                 detailResidence: detailResidence.value,
@@ -78,8 +78,8 @@ export const signupInfoStore = defineStore(
 
         const reset = () => {
             name.value = "";
-            birthDate.value = "";
-            gender.value = "";
+            birthdate.value = "";
+            genderType.value = "";
             height.value = 150;
             residenceType.value = "";
             detailResidence.value = "";
@@ -111,8 +111,8 @@ export const signupInfoStore = defineStore(
 
         const set = info => {
             !!info.name && (name.value = info.name);
-            !!info.birthDate && (birthDate.value = info.birthDate);
-            !!info.gender && (gender.value = info.gender);
+            !!info.birthdate && (birthdate.value = info.birthdate);
+            !!info.genderType && (genderType.value = info.genderType);
             !!info.height && (height.value = info.height);
             !!info.location && (location.value = info.location);
             !!info.residenceType && (residenceType.value = info.residenceType);
@@ -143,9 +143,9 @@ export const signupInfoStore = defineStore(
 
         return {
             name,
-            birthDate,
+            birthdate,
             height,
-            gender,
+            genderType,
             residenceType,
             detailResidence,
             inflowPath,
