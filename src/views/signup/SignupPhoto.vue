@@ -23,7 +23,15 @@ const onClicked = async () => {
     // }
     instance
         .post(`/users/v1/register`, data)
-        .then(() => {
+        .then(res => {
+            const statusCode = res?.status.statusCode;
+            if (statusCode !== "C000") {
+                switch (statusCode) {
+                    default:
+                        alert("시스템 오류가 발생했습니다. 잠시 후 다시 시도해주세요.");
+                }
+                return;
+            }
             userStore().set({ userStatusType: "PROFILE_APPROVAL" });
             router.push("/signup/end");
         })

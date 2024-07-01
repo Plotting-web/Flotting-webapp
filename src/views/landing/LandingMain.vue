@@ -23,8 +23,17 @@ const onClickStart = () => {
     instance
         .get(`/nice/v1/enc/access-data?returnUrl=${returnUrl}`)
         .then(res => {
-            if (!!res.body.encryptedData) {
-                openNicePopup(res.body.encryptedData);
+            const statusCode = res?.status.statusCode;
+            if (statusCode !== "C000") {
+                switch (statusCode) {
+                    default:
+                        alert("시스템 오류가 발생했습니다. 잠시 후 다시 시도해주세요.");
+                }
+                return;
+            }
+
+            if (!!res?.body.encryptedData) {
+                openNicePopup(res?.body.encryptedData);
             } else {
                 console.error("encryptedData not found.");
             }
@@ -76,8 +85,17 @@ const loginByNice = data => {
     instance
         .post("/nice/v1/login", data)
         .then(res => {
-            tokenStore().set(res.body.tokenData);
-            userStore().set(res.body);
+            const statusCode = res?.status.statusCode;
+            if (statusCode !== "C000") {
+                switch (statusCode) {
+                    default:
+                        alert("시스템 오류가 발생했습니다. 잠시 후 다시 시도해주세요.");
+                }
+                return;
+            }
+
+            tokenStore().set(res?.body.tokenData);
+            userStore().set(res?.body);
             getUserInfo(true);
         })
         .catch(() => {
@@ -89,9 +107,25 @@ const getUserInfo = (isLogin = false) => {
     instance
         .get(`/users/v1/info`)
         .then(res => {
-            userStore().set(res.body);
-            signupInfoStore().set(res.body);
-            switch (res.body.userStatusType) {
+            const statusCode = res?.status.statusCode;
+            if (statusCode !== "C000") {
+                switch (statusCode) {
+                    default:
+                        alert("시스템 오류가 발생했습니다. 잠시 후 다시 시도해주세요.");
+                }
+                return;
+            }
+
+            const body = res?.body;
+
+            userStore().set(body);
+            signupInfoStore().set({
+                name: body.name,
+                birthdate: body.birthdate,
+                genderType: body.genderType
+            });
+
+            switch (body.userStatusType) {
                 case "PROFILE_REGISTRATION": // 프로필 등록 전
                 case "WITHDRAWN": // 탈퇴
                     isLogin && router.push("/signup/guide");
@@ -104,7 +138,7 @@ const getUserInfo = (isLogin = false) => {
                 case "BLOCKED": // 블락
                 case "REJECTED": // 반려
                 default:
-                    status.value = res.body.userStatusType;
+                    status.value = body.userStatusType;
                     break;
             }
         })
@@ -117,19 +151,20 @@ const onClickIntro = () => {
     router.push("/intro");
 };
 
-const status = ref("NONE");
+const status = ref("PROFILE_REGISTRATION");
 
 onBeforeMount(() => {
     if (!tokenStore().isLogin()) {
         userStore().reset();
         tokenStore().reset();
+        signupInfoStore().reset();
     } else {
         getUserInfo();
     }
 });
 
 const onClickKakao = () => {
-    alert("카카오톡 이동");
+    window.open("https://open.kakao.com/o/s3gwrOrg");
 };
 
 const onClickDormant = () => {
