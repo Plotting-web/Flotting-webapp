@@ -118,6 +118,11 @@ const detailOccupationRules = [
                         <div class="d-flex flex-column ga-1">
                             <span class="sub-title">- 직장인은 직장명, 전문직은 상세 직군을 기재해주세요!</span>
                             <span class="sub-title">- 본인 프로필에는 상세 직업이 공개되지 않습니다.</span>
+                            <span class="sub-title pl-3">예시 )</span>
+                            <span class="sub-title pl-3">직장인 -> 삼성전자, 한화케미칼 등</span>
+                            <span class="sub-title pl-3">사업가 -> 부동산 개발 법인 대표 등</span>
+                            <span class="sub-title pl-3">의료직 -> 간호사, 간호조무사 등</span>
+                            <span class="sub-title pl-3">기타 -> 자영업자 (식당 운영 등) / 자산가 / 투자자 등</span>
                         </div>
                         <v-text-field
                             v-model="detailOccupation"
