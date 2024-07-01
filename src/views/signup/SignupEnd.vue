@@ -18,10 +18,10 @@ const onClicked = () => {
         <div class="w-100 d-flex flex-column justify-center align-center" style="padding-top: 29px; padding-inline: 18px;">
             <signup-progress :idx="5" />
             <div class="w-100 d-flex flex-column ga-3 page-guide">
-                <span class="page-title">프로필 등록이 완료되셨어요 !</span>
+                <span class="page-title">프로필 등록이 완료되셨어요!</span>
                 <div class="d-flex flex-column">
                     <span class="page-sub">24시간 내로 프로필 심사 결과가</span>
-                    <span class="page-sub">카카오 알림톡으로 발송될 예정입니다.</span>
+                    <span class="page-sub">문자로 발송될 예정입니다.</span>
                 </div>
             </div>
             <div class="d-flex flex-column w-100 ga-6 mb-8 main" style="">
@@ -30,12 +30,12 @@ const onClicked = () => {
                     <p class="sub">정보 / 세계관 / 취향 / 사진 등록</p>
                 </div>
                 <div>
-                    <p class="title">2. 개인 취향 맞춤 매칭</p>
-                    <p class="sub">매주 월요일 저녁에 매칭이 시작됩니다</p>
+                    <p class="title">2. 매주 새로운 이성의 프로필</p>
+                    <p class="sub">매주 월요일 19시에 새로운 인연이 소개됩니다.</p>
                 </div>
                 <div>
-                    <p class="title">3. 전화 번호 상호 공개</p>
-                    <p class="sub">설레는 대화 시작 및 오프라인 약속 잡기</p>
+                    <p class="title">3. 설레는 만남 시작</p>
+                    <p class="sub">상호 동의 시 전화번호 공개 및 약속 잡기</p>
                 </div>
             </div>
             <div class="d-flex flex-column security-text mb-9">
