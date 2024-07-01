@@ -41,6 +41,7 @@ export const userStore = defineStore(
         };
 
         const getStatus = () => userStatusType.value;
+        const getId = () => userId.value;
 
         const log = () => {
             console.log("User Store >> ", get());
@@ -57,6 +58,7 @@ export const userStore = defineStore(
             set,
             reset,
             getStatus,
+            getId,
             log
         };
     },
