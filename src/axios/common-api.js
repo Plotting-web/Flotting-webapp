@@ -52,10 +52,10 @@ const handleErrorAlerts = code => {
         case "UT001":
             msg = "사용 중인 매칭권을 찾을 수 없습니다.";
             break;
-        default:
-            msg = "알 수 없는 오류가 발생했습니다.";
     }
     !!msg && alert(msg);
+
+    return !!msg;
 };
 
 export { setUserInfo, handleErrorAlerts };
