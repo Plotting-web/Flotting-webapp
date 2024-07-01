@@ -9,105 +9,39 @@ import { instance } from "@/axios/axios";
 const dialog = ref(null);
 const selectedItem = ref(null);
 
-const sale = ref(true);
-
-const manList = [
-    {
-        title: "매칭권 5회",
-        sale: "50",
-        originPrice: "338,000",
-        discountPrice: "169,000"
-    },
-    {
-        title: "매칭권 3회",
-        sale: "40",
-        originPrice: "198,000",
-        discountPrice: "119,000"
-    },
-    {
-        title: "매칭권 1회",
-        sale: "30",
-        originPrice: "70,000",
-        discountPrice: "49,000"
-    }
-];
-
-const womanList = [
-    {
-        title: "매칭권 5회",
-        sale: "50",
-        originPrice: "198,000",
-        discountPrice: "99,000"
-    },
-    {
-        title: "매칭권 3회",
-        sale: "40",
-        originPrice: "115,000",
-        discountPrice: "69,000"
-    },
-    {
-        title: "매칭권 1회",
-        sale: "30",
-        originPrice: "41,000",
-        discountPrice: "29,000"
-    }
-];
-
-const manSaleList = [
-    {
-        title: "매칭권 5회",
-        sale: "50",
-        originPrice: "338,000",
-        discountPrice: "169,000"
-    },
-    {
-        title: "매칭권 3회",
-        sale: "50",
-        originPrice: "198,000",
-        discountPrice: "99 ,000"
-    },
-    {
-        title: "매칭권 1회",
-        sale: "50",
-        originPrice: "70,000",
-        discountPrice: "35,000"
-    }
-];
-
-const womanSaleList = [
-    {
-        title: "매칭권 5회",
-        sale: "50",
-        originPrice: "198,000",
-        discountPrice: "99,000"
-    },
-    {
-        title: "매칭권 3회",
-        sale: "50",
-        originPrice: "115,000",
-        discountPrice: "57,500"
-    },
-    {
-        title: "매칭권 1회",
-        sale: "50",
-        originPrice: "41,000",
-        discountPrice: "20,500"
-    }
-];
+const sale = ref(false);
 
 const clickedText = () => {
-    dialog.value = false;
-    selectedItem.value = null;
-    alert("문자로 안내해드렸습니다!");
+    instance
+        .post("/tickets/v1/pay", { ticketId: selectedItem.value.id, payMethodType: "BANK_TRANSFER" })
+        .then(res => {
+            switch (res?.status.statusCode) {
+                case "C000":
+                    dialog.value = false;
+                    selectedItem.value = null;
+                    alert("문자로 안내해드렸습니다!");
+                    break;
+                default:
+                    alert("시스템 오류가 발생했습니다. 잠시 후 다시 시도해주세요.");
+            }
+        })
+        .catch(() => {
+            alert("시스템 오류가 발생했습니다. 잠시 후 다시 시도해주세요.");
+        });
 };
 
-// const list = sale.value ? (gender.value === "M" ? manSaleList : womanSaleList) : gender.value === "M" ? manList : womanList;
 const list = ref([]);
 onBeforeMount(() => {
     instance
         .get("/tickets/v1")
         .then(res => {
-            list.value = res?.body.tickets ?? [];
+            switch (res?.status.statusCode) {
+                case "C000":
+                    list.value = res?.body.tickets ?? [];
+                    break;
+                default:
+                    alert("시스템 오류가 발생했습니다. 잠시 후 다시 시도해주세요.");
+            }
         })
         .catch(() => {
             alert("시스템 오류가 발생했습니다. 잠시 후 다시 시도해주세요.");

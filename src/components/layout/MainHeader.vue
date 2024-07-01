@@ -3,8 +3,10 @@ import HomeIcon from "@/components/icon/HomeIcon.vue";
 import CogIcon from "@/components/icon/CogIcon.vue";
 import router from "@/router";
 import PlotLogo from "@/components/icon/PlotLogo.vue";
+import { onBeforeMount, ref } from "vue";
+import { instance } from "@/axios/axios";
 
-defineProps({
+const props = defineProps({
     start: {
         type: String,
         default: ""
@@ -17,6 +19,29 @@ defineProps({
         type: String,
         default: ""
     }
+});
+
+const tickets = ref(0);
+
+onBeforeMount(() => {
+    if (props.end !== "mail") {
+        return;
+    }
+    instance
+        .get("/users/v1/tickets")
+        .then(res => {
+            const statusCode = res?.status.statusCode;
+            if (statusCode !== "C000") {
+                return;
+            }
+
+            let totalTicket = 0;
+            res?.body.userTickets?.map(el => {
+                totalTicket += el.remainCount;
+            });
+            tickets.value = totalTicket;
+        })
+        .catch(() => {});
 });
 </script>
 
@@ -49,7 +74,7 @@ defineProps({
                         </span>
                     </div>
                     <span class="store-count">
-                        5
+                        {{ tickets }}
                     </span>
                 </div>
             </div>
