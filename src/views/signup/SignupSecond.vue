@@ -1,11 +1,14 @@
 <script setup>
 import MainHeader from "@/components/layout/MainHeader.vue";
-import { ref } from "vue";
+import { onBeforeMount, ref } from "vue";
 import router from "@/router";
 import SignupProgress from "@/views/signup/components/SignupProgress.vue";
 import { signupInfoStore } from "@/views/signup/store/singupInfoStore";
 import { storeToRefs } from "pinia";
 import MainBody from "@/components/layout/MainBody.vue";
+import { setUserInfo } from "@/axios/common-api";
+
+onBeforeMount(() => setUserInfo(true, true));
 
 const store = signupInfoStore();
 const { lifestyle, messageToFuturePartner } = storeToRefs(store);

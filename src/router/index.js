@@ -128,10 +128,10 @@ const router = createRouter({
     }
 });
 router.beforeEach((to, from, next) => {
-    const notAllowList = ["/", "/intro", "/nice/callback"];
+    const allowList = ["/", "/intro", "/nice/callback"];
     const signupList = ["/signup/guide", "/signup/1", "/signup/2", "/signup/3", "/signup/photo"];
     if (
-        (!tokenStore().isLogin() && notAllowList.includes(to.path)) ||
+        (!tokenStore().isLogin() && !allowList.includes(to.path)) ||
         (signupList.includes(to.path) && userStore().getStatus() !== "PROFILE_REGISTRATION") ||
         (["/signup/end"].includes(to.path) && userStore().getStatus() !== "PROFILE_APPROVAL")
     ) {

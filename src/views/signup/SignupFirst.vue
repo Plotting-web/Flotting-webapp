@@ -1,6 +1,6 @@
 <script setup>
 import MainHeader from "@/components/layout/MainHeader.vue";
-import { ref } from "vue";
+import { onBeforeMount, ref } from "vue";
 import router from "@/router";
 import SignupProgress from "@/views/signup/components/SignupProgress.vue";
 import SignupRadio from "@/views/signup/components/SignupRadio.vue";
@@ -8,10 +8,14 @@ import { signupInfoStore } from "@/views/signup/store/singupInfoStore";
 import { storeToRefs } from "pinia";
 import { inflowPathOptions, genderTypeOptions, residenceTypeOptions } from "@/views/signup/enum/options";
 import MainBody from "@/components/layout/MainBody.vue";
+import { setUserInfo } from "@/axios/common-api";
 
 const store = signupInfoStore();
 const { name, birthdate, height, genderType, residenceType, detailResidence, inflowPath, referralCode } = storeToRefs(store);
 const form = ref();
+
+onBeforeMount(() => setUserInfo(true, true));
+
 const onClickedDone = async () => {
     const { valid } = await form.value.validate();
 
