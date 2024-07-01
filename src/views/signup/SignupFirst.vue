@@ -6,16 +6,16 @@ import SignupProgress from "@/views/signup/components/SignupProgress.vue";
 import SignupRadio from "@/views/signup/components/SignupRadio.vue";
 import { signupInfoStore } from "@/views/signup/store/singupInfoStore";
 import { storeToRefs } from "pinia";
-import { inflowPathOptions, genderOptions, residenceTypeOptions } from "@/views/signup/enum/options";
+import { inflowPathOptions, genderTypeOptions, residenceTypeOptions } from "@/views/signup/enum/options";
 import MainBody from "@/components/layout/MainBody.vue";
 
 const store = signupInfoStore();
-const { name, birthDate, height, gender, residenceType, detailResidence, inflowPath, referralCode } = storeToRefs(store);
+const { name, birthdate, height, genderType, residenceType, detailResidence, inflowPath, referralCode } = storeToRefs(store);
 const form = ref();
 const onClickedDone = async () => {
     const { valid } = await form.value.validate();
 
-    const radioValid = gender.value !== "" && residenceType.value !== "" && inflowPath.value !== "";
+    const radioValid = genderType.value !== "" && residenceType.value !== "" && inflowPath.value !== "";
 
     if (!valid || !radioValid) {
         alert("1 ~ 6번까지 모든 문항을 입력해주세요!");
@@ -27,7 +27,7 @@ const onClickedDone = async () => {
 
 const nameRules = [value => !!value || "필수 값 입니다.", value => value.length >= 2 || "2 글자 이상", value => value.length <= 10 || "10 글자 이하"];
 
-const birthDateRules = [
+const birthdateRules = [
     value => !!value || "필수 값 입니다.",
     value => /[0-9]/.test(value) || "숫자만 입력해주세요.",
     value => value.length === 6 || "YYMMDD",
@@ -64,7 +64,7 @@ const detailResidenceRules = [
                     <div class="d-flex flex-column">
                         <span class="text-none title-text">(2) 생년월일</span>
                         <v-text-field
-                            v-model="birthDate"
+                            v-model="birthdate"
                             class="text-none input-text"
                             placeholder="20010830"
                             variant="underlined"
@@ -92,13 +92,13 @@ const detailResidenceRules = [
                         <span class="text-none title-text">(4) 본인 성별</span>
                         <div style="display: grid; grid-template-columns: repeat(2, 1fr); grid-gap: 8px;">
                             <signup-radio
-                                v-for="({ value, title }, i) in genderOptions"
+                                v-for="({ value, title }, i) in genderTypeOptions"
                                 :key="`gen_${i}`"
-                                :group-value="gender"
+                                :group-value="genderType"
                                 :value="value"
                                 :title="title"
                                 disabled
-                                @click="val => (gender = val)"
+                                @click="val => (genderType = val)"
                             />
                         </div>
                     </div>
@@ -142,7 +142,7 @@ const detailResidenceRules = [
                         </div>
                     </div>
                     <div class="d-flex flex-column ga-3">
-                        <span class="text-none title-text">(7) 추천인 코드</span>
+                        <span class="text-none title-text">(7) 추천인명</span>
                         <v-text-field
                             v-model="referralCode"
                             class="text-none input-text"

@@ -6,16 +6,16 @@ export const userStore = defineStore(
     () => {
         const userId = ref(0);
         const name = ref("");
-        const birthDate = ref("");
-        const gender = ref("");
+        const birthdate = ref("");
+        const genderType = ref("");
         const userStatusType = ref("");
         const profileRegisteredAt = ref(0);
 
         const reset = () => {
             userId.value = 0;
             name.value = "";
-            birthDate.value = "";
-            gender.value = "";
+            birthdate.value = "";
+            genderType.value = "";
             userStatusType.value = "";
             profileRegisteredAt.value = 0;
         };
@@ -24,8 +24,8 @@ export const userStore = defineStore(
             return {
                 userId: userId.value,
                 name: name.value,
-                birthDate: birthDate.value,
-                gender: gender.value,
+                birthdate: birthdate.value,
+                genderType: genderType.value,
                 userStatusType: userStatusType.value,
                 profileRegisteredAt: profileRegisteredAt.value
             };
@@ -34,8 +34,8 @@ export const userStore = defineStore(
         const set = data => {
             !!data.userId && (userId.value = data.userId);
             !!data.name && (name.value = data.name);
-            !!data.birthDate && (birthDate.value = data.birthDate);
-            !!data.gender && (gender.value = data.gender);
+            !!data.birthdate && (birthdate.value = data.birthdate);
+            !!data.genderType && (genderType.value = data.genderType);
             !!data.userStatusType && (userStatusType.value = data.userStatusType);
             !!data.profileRegisteredAt && (profileRegisteredAt.value = data.profileRegisteredAt);
         };
@@ -49,8 +49,8 @@ export const userStore = defineStore(
         return {
             userId,
             name,
-            birthDate,
-            gender,
+            birthdate,
+            genderType,
             userStatusType,
             profileRegisteredAt,
             get,

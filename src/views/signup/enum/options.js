@@ -37,7 +37,7 @@ export const residenceTypeOptions = [
     }
 ];
 
-export const genderOptions = [
+export const genderTypeOptions = [
     {
         value: "MALE",
         title: "남성"
