@@ -3,8 +3,12 @@ import MainHeader from "@/components/layout/MainHeader.vue";
 import SignupProgress from "@/views/signup/components/SignupProgress.vue";
 import { useRouter } from "vue-router";
 import MainBody from "@/components/layout/MainBody.vue";
+import { onBeforeMount } from "vue";
+import { setUserInfo } from "@/axios/common-api";
 
 const router = useRouter();
+
+onBeforeMount(() => setUserInfo(true, true));
 
 const onClickedDone = () => {
     router.push("/signup/1");
