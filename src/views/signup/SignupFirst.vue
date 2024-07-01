@@ -151,7 +151,7 @@ const detailResidenceRules = [
                             v-model="referralCode"
                             class="text-none input-text"
                             density="compact"
-                            placeholder="예시 ) 김현욱"
+                            placeholder="예시 ) 진수현"
                             variant="plain"
                             hide-details
                             :clearable="true"

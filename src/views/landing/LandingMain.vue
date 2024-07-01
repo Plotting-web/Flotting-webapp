@@ -15,6 +15,10 @@ const tokenVersionIdRef = ref(null);
 const integrityValueRef = ref(null);
 
 const onClickStart = () => {
+    if (tokenStore().isLogin()) {
+        router.push("/signup/guide");
+        return;
+    }
     const returnUrl = process.env.VUE_APP_BASE_URL + "/nice/callback";
     instance
         .get(`/nice/v1/enc/access-data?returnUrl=${returnUrl}`)
