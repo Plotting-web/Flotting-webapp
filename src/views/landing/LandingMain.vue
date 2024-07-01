@@ -8,6 +8,7 @@ import { instance } from "@/axios/axios";
 import { tokenStore } from "@/store/tokenStore";
 import { userStore } from "@/store/userStore";
 import { signupInfoStore } from "@/views/signup/store/singupInfoStore";
+import { handleErrorAlerts } from "@/axios/common-api";
 
 const niceFormRef = ref(null);
 const encDataRef = ref(null);
@@ -20,61 +21,54 @@ const onClickStart = () => {
         return;
     }
     const returnUrl = process.env.VUE_APP_BASE_URL + "/nice/callback";
+
+    const option =
+        "width=500, height=550, top=100, left=100, fullscreen=no, menubar=no, status=no, toolbar=no, titlebar=yes, location=no, scrollbar=no";
+    const nicePopup = window.open("about:blank", "nicePopup", option);
+
     instance
         .get(`/nice/v1/enc/access-data?returnUrl=${returnUrl}`)
         .then(res => {
             const statusCode = res?.status.statusCode;
-            if (statusCode !== "C000") {
-                switch (statusCode) {
-                    default:
-                        alert("시스템 오류가 발생했습니다. 잠시 후 다시 시도해주세요.");
-                }
+            if (handleErrorAlerts(statusCode)) {
+                // TODO : 에러 코드에 따른 처리 추가
                 return;
             }
 
-            if (!!res?.body.encryptedData) {
-                openNicePopup(res?.body.encryptedData);
-            } else {
+            const data = res?.body.encryptedData;
+
+            if (!data) {
                 console.error("encryptedData not found.");
+                return;
             }
+
+            encDataRef.value.value = data.encryptedData;
+            tokenVersionIdRef.value.value = data.tokenVersionId;
+            integrityValueRef.value.value = data.integrityValue;
+            nicePopup.location.href = "https://nice.checkplus.co.kr/CheckPlusSafeModel/service.cb";
+            niceFormRef.value.action = "https://nice.checkplus.co.kr/CheckPlusSafeModel/service.cb";
+            niceFormRef.value.target = "nicePopup";
+            niceFormRef.value.submit();
+            encDataRef.value.value = "";
+            const interval = window.setInterval(function() {
+                try {
+                    if (nicePopup.closed) {
+                        window.clearInterval(interval);
+
+                        const data = {
+                            tokenVersionId: tokenVersionIdRef.value.value,
+                            integrityValue: integrityValueRef.value.value,
+                            encData: encDataRef.value.value
+                        };
+                        loginByNice(data);
+                    }
+                } catch (e) {}
+            }, 1000);
         })
         .catch(() => {
+            nicePopup.close();
             alert("시스템 오류가 발생했습니다. 잠시 후 다시 시도해주세요.");
         });
-};
-
-const openNicePopup = ({ encryptedData, integrityValue, tokenVersionId }) => {
-    encDataRef.value.value = encryptedData;
-    tokenVersionIdRef.value.value = tokenVersionId;
-    integrityValueRef.value.value = integrityValue;
-
-    const option =
-        "width=500, height=550, top=100, left=100, fullscreen=no, menubar=no, status=no, toolbar=no, titlebar=yes, location=no, scrollbar=no";
-    const win = window.open("https://nice.checkplus.co.kr/CheckPlusSafeModel/service.cb", "nicePopup", option);
-
-    niceFormRef.value.action = "https://nice.checkplus.co.kr/CheckPlusSafeModel/service.cb";
-    niceFormRef.value.target = "nicePopup";
-    niceFormRef.value.submit();
-    encDataRef.value.value = "";
-
-    if (win !== null) {
-        const interval = window.setInterval(function() {
-            try {
-                if (win.closed) {
-                    window.clearInterval(interval);
-
-                    const data = {
-                        tokenVersionId: tokenVersionIdRef.value.value,
-                        integrityValue: integrityValueRef.value.value,
-                        encData: encDataRef.value.value
-                    };
-                    loginByNice(data);
-                }
-            } catch (e) {}
-        }, 1000);
-
-        return win;
-    }
 };
 
 const loginByNice = data => {
