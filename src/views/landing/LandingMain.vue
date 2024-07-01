@@ -124,17 +124,8 @@ onBeforeMount(() => {
         userStore().reset();
         tokenStore().reset();
     } else {
-        status.value = userStore().getStatus();
+        getUserInfo();
     }
-});
-
-onMounted(() => {
-    userStore().log();
-    tokenStore().log();
-    if (!tokenStore().isLogin()) {
-        return;
-    }
-    getUserInfo();
 });
 
 const onClickKakao = () => {
