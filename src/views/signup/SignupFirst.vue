@@ -146,7 +146,7 @@ const detailResidenceRules = [
                         </div>
                     </div>
                     <div class="d-flex flex-column ga-3">
-                        <span class="text-none title-text">(7) 추천인명</span>
+                        <span class="text-none title-text">(7) 추천인 성함</span>
                         <v-text-field
                             v-model="referralCode"
                             class="text-none input-text"

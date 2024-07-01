@@ -38,8 +38,8 @@ const onClicked = async () => {
             <div class="w-100 d-flex flex-column ga-3 page-guide">
                 <span class="text-none page-title">소중한 나의 세계관을 보여주세요 !</span>
                 <div class="d-flex flex-column ga-1">
-                    <span class="text-none page-sub">카테고리 별로 질문이 2가지씩 준비되어있어요.</span>
-                    <span class="text-none page-sub">자세하게 작성할수록 매력적인 이성이 소개됩니다!</span>
+                    <span class="text-none page-sub">문항 별 1가지 질문만 선택하여 답변해주세요.</span>
+                    <span class="text-none page-sub">자세하게 작성할수록 매칭 확률이 높아집니다 :)</span>
                 </div>
             </div>
             <v-form ref="form">
@@ -47,8 +47,9 @@ const onClicked = async () => {
                     <div class="d-flex flex-column ga-3">
                         <span class="text-none title-text">(1) 내가 하는 일 혹은 나의 라이프 스타일</span>
                         <div class="d-flex flex-column ga-1">
-                            <span class="text-none sub-title">- 지금 하고 있는 일은 어떤 일이며, 선택하신 이유와 향후 목표 작성</span>
-                            <span class="text-none sub-title">- 본인의 라이프 스타일 소개</span>
+                            <span class="text-none sub-title">- 지금 하고 있는 일은 어떤 일인가요?</span>
+                            <span class="text-none sub-title">- 지금 하는 일을 선택한 이유는 무엇인가요?</span>
+                            <span class="text-none sub-title">- 내가 가장 즐겨하는 취미 1가지를 얘기해주세요!</span>
                         </div>
                         <v-textarea
                             v-model="lifestyle"
@@ -62,10 +63,11 @@ const onClicked = async () => {
                         />
                     </div>
                     <div class="d-flex flex-column ga-3">
-                        <span class="text-none title-text">(2) 나의 미래 연인에게 하고싶은 말</span>
+                        <span class="text-none title-text">(2) 나의 미래 연인에게 하고 싶은 말</span>
                         <div class="d-flex flex-column ga-1">
-                            <span class="text-none sub-title">- 간단한 나의 외모 묘사와 내 성격의 장점을 작성</span>
-                            <span class="text-none sub-title">- 본인의 취미, 연인과 해보고 싶은 데이트, 추구하는 연애 가치관 작성</span>
+                            <span class="text-none sub-title">- 타인에게 주로 듣는 나의 외모 칭찬은?</span>
+                            <span class="text-none sub-title">- 미래 연인에게 어필하는 나의 장점은?</span>
+                            <span class="text-none sub-title">- 나의 연애 가치관은? 혹은 하고 싶은 데이트?</span>
                         </div>
                         <v-textarea
                             v-model="messageToFuturePartner"
